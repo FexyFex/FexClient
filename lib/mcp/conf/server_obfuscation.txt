@@ -1,0 +1,3 @@
+net.minecraft.src.Block
+net.minecraft.src.entity.Entity
+net.minecraft.src.block.BlockDoor
