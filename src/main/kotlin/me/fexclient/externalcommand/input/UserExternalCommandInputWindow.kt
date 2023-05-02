@@ -29,7 +29,7 @@ class UserExternalCommandInputWindow(private val commandList: MutableList<Extern
     init {
         mainPanel.layout = BorderLayout()
 
-        tutorialTextArea.isEnabled = false
+        tutorialTextArea.isEditable = false
         var tutorialText = "Available Commands: \n"
         allCommands.forEach {
             val companion = it.companionObject!!
@@ -47,7 +47,7 @@ class UserExternalCommandInputWindow(private val commandList: MutableList<Extern
         this.add(mainPanel)
 
         isVisible = true
-        size = Dimension(300,300)
+        size = Dimension(300,200)
         defaultCloseOperation = JFrame.DO_NOTHING_ON_CLOSE
     }
 

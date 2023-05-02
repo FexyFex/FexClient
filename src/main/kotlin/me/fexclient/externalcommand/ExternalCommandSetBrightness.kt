@@ -24,6 +24,6 @@ class ExternalCommandSetBrightness(fullBrightValue: Float): ExternalCommand {
     companion object {
         const val commandName: String = "brightness"
         const val commandParams: String = "<value>"
-        const val commandUsage: String = "Usage: <value> must be between 0 and 1. Can be -1 to turn off the brightness hack"
+        const val commandUsage: String = "Usage: <value> must be a number between 0 and 1. Can be -1 to disable the hack"
     }
 }
