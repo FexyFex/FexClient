@@ -2,6 +2,8 @@ package net.minecraft.client;// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel 
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) braces deadcode 
 
+import me.fexclient.MinecraftFexClientInjectorApp;
+import me.fexclient.MinecraftFexClientConfig;
 import net.minecraft.src.*;
 import net.minecraft.src.audio.SoundManager;
 import net.minecraft.src.block.World;
@@ -28,10 +30,8 @@ import net.minecraft.src.player.PlayerController;
 import net.minecraft.src.player.PlayerControllerTest;
 import net.minecraft.src.rendering.*;
 import net.minecraft.src.texture.*;
-
 import java.awt.*;
 import java.io.*;
-
 import net.minecraft.src.threading.ThreadDownloadResources;
 import net.minecraft.src.threading.ThreadSleepForever;
 import net.minecraft.src.world.WorldProvider;
@@ -41,9 +41,6 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.input.*;
 import org.lwjgl.opengl.*;
 import org.lwjgl.util.glu.GLU;
-
-// Referenced classes of package net.minecraft.client:
-//            net.minecraft.client.MinecraftApplet
 
 public abstract class Minecraft implements Runnable {
     public Minecraft(Component component, Canvas canvas, MinecraftApplet minecraftapplet, int i, int j, boolean flag) {
@@ -113,7 +110,7 @@ public abstract class Minecraft implements Runnable {
         } else {
             Display.setDisplayMode(new org.lwjgl.opengl.DisplayMode(displayWidth, displayHeight));
         }
-        Display.setTitle("net.minecraft.client.Minecraft net.minecraft.client.Minecraft Beta 1.1_02");
+        //Display.setTitle("net.minecraft.client.Minecraft net.minecraft.client.Minecraft Beta 1.1_02");
         try {
             Display.create();
         } catch (LWJGLException lwjglexception) {
@@ -124,6 +121,7 @@ public abstract class Minecraft implements Runnable {
             }
             Display.create();
         }
+        Display.setTitle(MinecraftFexClientConfig.windowTitle); // Modified by FexClient
         RenderManager.instance.field_4236_f = new ItemRenderer(this);
         mcDataDir = getMinecraftDir();
         gameSettings = new GameSettings(this, mcDataDir);
@@ -339,6 +337,7 @@ public abstract class Minecraft implements Runnable {
             }
         } catch (Exception exception) {
         }
+        MinecraftFexClientInjectorApp.INSTANCE.destroy();
         try {
             System.out.println("Stopping!");
             func_6261_a(null);
@@ -384,6 +383,7 @@ public abstract class Minecraft implements Runnable {
                 for (int j = 0; j < timer.elapsedTicks; j++) {
                     ticksRan++;
                     try {
+                        MinecraftFexClientInjectorApp.INSTANCE.tick(this); // Added by FexClient
                         runTick();
                         continue;
                     } catch (MinecraftException minecraftexception) {

@@ -5,7 +5,6 @@ package net.minecraft.src.rendering;// Decompiled by Jad v1.5.8g. Copyright 2001
 import java.nio.IntBuffer;
 import java.util.*;
 
-import me.fexclient.Config;
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.*;
 import net.minecraft.src.block.World;

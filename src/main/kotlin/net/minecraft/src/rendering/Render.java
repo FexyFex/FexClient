@@ -2,7 +2,6 @@ package net.minecraft.src.rendering;// Decompiled by Jad v1.5.8g. Copyright 2001
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) braces deadcode 
 
-import me.fexclient.Config;
 import net.minecraft.src.AxisAlignedBB;
 import net.minecraft.src.Block;
 import net.minecraft.src.Tessellator;

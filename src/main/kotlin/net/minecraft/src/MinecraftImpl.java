@@ -9,6 +9,7 @@ import net.minecraft.client.MinecraftApplet;
 import net.minecraft.src.error.UnexpectedThrowable;
 import net.minecraft.src.gui.PanelCrashReport;
 
+
 import java.awt.*;
 
 public final class MinecraftImpl extends Minecraft {

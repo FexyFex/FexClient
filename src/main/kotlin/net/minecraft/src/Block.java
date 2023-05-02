@@ -3,7 +3,7 @@ package net.minecraft.src;
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) braces deadcode 
 
-import me.fexclient.Config;
+import me.fexclient.MinecraftFexClientConfig;
 import net.minecraft.src.audio.StepSound;
 import net.minecraft.src.audio.StepSoundSand;
 import net.minecraft.src.audio.StepSoundStone;
@@ -98,8 +98,8 @@ public class Block {
     }
 
     public float getBlockBrightness(IBlockAccess iblockaccess, int i, int j, int k) {
-        if (Config.INSTANCE.getUseGlobalBrightness()) {
-            return Config.INSTANCE.getGlobalBrightness();
+        if (MinecraftFexClientConfig.useUniformBrightness) {
+            return MinecraftFexClientConfig.uniformBrightness;
         } else {
             return iblockaccess.getLightBrightness(i, j, k);
         }

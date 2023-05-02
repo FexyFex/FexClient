@@ -58,7 +58,7 @@ public class MinecraftApplet extends Applet {
         if (mcThread != null) {
             return;
         } else {
-            mcThread = new Thread(mc, "net.minecraft.client.Minecraft main thread");
+            mcThread = new Thread(mc, "net.minecraft.client.Minecraft FexClient main thread");
             mcThread.start();
             return;
         }

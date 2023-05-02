@@ -8,12 +8,12 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Random;
 
+import me.fexclient.MinecraftFexClientConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.Block;
 import net.minecraft.src.Material;
 import net.minecraft.src.ScaledResolution;
 import net.minecraft.src.Tessellator;
-import net.minecraft.src.gui.ChatLine;
 import net.minecraft.src.inventory.InventoryPlayer;
 import net.minecraft.src.item.ItemStack;
 import net.minecraft.src.rendering.FontRenderer;
@@ -139,7 +139,8 @@ public class GuiIngame extends Gui {
         RenderHelper.disableStandardItemLighting();
         GL11.glDisable(32826 /*GL_RESCALE_NORMAL_EXT*/);
         if (Keyboard.isKeyDown(61)) {
-            fontrenderer.drawStringWithShadow((new StringBuilder()).append("net.minecraft.client.Minecraft Beta 1.1_02 (").append(mc.debug).append(")").toString(), 2, 2, 0xffffff);
+            //fontrenderer.drawStringWithShadow((new StringBuilder()).append("net.minecraft.client.Minecraft Beta 1.1_02 (").append(mc.debug).append(")").toString(), 2, 2, 0xffffff);
+            fontrenderer.drawStringWithShadow((new StringBuilder()).append(MinecraftFexClientConfig.versionText + " (").append(mc.debug).append(")").toString(), 2, 2, 0xffffff);
             fontrenderer.drawStringWithShadow(mc.func_6241_m(), 2, 12, 0xffffff);
             fontrenderer.drawStringWithShadow(mc.func_6262_n(), 2, 22, 0xffffff);
             fontrenderer.drawStringWithShadow(mc.func_6245_o(), 2, 32, 0xffffff);
@@ -155,7 +156,9 @@ public class GuiIngame extends Gui {
             drawString(fontrenderer, (new StringBuilder()).append("y: ").append(mc.thePlayer.posY).toString(), 2, 72, 0xe0e0e0);
             drawString(fontrenderer, (new StringBuilder()).append("z: ").append(mc.thePlayer.posZ).toString(), 2, 80, 0xe0e0e0);
         } else {
-            fontrenderer.drawStringWithShadow("net.minecraft.client.Minecraft Beta 1.1_02", 2, 2, 0xffffff);
+            //fontrenderer.drawStringWithShadow("net.minecraft.client.Minecraft Beta 1.1_02", 2, 2, 0xffffff);
+            // Modified by FexClient
+            fontrenderer.drawStringWithShadow(MinecraftFexClientConfig.versionText, 2, 2, 0xffffff);
         }
         if (field_9419_j > 0) {
             float f2 = (float) field_9419_j - f;
