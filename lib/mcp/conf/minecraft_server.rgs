@@ -49,7 +49,7 @@
 .method_map net/minecraft/server/MinecraftServer/b (Ljava/lang/String;I)I func_6020_b
 .method_map net/minecraft/server/MinecraftServer/a (Ljava/lang/String;Lfn;)V func_6010_a
 .method_map net/minecraft/server/MinecraftServer/b ()V func_6021_b
-.class_map lm Packet0KeepAlive
+.class_map lm net.minecraft.src.packet.Packet0KeepAlive
 .method_map lm/a (Ljava/io/DataInputStream;)V func_70_a
 .method_map lm/a (Lfs;)V func_72_a
 .method_map lm/a (Ljava/io/DataOutputStream;)V func_68_a
@@ -85,14 +85,14 @@
 .method_map lj/b_ ()V func_106_b_
 .method_map lj/b (Lad;)V func_99_b
 .method_map lj/a (Lad;)V func_97_a
-.class_map li SlotCrafting
+.class_map li net.minecraft.src.inventory.SlotCrafting
 .field_map li/a field_20103_a
 .method_map li/b ()V func_20091_b
 .method_map li/a (Lil;)Z func_20095_a
 .class_map lh net.minecraft.src.item.ItemFood
 .field_map lh/a field_275_a
 .method_map lh/a (Lil;Lff;Lgq;)Lil; func_6152_a
-.class_map lg IInventory
+.class_map lg net.minecraft.src.inventory.IInventory
 .method_map lg/a (I)Lil; func_82_a
 .method_map lg/c ()I func_202_d
 .method_map lg/a_ (Lgq;)Z func_20067_a_
@@ -101,7 +101,7 @@
 .method_map lg/a (ILil;)V func_206_a
 .method_map lg/d ()V func_183_c
 .method_map lg/a ()I func_83_a
-.class_map lf MaterialTransparent
+.class_map lf net.minecraft.src.MaterialTransparent
 .method_map lf/a ()Z func_216_a
 .method_map lf/c ()Z func_218_c
 .method_map lf/b ()Z func_219_b
@@ -248,7 +248,7 @@
 .method_map kz/a (I)I func_241_a
 .method_map kz/a (Ljx;IIII)Z func_253_a
 .method_map kz/a (ILjava/util/Random;)I func_252_a
-.class_map ky Packet255KickDisconnect
+.class_map ky net.minecraft.src.packet.Packet255KickDisconnect
 .field_map ky/a field_41_a
 .method_map ky/a (Ljava/io/DataInputStream;)V func_70_a
 .method_map ky/a (Lfs;)V func_72_a
@@ -341,7 +341,7 @@
 .method_map kv/b ()I func_4028_b
 .method_map kv/b (Ljx;III)Z func_269_b
 .method_map kv/a (Lff;IIILjava/util/Random;)V func_221_a
-.class_map ku EnumCreatureType
+.class_map ku net.minecraft.src.enums.EnumCreatureType
 .field_map ku/b creature
 .field_map ku/a monster
 .field_map ku/e field_6155_e
@@ -418,7 +418,7 @@
 .method_map kp/f ()Ljv; func_20070_f
 .method_map kp/a (Lad;)V func_186_a
 .method_map kp/b (Lad;)V func_188_b
-.class_map ko Path
+.class_map ko net.minecraft.src.Path
 .field_map ko/b field_743_b
 .field_map ko/a field_744_a
 .method_map ko/a (I)V func_412_a
@@ -545,7 +545,7 @@
 .method_map ke/a (Lkx;)V func_371_a
 .method_map ke/b ()Z func_364_b
 .method_map ke/a (II)Z func_365_a
-.class_map kd RecipeSorter
+.class_map kd net.minecraft.src.recipe.RecipeSorter
 .field_map kd/a field_20108_a
 .method_map kd/a (Ldr;Ldr;)I func_20107_a
 .method_map kd/compare (Ljava/lang/Object;Ljava/lang/Object;)I compare
@@ -578,7 +578,7 @@
 .method_map kb/a (IIII)[Ljq; func_4065_a
 .method_map kb/a ([DIIII)[D func_4068_a
 .method_map kb/a (II)Ljq; func_4067_a
-.class_map ka RedstoneUpdateInfo
+.class_map ka net.minecraft.src.RedstoneUpdateInfo
 .field_map ka/b field_774_b
 .field_map ka/a field_775_a
 .field_map ka/d field_776_d
@@ -608,7 +608,7 @@
 .class_map jw net.minecraft.src.world.WorldGenLiquids
 .field_map jw/a field_4249_a
 .method_map jw/a (Lff;Ljava/util/Random;III)Z func_419_a
-.class_map jv Packet
+.class_map jv net.minecraft.src.packet.Packet
 .field_map jv/b field_38_b
 .field_map jv/a field_39_a
 .field_map jv/k field_40_j
@@ -622,16 +622,16 @@
 .method_map jv/a (Ljava/io/DataInputStream;)V func_70_a
 .method_map jv/a (I)Ljv; func_67_a
 .method_map jv/a ()I func_71_a
-.class_map ju NetworkWriterThread
+.class_map ju net.minecraft.src.networking.NetworkWriterThread
 .field_map ju/a field_826_a
 .method_map ju/run ()V run
-.class_map jt NetworkReaderThread
+.class_map jt net.minecraft.src.networking.NetworkReaderThread
 .field_map jt/a field_827_a
 .method_map jt/run ()V run
 .class_map js ThreadMonitorConnection
 .field_map js/a field_828_a
 .method_map js/run ()V run
-.class_map jr NetworkMasterThread
+.class_map jr net.minecraft.src.networking.NetworkMasterThread
 .field_map jr/a field_829_a
 .method_map jr/run ()V run
 .class_map jq net.minecraft.src.gen.MobSpawnerBase
@@ -672,7 +672,7 @@
 .method_map jo/a (Ljava/io/DataInput;)V func_382_a
 .method_map jo/a (Ljava/io/DataOutput;)V func_381_a
 .method_map jo/toString ()Ljava/lang/String; toString
-.class_map jn RecipesWeapons
+.class_map jn net.minecraft.src.recipe.RecipesWeapons
 .field_map jn/b field_20113_b
 .field_map jn/a field_20114_a
 .method_map jn/a (Lhe;)V func_20112_a
@@ -693,7 +693,7 @@
 .method_map jm/a (Ljava/io/File;)Lbd; func_4086_a
 .method_map jm/a (I)Ljm; func_4091_a
 .method_map jm/a (II)Z func_4092_a
-.class_map jl Packet104
+.class_map jl net.minecraft.src.packet.Packet104
 .field_map jl/b field_20010_b
 .field_map jl/a field_20011_a
 .method_map jl/a (Ljava/io/DataInputStream;)V func_70_a
@@ -702,7 +702,7 @@
 .method_map jl/a ()I func_71_a
 .class_map jk net.minecraft.src.world.WorldGenPumpkin
 .method_map jk/a (Lff;Ljava/util/Random;III)Z func_419_a
-.class_map jj Packet52MultiBlockChange
+.class_map jj net.minecraft.src.packet.Packet52MultiBlockChange
 .field_map jj/b field_47_b
 .field_map jj/a field_48_a
 .field_map jj/f field_49_f
@@ -745,9 +745,9 @@
 .method_map jh/c (Ljh;)Ljava/util/List; func_533_c
 .method_map jh/b ()I func_542_b
 .method_map jh/a (IIII)Z func_544_a
-.class_map jg RecipesCrafting
+.class_map jg net.minecraft.src.recipe.RecipesCrafting
 .method_map jg/a (Lhe;)V func_20115_a
-.class_map jf MCHashTable
+.class_map jf net.minecraft.src.MCHashTable
 .field_map jf/b field_834_b
 .field_map jf/a field_835_a
 .field_map jf/e field_836_e
@@ -770,7 +770,7 @@
 .method_map je/a (Lff;IIILel;Ljava/util/ArrayList;)V func_264_a
 .method_map je/a ()Z func_240_b
 .method_map je/a (Lff;III)Z func_259_a
-.class_map jd Packet14BlockDig
+.class_map jd net.minecraft.src.packet.Packet14BlockDig
 .field_map jd/b field_53_b
 .field_map jd/a field_54_a
 .field_map jd/e field_55_e
@@ -823,7 +823,7 @@
 .class_map iw ConsoleLogFormatter
 .field_map iw/a field_839_a
 .method_map iw/format (Ljava/util/logging/LogRecord;)Ljava/lang/String; format
-.class_map iv HashEntry
+.class_map iv net.minecraft.src.HashEntry
 .field_map iv/b field_840_b
 .field_map iv/a field_841_a
 .field_map iv/d field_842_d
@@ -833,7 +833,7 @@
 .method_map iv/hashCode ()I hashCode
 .method_map iv/toString ()Ljava/lang/String; toString
 .method_map iv/a ()I func_559_a
-.class_map iu Packet24MobSpawn
+.class_map iu net.minecraft.src.packet.Packet24MobSpawn
 .field_map iu/b field_58_b
 .field_map iu/a field_59_a
 .field_map iu/g field_60_g
@@ -845,7 +845,7 @@
 .method_map iu/a (Lfs;)V func_72_a
 .method_map iu/a (Ljava/io/DataOutputStream;)V func_68_a
 .method_map iu/a ()I func_71_a
-.class_map it InventoryCraftResult
+.class_map it net.minecraft.src.crafting.InventoryCraftResult
 .field_map it/a field_20071_a
 .method_map it/a (I)Lil; func_82_a
 .method_map it/c ()I func_202_d
@@ -855,7 +855,7 @@
 .method_map it/a (ILil;)V func_206_a
 .method_map it/d ()V func_183_c
 .method_map it/a ()I func_83_a
-.class_map is NibbleArray
+.class_map is net.minecraft.src.NibbleArray
 .field_map is/a field_844_a
 .method_map is/a ()Z func_560_a
 .method_map is/a (IIII)V func_561_a
@@ -882,7 +882,7 @@
 .method_map ip/c ()Lcg; func_4087_c
 .method_map ip/a (Ljava/io/File;)Lbd; func_4086_a
 .method_map ip/a (II)Z func_4092_a
-.class_map io Packet38
+.class_map io net.minecraft.src.packet.Packet38
 .field_map io/b field_9015_b
 .field_map io/a field_9016_a
 .method_map io/a (Ljava/io/DataInputStream;)V func_70_a
@@ -943,7 +943,7 @@
 .field_map ij/bd field_255_aZ
 .field_map ij/bc field_256_aY
 .field_map ij/bb field_257_aX
-.class_map ii InventoryPlayer
+.class_map ii net.minecraft.src.inventory.InventoryPlayer
 .field_map ii/b field_495_b
 .field_map ii/a field_496_a
 .field_map ii/f field_20074_f
@@ -976,7 +976,7 @@
 .method_map ii/b (I)Z func_6127_b
 .method_map ii/g ()I func_212_e
 .method_map ii/a ()I func_83_a
-.class_map ih Packet100
+.class_map ih net.minecraft.src.packet.Packet100
 .field_map ih/b field_20012_b
 .field_map ih/a field_20013_a
 .field_map ih/d field_20014_d
@@ -997,7 +997,7 @@
 .method_map ig/a (Lgq;)V func_20130_a
 .class_map if net.minecraft.src.world.WorldGenReed
 .method_map if/a (Lff;Ljava/util/Random;III)Z func_419_a
-.class_map ie EnumArt
+.class_map ie net.minecraft.src.enums.EnumArt
 .field_map ie/z field_856_z
 .field_map ie/y field_857_y
 .field_map ie/x DonkeyKong
@@ -1104,7 +1104,7 @@
 .method_map hz/a (Lep;F)V func_157_a
 .method_map hz/k ()Lep; func_158_i
 .method_map hz/a (III)F func_159_a
-.class_map hy Packet10Flying
+.class_map hy net.minecraft.src.packet.Packet10Flying
 .field_map hy/i field_65_i
 .field_map hy/h field_66_h
 .field_map hy/g field_67_g
@@ -1120,7 +1120,7 @@
 .method_map hy/a ()I func_71_a
 .class_map hx net.minecraft.src.item.ItemRedstone
 .method_map hx/a (Lil;Lgq;Lff;IIII)Z func_78_a
-.class_map hw MinecartTrackLogic
+.class_map hw net.minecraft.src.MinecartTrackLogic
 .field_map hw/b field_887_b
 .field_map hw/a field_888_a
 .field_map hw/g field_889_g
@@ -1199,7 +1199,7 @@
 .method_map hr/c (Lfi;)V func_9219_b
 .method_map hr/a (Ljava/util/List;)V func_605_a
 .method_map hr/b (Ljava/util/List;)V func_601_b
-.class_map hq Packet103
+.class_map hq net.minecraft.src.packet.Packet103
 .field_map hq/b field_20016_b
 .field_map hq/a field_20017_a
 .field_map hq/c field_20018_c
@@ -1220,11 +1220,11 @@
 .method_map hp/a ()V func_607_a
 .method_map hp/b (Lep;)V func_610_b
 .method_map hp/a (Lep;)V func_611_a
-.class_map ho Packet12PlayerLook
+.class_map ho net.minecraft.src.packet.Packet12PlayerLook
 .method_map ho/a (Ljava/io/DataInputStream;)V func_70_a
 .method_map ho/a (Ljava/io/DataOutputStream;)V func_68_a
 .method_map ho/a ()I func_71_a
-.class_map hn Packet16BlockItemSwitch
+.class_map hn net.minecraft.src.packet.Packet16BlockItemSwitch
 .field_map hn/a field_74_b
 .method_map hn/a (Ljava/io/DataInputStream;)V func_70_a
 .method_map hn/a (Lfs;)V func_72_a
@@ -1279,7 +1279,7 @@
 .method_map hl/a (Lfm;)V func_618_a
 .method_map hl/a ()I func_640_a
 .method_map hl/a (Lgi;Ljava/lang/String;Ljava/lang/String;)Lfi; func_619_a
-.class_map hk net.minecraft.src.MovingObjectPosition
+.class_map hk net.minecraft.src.datatype.MovingObjectPosition
 .field_map hk/b field_926_b
 .field_map hk/a field_927_a
 .field_map hk/g field_928_g
@@ -1334,7 +1334,7 @@
 .method_map hd/d ()Ljava/lang/String; func_6097_d
 .method_map hd/G ()V func_153_y
 .method_map hd/f ()Ljava/lang/String; func_6098_f
-.class_map hc Packet4UpdateTime
+.class_map hc net.minecraft.src.packet.Packet4UpdateTime
 .field_map hc/a field_76_a
 .method_map hc/a (Ljava/io/DataInputStream;)V func_70_a
 .method_map hc/a (Lfs;)V func_72_a
@@ -1374,7 +1374,7 @@
 .method_map gx/c ()V func_152_d_
 .method_map gx/a (Lad;)V func_97_a
 .method_map gx/a (I)V func_160_c
-.class_map gw RecipesTools
+.class_map gw net.minecraft.src.recipe.RecipesTools
 .field_map gw/b field_20157_b
 .field_map gw/a field_20158_a
 .method_map gw/a (Lhe;)V func_20156_a
@@ -1560,7 +1560,7 @@
 .method_map gu/b (Lad;)V func_99_b
 .method_map gu/a (Lad;)V func_97_a
 .method_map gu/a (III)F func_159_a
-.class_map gt Packet15Place
+.class_map gt net.minecraft.src.packet.Packet15Place
 .field_map gt/b field_77_b
 .field_map gt/a field_78_a
 .field_map gt/e field_79_e
@@ -1570,7 +1570,7 @@
 .method_map gt/a (Lfs;)V func_72_a
 .method_map gt/a (Ljava/io/DataOutputStream;)V func_68_a
 .method_map gt/a ()I func_71_a
-.class_map gs MinecraftException
+.class_map gs net.minecraft.src.error.MinecraftException
 .class_map gr net.minecraft.src.nbt.NBTTagShort
 .field_map gr/a field_734_a
 .method_map gr/a ()B func_379_a
@@ -1629,7 +1629,7 @@
 .method_map gq/c (Lep;I)V func_163_c
 .method_map gq/H ()V func_168_z
 .method_map gq/c ()V func_152_d_
-.class_map gp Slot
+.class_map gp net.minecraft.src.inventory.Slot
 .field_map gp/b field_20096_b
 .field_map gp/a field_20097_a
 .field_map gp/e field_20098_e
@@ -1652,7 +1652,7 @@
 .method_map go/a (Ljx;III)V func_233_a
 .method_map go/a (ILjava/util/Random;)I func_252_a
 .method_map go/a_ ()Lbg; func_294_a_
-.class_map gn Packet130
+.class_map gn net.minecraft.src.packet.Packet130
 .field_map gn/b field_20019_b
 .field_map gn/a field_20020_a
 .field_map gn/d field_20021_d
@@ -1790,7 +1790,7 @@
 .method_map gl/e (Lff;III)V func_250_e
 .method_map gl/g (Lff;III)Z func_285_g
 .method_map gl/b ()I func_4028_b
-.class_map gk Packet28
+.class_map gk net.minecraft.src.packet.Packet28
 .field_map gk/b field_6039_b
 .field_map gk/a field_6040_a
 .field_map gk/d field_6041_d
@@ -1799,7 +1799,7 @@
 .method_map gk/a (Lfs;)V func_72_a
 .method_map gk/a (Ljava/io/DataOutputStream;)V func_68_a
 .method_map gk/a ()I func_71_a
-.class_map gj Packet30Entity
+.class_map gj net.minecraft.src.packet.Packet30Entity
 .field_map gj/b field_82_b
 .field_map gj/a field_83_a
 .field_map gj/g field_84_g
@@ -1859,7 +1859,7 @@
 .method_map ge/b (Lad;)V func_99_b
 .method_map ge/c ()V func_152_d_
 .method_map ge/a (Lad;)V func_97_a
-.class_map gd Packet53BlockChange
+.class_map gd net.minecraft.src.packet.Packet53BlockChange
 .field_map gd/b field_89_b
 .field_map gd/a field_90_a
 .field_map gd/e field_91_e
@@ -1893,7 +1893,7 @@
 .class_map gb net.minecraft.src.item.ItemRecord
 .field_map gb/a field_261_a
 .method_map gb/a (Lil;Lgq;Lff;IIII)Z func_78_a
-.class_map ga RecipesIngots
+.class_map ga net.minecraft.src.recipe.RecipesIngots
 .field_map ga/a field_20160_a
 .method_map ga/a (Lhe;)V func_20159_a
 .class_map fz net.minecraft.src.world.WorldGenCactus
@@ -1909,7 +1909,7 @@
 .method_map fy/a (II)Ljava/io/File; func_665_a
 .method_map fy/a (Lff;II)Lkx; func_659_a
 .method_map fy/a (Lff;Lad;)Lkx; func_664_a
-.class_map fx Pathfinder
+.class_map fx net.minecraft.src.Pathfinder
 .field_map fx/b field_940_b
 .field_map fx/a field_941_a
 .field_map fx/d field_942_d
@@ -1956,7 +1956,7 @@
 .method_map ft/b (Lad;)V func_99_b
 .method_map ft/a (Lad;)V func_97_a
 .method_map ft/f ()Ljava/lang/String; func_6098_f
-.class_map fs NetHandler
+.class_map fs net.minecraft.src.networking.NetHandler
 .method_map fs/a (Lhy;)V func_18_a
 .method_map fs/a (Ld;)V func_4002_a
 .method_map fs/a (Ljava/lang/String;[Ljava/lang/Object;)V func_6_a
@@ -2001,7 +2001,7 @@
 .class_map fr net.minecraft.src.block.BlockMushroom
 .method_map fr/f (Lff;III)Z func_220_f
 .method_map fr/b (I)Z func_277_b
-.class_map fq FontAllowedCharacters
+.class_map fq net.minecraft.src.gui.font.FontAllowedCharacters
 .field_map fq/a field_20162_a
 .method_map fq/a ()Ljava/lang/String; func_20161_a
 .class_map fp net.minecraft.src.block.BlockJukeBox
@@ -2093,7 +2093,7 @@
 .method_map fi/a (Lep;I)Z func_121_a
 .method_map fi/c (Lep;I)V func_163_c
 .method_map fi/H ()V func_168_z
-.class_map fh IMobs
+.class_map fh net.minecraft.src.IMobs
 .class_map fg net.minecraft.src.gen.MobSpawnerSwamp
 .class_map ff net.minecraft.src.block.World
 .field_map ff/M field_778_L
@@ -2259,7 +2259,7 @@
 .method_map ez/a (Ljava/io/DataInput;)V func_382_a
 .method_map ez/a (Ljava/io/DataOutput;)V func_381_a
 .method_map ez/toString ()Ljava/lang/String; toString
-.class_map ey Packet31RelEntityMove
+.class_map ey net.minecraft.src.packet.Packet31RelEntityMove
 .method_map ey/a (Ljava/io/DataInputStream;)V func_70_a
 .method_map ey/a (Ljava/io/DataOutputStream;)V func_68_a
 .method_map ey/a ()I func_71_a
@@ -2272,11 +2272,11 @@
 .method_map ex/a (III)I func_444_a
 .method_map ex/d (III)Z func_445_d
 .method_map ex/b (III)I func_446_b
-.class_map ew Packet13PlayerLookMove
+.class_map ew net.minecraft.src.packet.Packet13PlayerLookMove
 .method_map ew/a (Ljava/io/DataInputStream;)V func_70_a
 .method_map ew/a (Ljava/io/DataOutputStream;)V func_68_a
 .method_map ew/a ()I func_71_a
-.class_map ev MetadataChunkBlock
+.class_map ev net.minecraft.src.MetadataChunkBlock
 .field_map ev/b field_956_b
 .field_map ev/a field_957_a
 .field_map ev/g field_958_g
@@ -2286,7 +2286,7 @@
 .field_map ev/c field_962_c
 .method_map ev/a (Lff;)V func_4107_a
 .method_map ev/a (IIIIII)Z func_692_a
-.class_map eu Packet8
+.class_map eu net.minecraft.src.packet.Packet8
 .field_map eu/a field_9017_a
 .method_map eu/a (Ljava/io/DataInputStream;)V func_70_a
 .method_map eu/a (Lfs;)V func_72_a
@@ -2329,7 +2329,7 @@
 .method_map es/a (Ljava/io/DataInput;)V func_382_a
 .method_map es/a (Ljava/io/DataOutput;)V func_381_a
 .method_map es/toString ()Ljava/lang/String; toString
-.class_map er Packet23VehicleSpawn
+.class_map er net.minecraft.src.packet.Packet23VehicleSpawn
 .field_map er/b field_97_b
 .field_map er/a field_98_a
 .field_map er/e field_99_e
@@ -2567,7 +2567,7 @@
 .method_map eh/a ()V func_715_a
 .method_map eh/a (Lgi;)V func_717_a
 .method_map eh/a (Leh;)Ljava/net/ServerSocket; func_713_a
-.class_map eg Packet50PreChunk
+.class_map eg net.minecraft.src.packet.Packet50PreChunk
 .field_map eg/b field_102_b
 .field_map eg/a field_103_a
 .field_map eg/c field_104_c
@@ -2577,11 +2577,11 @@
 .method_map eg/a ()I func_71_a
 .class_map ef net.minecraft.src.world.WorldGenLightStone2
 .method_map ef/a (Lff;Ljava/util/Random;III)Z func_419_a
-.class_map ee MaterialLiquid
+.class_map ee net.minecraft.src.MaterialLiquid
 .method_map ee/a ()Z func_216_a
 .method_map ee/d ()Z func_217_d
 .method_map ee/c ()Z func_218_c
-.class_map ed Packet51MapChunk
+.class_map ed net.minecraft.src.packet.Packet51MapChunk
 .field_map ed/b field_105_b
 .field_map ed/a field_106_a
 .field_map ed/h field_107_h
@@ -2594,17 +2594,17 @@
 .method_map ed/a (Lfs;)V func_72_a
 .method_map ed/a (Ljava/io/DataOutputStream;)V func_68_a
 .method_map ed/a ()I func_71_a
-.class_map ec ICrafting
+.class_map ec net.minecraft.src.crafting.ICrafting
 .method_map ec/a (Ldw;Ljava/util/List;)V func_20054_a
 .method_map ec/a (Ldw;ILil;)V func_20055_a
 .method_map ec/a (Ldw;II)V func_20056_a
-.class_map eb EnumSkyBlock
+.class_map eb net.minecraft.src.enums.EnumSkyBlock
 .field_map eb/b net.minecraft.src.Block
 .field_map eb/a Sky
 .field_map eb/d field_983_d
 .field_map eb/c field_984_c
 .method_map eb/values ()[Leb; values
-.class_map ea Packet32EntityLook
+.class_map ea net.minecraft.src.packet.Packet32EntityLook
 .method_map ea/a (Ljava/io/DataInputStream;)V func_70_a
 .method_map ea/a (Ljava/io/DataOutputStream;)V func_68_a
 .method_map ea/a ()I func_71_a
@@ -2636,7 +2636,7 @@
 .method_map dw/a (Lec;)V func_20128_a
 .method_map dw/a (Lgq;Z)V func_20129_a
 .method_map dw/a (Lgq;)V func_20130_a
-.class_map dv Packet29DestroyEntity
+.class_map dv net.minecraft.src.packet.Packet29DestroyEntity
 .field_map dv/a field_116_a
 .method_map dv/a (Ljava/io/DataInputStream;)V func_70_a
 .method_map dv/a (Lfs;)V func_72_a
@@ -2655,7 +2655,7 @@
 .method_map dt/a (Ljava/lang/String;I)I func_722_a
 .method_map dt/a ()V func_723_a
 .method_map dt/a (Ljava/lang/String;Z)Z func_724_a
-.class_map ds EnumMobType
+.class_map ds net.minecraft.src.enums.EnumMobType
 .field_map ds/b mobs
 .field_map ds/a everything
 .field_map ds/d field_990_d
@@ -2719,7 +2719,7 @@
 .field_map dm/a field_1003_a
 .method_map dm/b (Lfi;)V func_725_b
 .method_map dm/a (Lfi;)V func_726_a
-.class_map dl Packet60
+.class_map dl net.minecraft.src.packet.Packet60
 .field_map dl/b field_12002_b
 .field_map dl/a field_12003_a
 .field_map dl/e field_12004_e
@@ -2757,14 +2757,14 @@
 .method_map df/a (Lff;III)Z func_259_a
 .method_map df/a (ILjava/util/Random;)I func_252_a
 .method_map df/g (Lff;III)V func_4037_g
-.class_map de Packet22Collect
+.class_map de net.minecraft.src.packet.Packet22Collect
 .field_map de/b field_136_b
 .field_map de/a field_137_a
 .method_map de/a (Ljava/io/DataInputStream;)V func_70_a
 .method_map de/a (Lfs;)V func_72_a
 .method_map de/a (Ljava/io/DataOutputStream;)V func_68_a
 .method_map de/a ()I func_71_a
-.class_map dd Packet34EntityTeleport
+.class_map dd net.minecraft.src.packet.Packet34EntityTeleport
 .field_map dd/b field_130_b
 .field_map dd/a field_131_a
 .field_map dd/f field_132_f
@@ -2775,7 +2775,7 @@
 .method_map dd/a (Lfs;)V func_72_a
 .method_map dd/a (Ljava/io/DataOutputStream;)V func_68_a
 .method_map dd/a ()I func_71_a
-.class_map dc PathEntity
+.class_map dc net.minecraft.src.PathEntity
 .field_map dc/b field_1004_b
 .field_map dc/a field_1005_a
 .field_map dc/c field_1006_c
@@ -2783,7 +2783,7 @@
 .method_map dc/a ()V func_728_a
 .method_map dc/b ()Z func_729_b
 .class_map db net.minecraft.src.noise.NoiseGenerator
-.class_map da Packet6SpawnPosition
+.class_map da net.minecraft.src.packet.Packet6SpawnPosition
 .field_map da/b field_138_b
 .field_map da/a field_139_a
 .field_map da/c field_140_c
@@ -2800,7 +2800,7 @@
 .method_map cy/a ()Z func_240_b
 .method_map cy/a (ILjava/util/Random;)I func_252_a
 .method_map cy/a_ ()Lbg; func_294_a_
-.class_map y RecipesArmor
+.class_map y net.minecraft.src.recipe.RecipesArmor
 .field_map y/b field_20173_b
 .field_map y/a field_20174_a
 .method_map y/a (Lhe;)V func_20172_a
@@ -2811,7 +2811,7 @@
 .method_map cx/c_ ()Z func_129_c_
 .method_map cx/b (Lad;)V func_99_b
 .method_map cx/a (Lad;)V func_97_a
-.class_map x Packet39
+.class_map x net.minecraft.src.packet.Packet39
 .field_map x/b field_6043_b
 .field_map x/a field_6044_a
 .method_map x/a (Ljava/io/DataInputStream;)V func_70_a
@@ -2834,7 +2834,7 @@
 .field_map w/a field_6088_a
 .method_map w/a ()Z func_240_b
 .method_map w/a (Ljx;IIII)Z func_253_a
-.class_map cv NextTickListEntry
+.class_map cv net.minecraft.src.NextTickListEntry
 .field_map cv/b field_1017_b
 .field_map cv/a field_1018_a
 .field_map cv/g field_1019_g
@@ -2847,7 +2847,7 @@
 .method_map cv/equals (Ljava/lang/Object;)Z equals
 .method_map cv/hashCode ()I hashCode
 .method_map cv/compareTo (Ljava/lang/Object;)I compareTo
-.class_map v Packet18ArmAnimation
+.class_map v net.minecraft.src.packet.Packet18ArmAnimation
 .field_map v/b field_119_b
 .field_map v/a field_120_a
 .method_map v/a (Ljava/io/DataInputStream;)V func_70_a
@@ -2889,7 +2889,7 @@
 .method_map t/a (Ljava/util/Random;)I func_244_a
 .method_map t/b (Lff;III)V func_242_b
 .method_map t/a (Ljx;IIII)Z func_253_a
-.class_map cs Packet102
+.class_map cs net.minecraft.src.packet.Packet102
 .field_map cs/b field_20023_b
 .field_map cs/a field_20024_a
 .field_map cs/e field_20025_e
@@ -2916,7 +2916,7 @@
 .method_map cr/hashCode ()I hashCode
 .method_map cr/a ()J func_736_a
 .method_map cr/toString ()Ljava/lang/String; toString
-.class_map r Packet5PlayerInventory
+.class_map r net.minecraft.src.packet.Packet5PlayerInventory
 .field_map r/b field_117_b
 .field_map r/a field_118_a
 .field_map r/c field_20028_c
@@ -2940,7 +2940,7 @@
 .method_map q/a (Ljava/io/DataInput;)V func_382_a
 .method_map q/a (Ljava/io/DataOutput;)V func_381_a
 .method_map q/toString ()Ljava/lang/String; toString
-.class_map cp StepSound
+.class_map cp net.minecraft.src.audio.StepSound
 .field_map cp/b field_1028_b
 .field_map cp/a field_1029_a
 .field_map cp/c field_1030_c
@@ -2951,7 +2951,7 @@
 .method_map p/a (ILjava/util/Random;)I func_252_a
 .class_map co net.minecraft.src.item.ItemFishingRod
 .method_map co/a (Lil;Lff;Lgq;)Lil; func_6152_a
-.class_map o Packet21PickupSpawn
+.class_map o net.minecraft.src.packet.Packet21PickupSpawn
 .field_map o/i field_121_i
 .field_map o/h field_122_h
 .field_map o/g field_123_g
@@ -2965,7 +2965,7 @@
 .method_map o/a (Lfs;)V func_72_a
 .method_map o/a (Ljava/io/DataOutputStream;)V func_68_a
 .method_map o/a ()I func_71_a
-.class_map cn ThreadSleepForever
+.class_map cn net.minecraft.src.threading.ThreadSleepForever
 .field_map cn/a field_1031_a
 .method_map cn/run ()V run
 .class_map n net.minecraft.src.block.BlockOreBlock
@@ -2976,7 +2976,7 @@
 .method_map cm/a (Ljava/io/DataInput;)V func_382_a
 .method_map cm/a (Ljava/io/DataOutput;)V func_381_a
 .method_map cm/toString ()Ljava/lang/String; toString
-.class_map m Packet105
+.class_map m net.minecraft.src.packet.Packet105
 .field_map m/b field_20029_b
 .field_map m/a field_20030_a
 .field_map m/c field_20031_c
@@ -3030,11 +3030,11 @@
 .field_map j/b field_763_b
 .field_map j/a field_764_a
 .method_map j/a (Lff;Ljava/util/Random;III)Z func_419_a
-.class_map ci SpawnerAnimals
+.class_map ci net.minecraft.src.SpawnerAnimals
 .field_map ci/a field_4311_a
 .method_map ci/a (Lff;)I func_4111_a
 .method_map ci/a (Lff;II)Liq; func_4112_a
-.class_map i InventoryCrafting
+.class_map i net.minecraft.src.crafting.InventoryCrafting
 .field_map i/b field_20075_b
 .field_map i/a field_20076_a
 .field_map i/c field_20077_c
@@ -3056,7 +3056,7 @@
 .method_map ch/b (Lad;)V func_99_b
 .method_map ch/j ()D func_130_h
 .method_map ch/a (Lad;)V func_97_a
-.class_map h Packet2Handshake
+.class_map h net.minecraft.src.packet.Packet2Handshake
 .field_map h/a field_141_a
 .method_map h/a (Ljava/io/DataInputStream;)V func_70_a
 .method_map h/a (Lfs;)V func_72_a
@@ -3075,7 +3075,7 @@
 .field_map cf/a field_272_a
 .method_map cf/a (Lil;Lgq;Lff;IIII)Z func_78_a
 .method_map cf/a ()Ljava/lang/String; func_20106_a
-.class_map f Packet101
+.class_map f net.minecraft.src.packet.Packet101
 .field_map f/a field_20032_a
 .method_map f/a (Ljava/io/DataInputStream;)V func_70_a
 .method_map f/a (Lfs;)V func_72_a
@@ -3096,7 +3096,7 @@
 .class_map cd net.minecraft.src.world.WorldGenHellLava
 .field_map cd/a field_4250_a
 .method_map cd/a (Lff;Ljava/util/Random;III)Z func_419_a
-.class_map d Packet20NamedEntitySpawn
+.class_map d net.minecraft.src.packet.Packet20NamedEntitySpawn
 .field_map d/b field_142_b
 .field_map d/a field_143_a
 .field_map d/h field_144_h
@@ -3109,7 +3109,7 @@
 .method_map d/a (Lfs;)V func_72_a
 .method_map d/a (Ljava/io/DataOutputStream;)V func_68_a
 .method_map d/a ()I func_71_a
-.class_map cc Packet33RelEntityMoveLook
+.class_map cc net.minecraft.src.packet.Packet33RelEntityMoveLook
 .method_map cc/a (Ljava/io/DataInputStream;)V func_70_a
 .method_map cc/a (Ljava/io/DataOutputStream;)V func_68_a
 .method_map cc/a ()I func_71_a
@@ -3121,12 +3121,12 @@
 .method_map c/a (Lff;IIILgq;)Z func_246_a
 .method_map c/a (Lff;III)Z func_259_a
 .method_map c/a_ ()Lbg; func_294_a_
-.class_map cb SlotArmor
+.class_map cb net.minecraft.src.inventory.SlotArmor
 .field_map cb/b field_20101_b
 .field_map cb/a field_20102_a
 .method_map cb/a (Lil;)Z func_20095_a
 .method_map cb/a ()I func_20093_a
-.class_map b PathPoint
+.class_map b net.minecraft.src.PathPoint
 .field_map b/j field_1007_j
 .field_map b/i field_1008_i
 .field_map b/h field_1009_h
@@ -3160,7 +3160,7 @@
 .method_map ca/c_ ()Z func_129_c_
 .method_map ca/b (Lad;)V func_99_b
 .method_map ca/a (Lad;)V func_97_a
-.class_map a Packet7
+.class_map a net.minecraft.src.packet.Packet7
 .field_map a/b field_9018_b
 .field_map a/a field_9019_a
 .field_map a/c field_9020_c
@@ -3207,7 +3207,7 @@
 .class_map bt net.minecraft.src.world.WorldGenerator
 .method_map bt/a (Lff;Ljava/util/Random;III)Z func_419_a
 .method_map bt/a (DDD)V func_420_a
-.class_map bs NetworkManager
+.class_map bs net.minecraft.src.networking.NetworkManager
 .field_map bs/w field_20175_w
 .field_map bs/v field_1035_s
 .field_map bs/u field_1036_r
@@ -3247,7 +3247,7 @@
 .method_map bs/a (Ljava/lang/Exception;)V func_750_a
 .method_map bs/c ()V func_752_c
 .method_map bs/b ()Ljava/net/SocketAddress; func_755_b
-.class_map br Packet3Chat
+.class_map br net.minecraft.src.packet.Packet3Chat
 .field_map br/a field_150_a
 .method_map br/a (Ljava/io/DataInputStream;)V func_70_a
 .method_map br/a (Lfs;)V func_72_a
@@ -3294,7 +3294,7 @@
 .method_map bo/b ()I func_4028_b
 .method_map bo/g (Lff;III)V func_318_g
 .method_map bo/a (Lff;IIILjava/util/Random;)V func_221_a
-.class_map bn net.minecraft.src.Vec3D
+.class_map bn net.minecraft.src.datatype.Vec3D
 .field_map bn/b field_1054_b
 .field_map bn/a field_1055_a
 .field_map bn/e field_1056_e
@@ -3371,7 +3371,7 @@
 .method_map bi/a (ILjava/util/Random;)I func_252_a
 .method_map bi/g (Lff;III)V func_6091_h
 .method_map bi/b (Lff;IIILep;)V func_249_b
-.class_map bh Packet9
+.class_map bh net.minecraft.src.packet.Packet9
 .method_map bh/a (Ljava/io/DataInputStream;)V func_70_a
 .method_map bh/a (Lfs;)V func_72_a
 .method_map bh/a (Ljava/io/DataOutputStream;)V func_68_a
@@ -3431,7 +3431,7 @@
 .method_map az/f (Lff;IIII)V func_311_f
 .method_map az/a (Lff;IIIII)I func_4034_a
 .method_map az/a (Lff;IIILjava/util/Random;)V func_221_a
-.class_map ay Packet106
+.class_map ay net.minecraft.src.packet.Packet106
 .field_map ay/b field_20033_b
 .field_map ay/a field_20034_a
 .field_map ay/c field_20035_c
@@ -3460,7 +3460,7 @@
 .method_map aw/b ()I func_4028_b
 .method_map aw/c (Lff;IIII)V func_255_c
 .method_map aw/a (Lff;IIILjava/util/Random;)V func_221_a
-.class_map av InventoryLargeChest
+.class_map av net.minecraft.src.inventory.InventoryLargeChest
 .field_map av/b field_501_b
 .field_map av/a field_502_a
 .field_map av/c field_503_c
@@ -3472,7 +3472,7 @@
 .method_map av/a (ILil;)V func_206_a
 .method_map av/d ()V func_183_c
 .method_map av/a ()I func_83_a
-.class_map au CompressedStreamTools
+.class_map au net.minecraft.src.CompressedStreamTools
 .method_map au/a (Ljava/io/DataInput;)Lad; func_774_a
 .method_map au/a (Lad;Ljava/io/DataOutput;)V func_771_a
 .method_map au/a (Lad;Ljava/io/OutputStream;)V func_769_a
@@ -3480,7 +3480,7 @@
 .class_map at ServerCommand
 .field_map at/b field_1059_b
 .field_map at/a field_1060_a
-.class_map as MaterialLogic
+.class_map as net.minecraft.src.MaterialLogic
 .method_map as/a ()Z func_216_a
 .method_map as/c ()Z func_218_c
 .method_map as/b ()Z func_219_b
@@ -3495,7 +3495,7 @@
 .method_map ar/a (IDDD)D func_644_a
 .method_map ar/b (DDD)D func_645_b
 .method_map ar/a ([DDDDIIIDDDD)V func_646_a
-.class_map aq RecipesFood
+.class_map aq net.minecraft.src.recipe.RecipesFood
 .method_map aq/a (Lhe;)V func_20177_a
 .class_map ap PlayerInstance
 .field_map ap/m field_1061_m
@@ -3526,14 +3526,14 @@
 .method_map ao/a_ (Lff;III)Z func_4030_a_
 .method_map ao/a (Ljx;III)V func_233_a
 .method_map ao/a (Ljx;IIII)Z func_253_a
-.class_map an StepSoundStone
-.class_map am StepSoundSand
+.class_map an net.minecraft.src.audio.StepSoundStone
+.class_map am net.minecraft.src.audio.StepSoundSand
 .class_map al IAnimals
-.class_map ak Packet11PlayerPosition
+.class_map ak net.minecraft.src.packet.Packet11PlayerPosition
 .method_map ak/a (Ljava/io/DataInputStream;)V func_70_a
 .method_map ak/a (Ljava/io/DataOutputStream;)V func_68_a
 .method_map ak/a ()I func_71_a
-.class_map aj Packet1Login
+.class_map aj net.minecraft.src.packet.Packet1Login
 .field_map aj/b field_113_b
 .field_map aj/a field_4024_a
 .field_map aj/e field_4025_e

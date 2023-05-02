@@ -2,10 +2,8 @@ package net.minecraft.src;// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kou
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) braces deadcode 
 
-import net.minecraft.src.AxisAlignedBB;
-import net.minecraft.src.Block;
 import net.minecraft.src.helpers.MathHelper;
-import net.minecraft.src.Vec3D;
+import net.minecraft.src.datatype.Vec3D;
 import net.minecraft.src.block.World;
 import net.minecraft.src.entity.Entity;
 import net.minecraft.src.world.chunk.ChunkPosition;

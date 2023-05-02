@@ -4,30 +4,25 @@ package net.minecraft.src.block;// Decompiled by Jad v1.5.8g. Copyright 2001 Pav
 
 
 import net.minecraft.src.Block;
+import net.minecraft.src.IBlockAccess;
 import net.minecraft.src.Material;
 
-public class BlockLeavesBase extends Block
-{
+public class BlockLeavesBase extends Block {
 
-    protected BlockLeavesBase(int i, int j, Material material, boolean flag)
-    {
+    protected BlockLeavesBase(int i, int j, Material material, boolean flag) {
         super(i, j, material);
         graphicsLevel = flag;
     }
 
-    public boolean isOpaqueCube()
-    {
+    public boolean isOpaqueCube() {
         return false;
     }
 
-    public boolean shouldSideBeRendered(IBlockAccess iblockaccess, int i, int j, int k, int l)
-    {
+    public boolean shouldSideBeRendered(IBlockAccess iblockaccess, int i, int j, int k, int l) {
         int i1 = iblockaccess.getBlockId(i, j, k);
-        if(!graphicsLevel && i1 == blockID)
-        {
+        if (!graphicsLevel && i1 == blockID) {
             return false;
-        } else
-        {
+        } else {
             return super.shouldSideBeRendered(iblockaccess, i, j, k, l);
         }
     }

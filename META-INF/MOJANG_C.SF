@@ -396,7 +396,7 @@ SHA1-Digest: jKtJFVa10F42kGccP7qIt3MVQGs=
 Name: cb.class
 SHA1-Digest: 5wanHKoEvdSELYLBDsxAB597eFQ=
 
-Name: net/minecraft/client/MinecraftApplet.class
+Name: net/minecraft/client/net.minecraft.client.MinecraftApplet.class
 SHA1-Digest: xZ0WQgfn5sHMB6AbKFIFVpjxnp0=
 
 Name: armor/cloth_2.png
@@ -441,7 +441,7 @@ SHA1-Digest: BaBZljxNqweswIuBtJTemlTSMhY=
 Name: ot.class
 SHA1-Digest: CXMbvDlU9YwSApSsZyPlUhzB35k=
 
-Name: net/minecraft/client/Minecraft.class
+Name: net/minecraft/client/net.minecraft.client.Minecraft.class
 SHA1-Digest: 2XPP5rILQWd/t/7MhYip3G2wFzc=
 
 Name: paulscode/sound/Source.class
@@ -1416,7 +1416,7 @@ SHA1-Digest: 1bEEzD9yzD9xHJ0krm/HbNz9220=
 Name: gui/furnace.png
 SHA1-Digest: jNksPrGHasTvy/PuhUjuc12uwL4=
 
-Name: com/jcraft/jogg/Packet.class
+Name: com/jcraft/jogg/net.minecraft.src.packet.Packet.class
 SHA1-Digest: eFmKa3f5bt7e7OtaYxhcCBNFupU=
 
 Name: jr.class

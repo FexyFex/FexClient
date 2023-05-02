@@ -10,7 +10,7 @@ import java.util.Random;
 public class BlockFlowing extends BlockFluids
 {
 
-    protected BlockFlowing(int i, Material material)
+    public BlockFlowing(int i, Material material)
     {
         super(i, material);
         field_460_a = 0;

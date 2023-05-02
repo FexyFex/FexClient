@@ -3,6 +3,10 @@ package net.minecraft.src.crafting;// Decompiled by Jad v1.5.8g. Copyright 2001 
 // Decompiler options: packimports(3) braces deadcode 
 
 import net.minecraft.src.entity.EntityPlayer;
+import net.minecraft.src.inventory.IInventory;
+import net.minecraft.src.inventory.InventoryPlayer;
+import net.minecraft.src.inventory.Slot;
+import net.minecraft.src.item.ItemStack;
 
 import java.util.*;
 

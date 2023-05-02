@@ -391,7 +391,7 @@ SHA1-Digest: tv7bHqX/W7HmVpdHAMY3C1QSosI=
 Name: ig.class
 SHA1-Digest: dUdNLGVYU5g/nwXWFHbKPJ8WfjI=
 
-Name: net/minecraft/client/MinecraftApplet.class
+Name: net/minecraft/client/net.minecraft.client.MinecraftApplet.class
 SHA1-Digest: y7nCNBGt5UMkY7VoA9r6eaRLIi0=
 
 Name: cb.class
@@ -439,7 +439,7 @@ SHA1-Digest: u+C2xGYftxNPw8H8P3/iDlI4+fw=
 Name: ce.class
 SHA1-Digest: yBiUXnN+GLHjImEXVQjY9YFikUs=
 
-Name: net/minecraft/client/Minecraft.class
+Name: net/minecraft/client/net.minecraft.client.Minecraft.class
 SHA1-Digest: OL7vsVIW/FPB+YatqaTO+UAoYg4=
 
 Name: paulscode/sound/Source.class
@@ -1411,7 +1411,7 @@ SHA1-Digest: rqiKnjtsXva+IZaNQdjryUJkaKk=
 Name: if.class
 SHA1-Digest: 8mQUigaE5/rV32aMpUCTMpUpX94=
 
-Name: com/jcraft/jogg/Packet.class
+Name: com/jcraft/jogg/net.minecraft.src.packet.Packet.class
 SHA1-Digest: SLKnVPKqIBFZYDtuQNHkVpVHAaY=
 
 Name: gui/furnace.png

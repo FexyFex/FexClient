@@ -3,13 +3,16 @@ package net.minecraft.src.block;// Decompiled by Jad v1.5.8g. Copyright 2001 Pav
 // Decompiler options: packimports(3) braces deadcode 
 
 import net.minecraft.src.Block;
+import net.minecraft.src.entity.EntityItem;
+import net.minecraft.src.item.Item;
+import net.minecraft.src.item.ItemStack;
 
 import java.util.Random;
 
 public class BlockCrops extends BlockFlower
 {
 
-    protected BlockCrops(int i, int j)
+    public BlockCrops(int i, int j)
     {
         super(i, j);
         blockIndexInTexture = j;

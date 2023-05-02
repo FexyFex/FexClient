@@ -1,4 +1,4 @@
-Minecraft mod creator pack 2.6 for Minecraft 1.1_02
+net.minecraft.client.Minecraft mod creator pack 2.6 for net.minecraft.client.Minecraft 1.1_02
 ===================================================
 
 Prerequisites:
@@ -137,19 +137,19 @@ and of course:
 
 History:
 ========
-2.6  - Updated to support Minecraft 1.1._02 and MinecraftServer 1.1_02
-2.5  - Updated to support Minecraft 1.2.6 and MinecraftServer 0.2.8
-2.4  - Updated to support Minecraft 1.2.5 and MinecraftServer 0.2.7
-2.3  - Updated to support Minecraft 1.2.3_04 and MinecraftServer 0.2.5_02. Linux support beta.
+2.6  - Updated to support net.minecraft.client.Minecraft 1.1._02 and MinecraftServer 1.1_02
+2.5  - Updated to support net.minecraft.client.Minecraft 1.2.6 and MinecraftServer 0.2.8
+2.4  - Updated to support net.minecraft.client.Minecraft 1.2.5 and MinecraftServer 0.2.7
+2.3  - Updated to support net.minecraft.client.Minecraft 1.2.3_04 and MinecraftServer 0.2.5_02. Linux support beta.
 2.2a - Bugfix release to improve the re-obfuscation tools
-2.2  - The reobfuscation beta test release. Still for Minecraft 1.2.2
-2.1  - Updated to support Minecraft 1.2.2
+2.2  - The reobfuscation beta test release. Still for net.minecraft.client.Minecraft 1.2.2
+2.1  - Updated to support net.minecraft.client.Minecraft 1.2.2
 2.0a - Bugfix release
-2.0  - Major updates to MCP and support for post-Halloween versions of Minecraft
+2.0  - Major updates to MCP and support for post-Halloween versions of net.minecraft.client.Minecraft
 1.6  - All classes have meaningful names now, the class name mappings and the field name mappings are applied
 1.5  - Extend the scripts to also support decompiling, recompiling and testing the minecraft_server.jar file
 1.4  - Using a deobfuscator to rename all fields and methods and jadretro to fix some decompile bugs
-1.3  - Added upgrade scripts to decompile and recompile Minecraft.class, MinecraftApplet.class and MinecraftServer.class
+1.3  - Added upgrade scripts to decompile and recompile net.minecraft.client.Minecraft.class, net.minecraft.client.MinecraftApplet.class and MinecraftServer.class
 1.2  - Redirect output of all tools to a logfile
 1.1  - Fixed TNT bug
 1.0  - First release

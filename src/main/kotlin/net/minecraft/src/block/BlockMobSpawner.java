@@ -1,36 +1,34 @@
-package net.minecraft.src.block;// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
+package net.minecraft.src.block;
+
+// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) braces deadcode 
 
 import net.minecraft.src.Material;
+import net.minecraft.src.entity.TileEntity;
+import net.minecraft.src.entity.TileEntityMobSpawner;
 
 import java.util.Random;
 
-public class BlockMobSpawner extends BlockContainer
-{
+public class BlockMobSpawner extends BlockContainer {
 
-    protected BlockMobSpawner(int i, int j)
-    {
+    public BlockMobSpawner(int i, int j) {
         super(i, j, Material.rock);
     }
 
-    protected TileEntity SetBlockEntity()
-    {
+    protected TileEntity SetBlockEntity() {
         return new TileEntityMobSpawner();
     }
 
-    public int idDropped(int i, Random random)
-    {
+    public int idDropped(int i, Random random) {
         return 0;
     }
 
-    public int quantityDropped(Random random)
-    {
+    public int quantityDropped(Random random) {
         return 0;
     }
 
-    public boolean isOpaqueCube()
-    {
+    public boolean isOpaqueCube() {
         return false;
     }
 }

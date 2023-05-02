@@ -11,7 +11,7 @@ import java.util.Random;
 public class BlockLadder extends Block
 {
 
-    protected BlockLadder(int i, int j)
+    public BlockLadder(int i, int j)
     {
         super(i, j, Material.circuits);
     }

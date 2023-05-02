@@ -1,19 +1,21 @@
-package net.minecraft.src.gui;// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
+package net.minecraft.src.gui;
+
+// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) braces deadcode 
 
 import java.io.File;
 import java.util.List;
 
+import net.minecraft.src.StringTranslate;
+import net.minecraft.src.Tessellator;
+import net.minecraft.src.texture.TexturePackBase;
 import org.lwjgl.Sys;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
-public class GuiTexturePacks extends GuiScreen
-{
-
-    public GuiTexturePacks(GuiScreen guiscreen)
-    {
+public class GuiTexturePacks extends GuiScreen {
+    public GuiTexturePacks(GuiScreen guiscreen) {
         field_6460_h = 0;
         field_6459_i = 32;
         field_6458_j = (height - 55) + 4;
@@ -25,8 +27,7 @@ public class GuiTexturePacks extends GuiScreen
         field_6461_a = guiscreen;
     }
 
-    public void initGui()
-    {
+    public void initGui() {
         StringTranslate stringtranslate = StringTranslate.func_20162_a();
         controlList.add(new GuiSmallButton(5, width / 2 - 154, height - 48, stringtranslate.func_20163_a("texturePack.openFolder")));
         controlList.add(new GuiSmallButton(6, width / 2 + 4, height - 48, stringtranslate.func_20163_a("gui.done")));
@@ -38,85 +39,65 @@ public class GuiTexturePacks extends GuiScreen
         field_6456_m = width;
     }
 
-    protected void actionPerformed(GuiButton guibutton)
-    {
-        if(!guibutton.enabled)
-        {
+    protected void actionPerformed(GuiButton guibutton) {
+        if (!guibutton.enabled) {
             return;
         }
-        if(guibutton.id == 5)
-        {
+        if (guibutton.id == 5) {
             Sys.openURL((new StringBuilder()).append("file://").append(field_6453_p).toString());
         }
-        if(guibutton.id == 6)
-        {
+        if (guibutton.id == 6) {
             mc.renderEngine.refreshTextures();
             mc.displayGuiScreen(field_6461_a);
         }
     }
 
-    protected void mouseClicked(int i, int j, int k)
-    {
+    protected void mouseClicked(int i, int j, int k) {
         super.mouseClicked(i, j, k);
     }
 
-    protected void mouseMovedOrUp(int i, int j, int k)
-    {
+    protected void mouseMovedOrUp(int i, int j, int k) {
         super.mouseMovedOrUp(i, j, k);
     }
 
-    public void drawScreen(int i, int j, float f)
-    {
+    public void drawScreen(int i, int j, float f) {
         drawDefaultBackground();
-        if(field_6454_o <= 0)
-        {
+        if (field_6454_o <= 0) {
             mc.texturePackList.func_6532_a();
             field_6454_o += 20;
         }
         List list = mc.texturePackList.availableTexturePacks();
-        if(Mouse.isButtonDown(0))
-        {
-            if(field_6455_n == -1)
-            {
-                if(j >= field_6459_i && j <= field_6458_j)
-                {
+        if (Mouse.isButtonDown(0)) {
+            if (field_6455_n == -1) {
+                if (j >= field_6459_i && j <= field_6458_j) {
                     int k = width / 2 - 110;
                     int i1 = width / 2 + 110;
                     int j1 = (((j - field_6459_i) + field_6460_h) - 2) / 36;
-                    if(i >= k && i <= i1 && j1 >= 0 && j1 < list.size() && mc.texturePackList.setTexturePack((TexturePackBase)list.get(j1)))
-                    {
+                    if (i >= k && i <= i1 && j1 >= 0 && j1 < list.size() && mc.texturePackList.setTexturePack((TexturePackBase) list.get(j1))) {
                         mc.renderEngine.refreshTextures();
                     }
                     field_6455_n = j;
-                } else
-                {
+                } else {
                     field_6455_n = -2;
                 }
-            } else
-            if(field_6455_n >= 0)
-            {
+            } else if (field_6455_n >= 0) {
                 field_6460_h -= j - field_6455_n;
                 field_6455_n = j;
             }
-        } else
-        {
-            if(field_6455_n >= 0)
-            {
-                if(field_6455_n != j);
+        } else {
+            if (field_6455_n >= 0) {
+                if (field_6455_n != j) ;
             }
             field_6455_n = -1;
         }
         int l = list.size() * 36 - (field_6458_j - field_6459_i - 4);
-        if(l < 0)
-        {
+        if (l < 0) {
             l /= 2;
         }
-        if(field_6460_h < 0)
-        {
+        if (field_6460_h < 0) {
             field_6460_h = 0;
         }
-        if(field_6460_h > l)
-        {
+        if (field_6460_h > l) {
             field_6460_h = l;
         }
         GL11.glDisable(2896 /*GL_LIGHTING*/);
@@ -127,20 +108,18 @@ public class GuiTexturePacks extends GuiScreen
         float f1 = 32F;
         tessellator.startDrawingQuads();
         tessellator.setColorOpaque_I(0x202020);
-        tessellator.addVertexWithUV(field_6457_l, field_6458_j, 0.0D, (float)field_6457_l / f1, (float)(field_6458_j + field_6460_h) / f1);
-        tessellator.addVertexWithUV(field_6456_m, field_6458_j, 0.0D, (float)field_6456_m / f1, (float)(field_6458_j + field_6460_h) / f1);
-        tessellator.addVertexWithUV(field_6456_m, field_6459_i, 0.0D, (float)field_6456_m / f1, (float)(field_6459_i + field_6460_h) / f1);
-        tessellator.addVertexWithUV(field_6457_l, field_6459_i, 0.0D, (float)field_6457_l / f1, (float)(field_6459_i + field_6460_h) / f1);
+        tessellator.addVertexWithUV(field_6457_l, field_6458_j, 0.0D, (float) field_6457_l / f1, (float) (field_6458_j + field_6460_h) / f1);
+        tessellator.addVertexWithUV(field_6456_m, field_6458_j, 0.0D, (float) field_6456_m / f1, (float) (field_6458_j + field_6460_h) / f1);
+        tessellator.addVertexWithUV(field_6456_m, field_6459_i, 0.0D, (float) field_6456_m / f1, (float) (field_6459_i + field_6460_h) / f1);
+        tessellator.addVertexWithUV(field_6457_l, field_6459_i, 0.0D, (float) field_6457_l / f1, (float) (field_6459_i + field_6460_h) / f1);
         tessellator.draw();
-        for(int k1 = 0; k1 < list.size(); k1++)
-        {
-            TexturePackBase texturepackbase = (TexturePackBase)list.get(k1);
+        for (int k1 = 0; k1 < list.size(); k1++) {
+            TexturePackBase texturepackbase = (TexturePackBase) list.get(k1);
             int l1 = width / 2 - 92 - 16;
             int i2 = (36 + k1 * 36) - field_6460_h;
             byte byte1 = 32;
             byte byte2 = 32;
-            if(texturepackbase == mc.texturePackList.selectedTexturePack)
-            {
+            if (texturepackbase == mc.texturePackList.selectedTexturePack) {
                 int j2 = width / 2 - 110;
                 int k2 = width / 2 + 110;
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -207,25 +186,23 @@ public class GuiTexturePacks extends GuiScreen
         super.drawScreen(i, j, f);
     }
 
-    public void updateScreen()
-    {
+    public void updateScreen() {
         super.updateScreen();
         field_6454_o--;
     }
 
-    public void func_6452_a(int i, int j, int k, int l)
-    {
+    public void func_6452_a(int i, int j, int k, int l) {
         Tessellator tessellator = Tessellator.instance;
         GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, mc.renderEngine.getTexture("/gui/background.png"));
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         float f = 32F;
         tessellator.startDrawingQuads();
         tessellator.setColorRGBA_I(0x404040, l);
-        tessellator.addVertexWithUV(0.0D, j, 0.0D, 0.0D, (float)j / f);
-        tessellator.addVertexWithUV(width, j, 0.0D, (float)width / f, (float)j / f);
+        tessellator.addVertexWithUV(0.0D, j, 0.0D, 0.0D, (float) j / f);
+        tessellator.addVertexWithUV(width, j, 0.0D, (float) width / f, (float) j / f);
         tessellator.setColorRGBA_I(0x404040, k);
-        tessellator.addVertexWithUV(width, i, 0.0D, (float)width / f, (float)i / f);
-        tessellator.addVertexWithUV(0.0D, i, 0.0D, 0.0D, (float)i / f);
+        tessellator.addVertexWithUV(width, i, 0.0D, (float) width / f, (float) i / f);
+        tessellator.addVertexWithUV(0.0D, i, 0.0D, 0.0D, (float) i / f);
         tessellator.draw();
     }
 

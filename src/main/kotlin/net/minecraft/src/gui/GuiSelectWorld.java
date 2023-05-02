@@ -1,9 +1,14 @@
-package net.minecraft.src.gui;// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
+package net.minecraft.src.gui;
+
+// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) braces deadcode 
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.src.StringTranslate;
 import net.minecraft.src.block.World;
 import net.minecraft.src.nbt.NBTTagCompound;
+import net.minecraft.src.player.PlayerControllerSP;
 
 public class GuiSelectWorld extends GuiScreen
 {

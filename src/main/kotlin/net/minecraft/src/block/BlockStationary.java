@@ -9,7 +9,7 @@ import java.util.Random;
 public class BlockStationary extends BlockFluids
 {
 
-    protected BlockStationary(int i, Material material)
+    public BlockStationary(int i, Material material)
     {
         super(i, material);
         setTickOnLoad(false);

@@ -4,7 +4,12 @@ package net.minecraft.src.block;// Decompiled by Jad v1.5.8g. Copyright 2001 Pav
 
 import net.minecraft.src.AxisAlignedBB;
 import net.minecraft.src.Block;
+import net.minecraft.src.IBlockAccess;
 import net.minecraft.src.Material;
+import net.minecraft.src.entity.Entity;
+import net.minecraft.src.entity.EntityLiving;
+import net.minecraft.src.entity.EntityPlayer;
+import net.minecraft.src.enums.EnumMobType;
 
 import java.util.List;
 import java.util.Random;
@@ -12,7 +17,7 @@ import java.util.Random;
 public class BlockPressurePlate extends Block
 {
 
-    protected BlockPressurePlate(int i, int j, EnumMobType enummobtype)
+    public BlockPressurePlate(int i, int j, EnumMobType enummobtype)
     {
         super(i, j, Material.rock);
         triggerMobType = enummobtype;

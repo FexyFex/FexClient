@@ -4,9 +4,13 @@ package net.minecraft.src.entity;// Decompiled by Jad v1.5.8g. Copyright 2001 Pa
 
 import net.minecraft.src.Block;
 import net.minecraft.src.Material;
-import net.minecraft.src.MovingObjectPosition;
-import net.minecraft.src.Vec3D;
+import net.minecraft.src.audio.StepSound;
+import net.minecraft.src.datatype.MovingObjectPosition;
+import net.minecraft.src.datatype.Vec3D;
 import net.minecraft.src.block.World;
+import net.minecraft.src.helpers.MathHelper;
+import net.minecraft.src.item.ItemStack;
+import net.minecraft.src.nbt.NBTTagCompound;
 
 import java.util.List;
 

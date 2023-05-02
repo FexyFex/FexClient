@@ -3,6 +3,9 @@ package net.minecraft.src.entity;// Decompiled by Jad v1.5.8g. Copyright 2001 Pa
 // Decompiler options: packimports(3) braces deadcode 
 
 import net.minecraft.src.block.World;
+import net.minecraft.src.item.Item;
+import net.minecraft.src.item.ItemStack;
+import net.minecraft.src.nbt.NBTTagCompound;
 
 import java.util.List;
 

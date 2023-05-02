@@ -1,8 +1,8 @@
 set MCPVERSION=2.6
 set MCVERSION=%1
 
-echo *** Minecraft Coder Pack Version %MCPVERSION% ***
-if NOT "%MCVERSION%" == "" echo *** Processing Minecraft version %MCVERSION% ***
+echo *** net.minecraft.client.Minecraft Coder Pack Version %MCPVERSION% ***
+if NOT "%MCVERSION%" == "" echo *** Processing net.minecraft.client.Minecraft version %MCVERSION% ***
 
 set MCPDIR=%CD%
 set MCPTOOLSDIR=%MCPDIR%\tools

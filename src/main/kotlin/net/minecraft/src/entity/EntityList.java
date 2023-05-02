@@ -1,112 +1,92 @@
-package net.minecraft.src.entity;// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
+package net.minecraft.src.entity;
+
+// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) braces deadcode 
 
 import net.minecraft.src.block.World;
+import net.minecraft.src.nbt.NBTTagCompound;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class EntityList
-{
+public class EntityList {
 
-    public EntityList()
-    {
+    public EntityList() {
     }
 
-    private static void addMapping(Class class1, String s, int i)
-    {
+    private static void addMapping(Class class1, String s, int i) {
         stringToClassMapping.put(s, class1);
         classToStringMapping.put(class1, s);
         IDtoClassMapping.put(Integer.valueOf(i), class1);
         classToIDMapping.put(class1, Integer.valueOf(i));
     }
 
-    public static Entity createEntityInWorld(String s, World world)
-    {
+    public static Entity createEntityInWorld(String s, World world) {
         Entity entity = null;
-        try
-        {
-            Class class1 = (Class)stringToClassMapping.get(s);
-            if(class1 != null)
-            {
-                entity = (Entity)class1.getConstructor(new Class[] {
-                    World.class
-                }).newInstance(new Object[] {
-                    world
+        try {
+            Class class1 = (Class) stringToClassMapping.get(s);
+            if (class1 != null) {
+                entity = (Entity) class1.getConstructor(new Class[]{
+                        World.class
+                }).newInstance(new Object[]{
+                        world
                 });
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
         return entity;
     }
 
-    public static Entity createEntityFromNBT(NBTTagCompound nbttagcompound, World world)
-    {
+    public static Entity createEntityFromNBT(NBTTagCompound nbttagcompound, World world) {
         Entity entity = null;
-        try
-        {
-            Class class1 = (Class)stringToClassMapping.get(nbttagcompound.getString("id"));
-            if(class1 != null)
-            {
-                entity = (Entity)class1.getConstructor(new Class[] {
-                    World.class
-                }).newInstance(new Object[] {
-                    world
+        try {
+            Class class1 = (Class) stringToClassMapping.get(nbttagcompound.getString("id"));
+            if (class1 != null) {
+                entity = (Entity) class1.getConstructor(new Class[]{
+                        World.class
+                }).newInstance(new Object[]{
+                        world
                 });
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
-        if(entity != null)
-        {
+        if (entity != null) {
             entity.readFromNBT(nbttagcompound);
-        } else
-        {
+        } else {
             System.out.println((new StringBuilder()).append("Skipping net.minecraft.src.entity.Entity with id ").append(nbttagcompound.getString("id")).toString());
         }
         return entity;
     }
 
-    public static Entity createEntity(int i, World world)
-    {
+    public static Entity createEntity(int i, World world) {
         Entity entity = null;
-        try
-        {
-            Class class1 = (Class)IDtoClassMapping.get(Integer.valueOf(i));
-            if(class1 != null)
-            {
-                entity = (Entity)class1.getConstructor(new Class[] {
-                    World.class
-                }).newInstance(new Object[] {
-                    world
+        try {
+            Class class1 = (Class) IDtoClassMapping.get(Integer.valueOf(i));
+            if (class1 != null) {
+                entity = (Entity) class1.getConstructor(new Class[]{
+                        World.class
+                }).newInstance(new Object[]{
+                        world
                 });
             }
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
-        if(entity == null)
-        {
+        if (entity == null) {
             System.out.println((new StringBuilder()).append("Skipping net.minecraft.src.entity.Entity with id ").append(i).toString());
         }
         return entity;
     }
 
-    public static int getEntityID(Entity entity)
-    {
-        return ((Integer)classToIDMapping.get(entity.getClass())).intValue();
+    public static int getEntityID(Entity entity) {
+        return ((Integer) classToIDMapping.get(entity.getClass())).intValue();
     }
 
-    public static String getEntityString(Entity entity)
-    {
-        return (String)classToStringMapping.get(entity.getClass());
+    public static String getEntityString(Entity entity) {
+        return (String) classToStringMapping.get(entity.getClass());
     }
 
     private static Map stringToClassMapping = new HashMap();
@@ -114,8 +94,7 @@ public class EntityList
     private static Map IDtoClassMapping = new HashMap();
     private static Map classToIDMapping = new HashMap();
 
-    static 
-    {
+    static {
         addMapping(EntityArrow.class, "Arrow", 10);
         addMapping(EntitySnowball.class, "Snowball", 11);
         addMapping(EntityItem.class, "net.minecraft.src.item.Item", 1);

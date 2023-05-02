@@ -3,13 +3,15 @@ package net.minecraft.src.block;// Decompiled by Jad v1.5.8g. Copyright 2001 Pav
 // Decompiler options: packimports(3) braces deadcode 
 
 import net.minecraft.src.*;
+import net.minecraft.src.datatype.MovingObjectPosition;
+import net.minecraft.src.datatype.Vec3D;
 
 import java.util.Random;
 
 public class BlockTorch extends Block
 {
 
-    protected BlockTorch(int i, int j)
+    public BlockTorch(int i, int j)
     {
         super(i, j, Material.circuits);
         setTickOnLoad(true);

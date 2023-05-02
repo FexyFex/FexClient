@@ -14,16 +14,16 @@ if errorlevel 1 (
 mkdir "%MCBIN%" 2>NUL:
 mkdir "%MCSBIN%" 2>NUL:
 
-echo === Minecraft Coder Pack %MCPVERSION% === >"%MCPCOMPLOG%"
+echo === net.minecraft.client.Minecraft Coder Pack %MCPVERSION% === >"%MCPCOMPLOG%"
 
-if exist "%MCJADOUT%\net\minecraft\client\Minecraft.java" (
-    echo Compiling Minecraft
+if exist "%MCJADOUT%\net\minecraft\client\net.minecraft.client.Minecraft.java" (
+    echo Compiling net.minecraft.client.Minecraft
 
-    echo *** Compiling Minecraft >>"%MCPCOMPLOG%"
+    echo *** Compiling net.minecraft.client.Minecraft >>"%MCPCOMPLOG%"
     javac -g -verbose -cp "%MCCP%" -sourcepath "%MCJADOUT%" -d "%MCBIN%" %MCSRC1%\*.java %MCSRC2%\*.java "%MCSTART%" 2>&1 | "%MCPTEE%" -a "%MCPCOMPLOG%" | "%MCPGREP%" -v "^\[" | "%MCPGREP%" -v "^Note:"
 
-    echo Compiling Minecraft Start Class
-    echo *** Compiling Minecraft Starter >>"%MCPCOMPLOG%"
+    echo Compiling net.minecraft.client.Minecraft Start Class
+    echo *** Compiling net.minecraft.client.Minecraft Starter >>"%MCPCOMPLOG%"
     javac -g -verbose -sourcepath "%MCJADOUT%" -d "%MCBIN%" "%MCSNDFIX%" 2>&1 | "%MCPTEE%" -a "%MCPCOMPLOG%" | "%MCPGREP%" -v "^\[" | "%MCPGREP%" -v "^Note:"
 ) else (
     if exist "%MCJAR%" (
@@ -35,8 +35,8 @@ if exist "%MCJADOUT%\net\minecraft\client\Minecraft.java" (
 
 
 if exist "%MCSJADOUT%\net\minecraft\server\MinecraftServer.java" (
-    echo Compiling Minecraft Server
-    echo *** Compiling Minecraft Server >>"%MCPCOMPLOG%"
+    echo Compiling net.minecraft.client.Minecraft Server
+    echo *** Compiling net.minecraft.client.Minecraft Server >>"%MCPCOMPLOG%"
     javac -g -verbose -sourcepath "%MCSJADOUT%" -d "%MCSBIN%" %MCSSRC1%\*.java %MCSSRC2%\*.java 2>&1 | "%MCPTEE%" -a "%MCPCOMPLOG%" | "%MCPGREP%" -v "^\[" | "%MCPGREP%" -v "^Note:"
 ) else (
     if exist "%MCSJAR%" (

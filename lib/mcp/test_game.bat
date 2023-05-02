@@ -10,7 +10,7 @@ if errorlevel 1 (
     exit /b
 )
 
-if exist "%MCBIN%\net\minecraft\client\Minecraft.class" (
+if exist "%MCBIN%\net\minecraft\client\net.minecraft.client.Minecraft.class" (
     java -Xms1024M -Xmx1024M -cp "%MCTESTCP%" "-Djava.library.path=%MCNAT%" Start
 ) else (
     echo *** Client not compiled, run recompile.bat

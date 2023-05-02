@@ -5,11 +5,13 @@ package net.minecraft.src.block;// Decompiled by Jad v1.5.8g. Copyright 2001 Pav
 
 import net.minecraft.src.Block;
 import net.minecraft.src.Material;
+import net.minecraft.src.entity.EntityLiving;
+import net.minecraft.src.helpers.MathHelper;
 
 public class BlockPumpkin extends Block
 {
 
-    protected BlockPumpkin(int i, int j, boolean flag)
+    public BlockPumpkin(int i, int j, boolean flag)
     {
         super(i, Material.pumpkin);
         blockIndexInTexture = j;

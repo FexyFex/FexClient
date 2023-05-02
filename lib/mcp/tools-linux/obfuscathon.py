@@ -74,7 +74,7 @@ def main(options, args):
     for classname in class_list:
         pkg = ''
         if len(classname.split('/')) == 1:                pkg = 'net/minecraft/src/'
-        if classname in ['Minecraft', 'MinecraftApplet']: pkg = 'net/minecraft/client/'
+        if classname in ['net.minecraft.client.Minecraft', 'net.minecraft.client.MinecraftApplet']: pkg = 'net/minecraft/client/'
         if classname in ['MinecraftServer']:              pkg = 'net/minecraft/server/'
         print ('+ Normalizing mapping tables for %s%s.'%(pkg,classname))          
         match_table = current_project.normalize_mapping_table('%s%s'%(pkg,classname), parsed_match)
@@ -84,7 +84,7 @@ def main(options, args):
     for classname in class_list:
         pkg = ''
         if len(classname.split('/')) == 1:                pkg = 'net/minecraft/src/'
-        if classname in ['Minecraft', 'MinecraftApplet']: pkg = 'net/minecraft/client/'
+        if classname in ['net.minecraft.client.Minecraft', 'net.minecraft.client.MinecraftApplet']: pkg = 'net/minecraft/client/'
         if classname in ['MinecraftServer']:              pkg = 'net/minecraft/server/'        
         current_project.apply_changes ('%s%s'%(pkg,classname))
         current_project.remap_packages('%s%s'%(pkg,classname), match_table)

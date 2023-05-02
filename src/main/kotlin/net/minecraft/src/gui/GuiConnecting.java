@@ -1,8 +1,13 @@
-package net.minecraft.src.gui;// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
+package net.minecraft.src.gui;
+
+// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) braces deadcode 
 
-import Minecraft;
+import net.minecraft.client.Minecraft;
+import net.minecraft.src.StringTranslate;
+import net.minecraft.src.networking.NetClientHandler;
+import net.minecraft.src.threading.ThreadConnectToServer;
 
 public class GuiConnecting extends GuiScreen
 {
@@ -62,17 +67,17 @@ public class GuiConnecting extends GuiScreen
         super.drawScreen(i, j, f);
     }
 
-    static NetClientHandler setNetClientHandler(GuiConnecting guiconnecting, NetClientHandler netclienthandler)
+    public static NetClientHandler setNetClientHandler(GuiConnecting guiconnecting, NetClientHandler netclienthandler)
     {
         return guiconnecting.clientHandler = netclienthandler;
     }
 
-    static boolean isCancelled(GuiConnecting guiconnecting)
+    public static boolean isCancelled(GuiConnecting guiconnecting)
     {
         return guiconnecting.cancelled;
     }
 
-    static NetClientHandler getNetClientHandler(GuiConnecting guiconnecting)
+    public static NetClientHandler getNetClientHandler(GuiConnecting guiconnecting)
     {
         return guiconnecting.clientHandler;
     }

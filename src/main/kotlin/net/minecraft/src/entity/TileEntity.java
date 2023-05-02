@@ -4,6 +4,7 @@ package net.minecraft.src.entity;// Decompiled by Jad v1.5.8g. Copyright 2001 Pa
 
 import net.minecraft.src.Block;
 import net.minecraft.src.block.World;
+import net.minecraft.src.nbt.NBTTagCompound;
 
 import java.util.HashMap;
 import java.util.Map;

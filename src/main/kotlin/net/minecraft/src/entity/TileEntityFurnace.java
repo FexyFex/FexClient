@@ -1,4 +1,6 @@
-package net.minecraft.src.entity;// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
+package net.minecraft.src.entity;
+
+// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) braces deadcode 
 
@@ -6,10 +8,13 @@ package net.minecraft.src.entity;// Decompiled by Jad v1.5.8g. Copyright 2001 Pa
 import net.minecraft.src.Block;
 import net.minecraft.src.block.BlockFurnace;
 import net.minecraft.src.Material;
+import net.minecraft.src.inventory.IInventory;
+import net.minecraft.src.item.Item;
+import net.minecraft.src.item.ItemStack;
+import net.minecraft.src.nbt.NBTTagCompound;
+import net.minecraft.src.nbt.NBTTagList;
 
-public class TileEntityFurnace extends TileEntity
-    implements IInventory
-{
+public class TileEntityFurnace extends TileEntity implements IInventory {
 
     public TileEntityFurnace()
     {
@@ -73,7 +78,7 @@ public class TileEntityFurnace extends TileEntity
         for(int i = 0; i < nbttaglist.tagCount(); i++)
         {
             NBTTagCompound nbttagcompound1 = (NBTTagCompound)nbttaglist.tagAt(i);
-            byte byte0 = nbttagcompound1.getByte("Slot");
+            byte byte0 = nbttagcompound1.getByte("net.minecraft.src.inventory.Slot");
             if(byte0 >= 0 && byte0 < furnaceItemStacks.length)
             {
                 furnaceItemStacks[byte0] = new ItemStack(nbttagcompound1);
@@ -96,7 +101,7 @@ public class TileEntityFurnace extends TileEntity
             if(furnaceItemStacks[i] != null)
             {
                 NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-                nbttagcompound1.setByte("Slot", (byte)i);
+                nbttagcompound1.setByte("net.minecraft.src.inventory.Slot", (byte)i);
                 furnaceItemStacks[i].writeToNBT(nbttagcompound1);
                 nbttaglist.setTag(nbttagcompound1);
             }

@@ -4,6 +4,7 @@ package net.minecraft.src.block;// Decompiled by Jad v1.5.8g. Copyright 2001 Pav
 
 import net.minecraft.src.AxisAlignedBB;
 import net.minecraft.src.Block;
+import net.minecraft.src.IBlockAccess;
 import net.minecraft.src.Material;
 
 import java.util.Random;
@@ -11,7 +12,7 @@ import java.util.Random;
 public class BlockFire extends Block
 {
 
-    protected BlockFire(int i, int j)
+    public BlockFire(int i, int j)
     {
         super(i, j, Material.fire);
         chanceToEncourageFire = new int[256];

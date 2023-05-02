@@ -1,4 +1,6 @@
-package net.minecraft.src.crafting;// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
+package net.minecraft.src.crafting;
+
+// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) braces deadcode 
 
@@ -6,6 +8,11 @@ package net.minecraft.src.crafting;// Decompiled by Jad v1.5.8g. Copyright 2001 
 import net.minecraft.src.Block;
 import net.minecraft.src.block.World;
 import net.minecraft.src.entity.EntityPlayer;
+import net.minecraft.src.inventory.IInventory;
+import net.minecraft.src.inventory.InventoryPlayer;
+import net.minecraft.src.inventory.Slot;
+import net.minecraft.src.inventory.SlotCrafting;
+import net.minecraft.src.item.ItemStack;
 
 public class CraftingInventoryWorkbenchCB extends CraftingInventoryCB
 {

@@ -1,10 +1,14 @@
-package net.minecraft.src.gui;// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
+package net.minecraft.src.gui;
+
+// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) braces deadcode 
 
 import net.minecraft.src.Block;
 import net.minecraft.src.entity.TileEntityRenderer;
 import net.minecraft.src.entity.TileEntitySign;
+import net.minecraft.src.gui.font.FontAllowedCharacters;
+import net.minecraft.src.packet.Packet130;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 

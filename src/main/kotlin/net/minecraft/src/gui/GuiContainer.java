@@ -2,6 +2,13 @@ package net.minecraft.src.gui;// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) braces deadcode 
 
+import net.minecraft.src.StringTranslate;
+import net.minecraft.src.crafting.CraftingInventoryCB;
+import net.minecraft.src.inventory.InventoryPlayer;
+import net.minecraft.src.inventory.Slot;
+import net.minecraft.src.item.ItemStack;
+import net.minecraft.src.rendering.RenderHelper;
+import net.minecraft.src.rendering.RenderItem;
 import org.lwjgl.opengl.GL11;
 
 public abstract class GuiContainer extends GuiScreen

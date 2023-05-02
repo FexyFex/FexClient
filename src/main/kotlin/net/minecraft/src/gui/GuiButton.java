@@ -1,20 +1,20 @@
-package net.minecraft.src.gui;// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
+package net.minecraft.src.gui;
+
+// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) braces deadcode 
 
-import Minecraft;
+import net.minecraft.client.Minecraft;
+import net.minecraft.src.rendering.FontRenderer;
 import org.lwjgl.opengl.GL11;
 
-public class GuiButton extends Gui
-{
+public class GuiButton extends Gui {
 
-    public GuiButton(int i, int j, int k, String s)
-    {
+    public GuiButton(int i, int j, int k, String s) {
         this(i, j, k, 200, 20, s);
     }
 
-    public GuiButton(int i, int j, int k, int l, int i1, String s)
-    {
+    public GuiButton(int i, int j, int k, int l, int i1, String s) {
         width = 200;
         height = 20;
         enabled = true;
@@ -27,24 +27,18 @@ public class GuiButton extends Gui
         displayString = s;
     }
 
-    protected int getHoverState(boolean flag)
-    {
+    protected int getHoverState(boolean flag) {
         byte byte0 = 1;
-        if(!enabled)
-        {
+        if (!enabled) {
             byte0 = 0;
-        } else
-        if(flag)
-        {
+        } else if (flag) {
             byte0 = 2;
         }
         return byte0;
     }
 
-    public void drawButton(Minecraft minecraft, int i, int j)
-    {
-        if(!enabled2)
-        {
+    public void drawButton(Minecraft minecraft, int i, int j) {
+        if (!enabled2) {
             return;
         }
         FontRenderer fontrenderer = minecraft.fontRenderer;
@@ -55,29 +49,22 @@ public class GuiButton extends Gui
         drawTexturedModalRect(xPosition, yPosition, 0, 46 + k * 20, width / 2, height);
         drawTexturedModalRect(xPosition + width / 2, yPosition, 200 - width / 2, 46 + k * 20, width / 2, height);
         mouseDragged(minecraft, i, j);
-        if(!enabled)
-        {
+        if (!enabled) {
             drawCenteredString(fontrenderer, displayString, xPosition + width / 2, yPosition + (height - 8) / 2, 0xffa0a0a0);
-        } else
-        if(flag)
-        {
+        } else if (flag) {
             drawCenteredString(fontrenderer, displayString, xPosition + width / 2, yPosition + (height - 8) / 2, 0xffffa0);
-        } else
-        {
+        } else {
             drawCenteredString(fontrenderer, displayString, xPosition + width / 2, yPosition + (height - 8) / 2, 0xe0e0e0);
         }
     }
 
-    protected void mouseDragged(Minecraft minecraft, int i, int j)
-    {
+    protected void mouseDragged(Minecraft minecraft, int i, int j) {
     }
 
-    public void mouseReleased(int i, int j)
-    {
+    public void mouseReleased(int i, int j) {
     }
 
-    public boolean mousePressed(Minecraft minecraft, int i, int j)
-    {
+    public boolean mousePressed(Minecraft minecraft, int i, int j) {
         return enabled && i >= xPosition && j >= yPosition && i < xPosition + width && j < yPosition + height;
     }
 

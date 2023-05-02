@@ -11,11 +11,11 @@ if NOT EXIST "%MCPLOGDIR%"     mkdir "%MCPLOGDIR%"
 if NOT EXIST "%MCREOBDIR%\net\minecraft\client" mkdir "%MCREOBDIR%\net\minecraft\client"
 if NOT EXIST "%MCSREOBDIR%\net\minecraft\server" mkdir "%MCSREOBDIR%\net\minecraft\server"
 
-echo === Minecraft Coder Pack %MCPVERSION% === >"%MCPREOBLOG%"
+echo === net.minecraft.client.Minecraft Coder Pack %MCPVERSION% === >"%MCPREOBLOG%"
 
 echo MCP %MCPVERSION% running in %MCPDIR%
 
-if exist "%MCBIN%\net\minecraft\client\Minecraft.class" (
+if exist "%MCBIN%\net\minecraft\client\net.minecraft.client.Minecraft.class" (
     echo + Obfuscating client.
     echo + Obfuscating client. >>"%MCPREOBLOG%"
     "%MCPOBFUSC%" -c "%MCPCONFDIR%\client_obfuscation.txt" -d "%MCREOBSCRIPT%" -i "%MCBIN%" -o "%MCREOBDIR%" >>"%MCPREOBLOG%"

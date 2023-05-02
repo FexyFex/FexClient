@@ -2,6 +2,7 @@ package net.minecraft.src.world.chunk;// Decompiled by Jad v1.5.8g. Copyright 20
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) braces deadcode 
 
+import net.minecraft.src.IProgressUpdate;
 import net.minecraft.src.block.World;
 
 import java.util.*;

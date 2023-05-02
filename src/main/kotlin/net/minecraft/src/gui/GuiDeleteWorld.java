@@ -2,6 +2,7 @@ package net.minecraft.src.gui;// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) braces deadcode 
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.src.block.World;
 
 public class GuiDeleteWorld extends GuiSelectWorld

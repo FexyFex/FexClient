@@ -1,14 +1,16 @@
-package net.minecraft.src.gui;// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
+package net.minecraft.src.gui;
+
+// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) braces deadcode 
 
+import net.minecraft.src.crafting.CraftingInventoryChestCB;
+import net.minecraft.src.inventory.IInventory;
 import org.lwjgl.opengl.GL11;
 
-public class GuiChest extends GuiContainer
-{
+public class GuiChest extends GuiContainer {
 
-    public GuiChest(IInventory iinventory, IInventory iinventory1)
-    {
+    public GuiChest(IInventory iinventory, IInventory iinventory1) {
         super(new CraftingInventoryChestCB(iinventory, iinventory1));
         field_980_m = 0;
         upperChestInventory = iinventory;
@@ -20,14 +22,12 @@ public class GuiChest extends GuiContainer
         ySize = i + field_980_m * 18;
     }
 
-    protected void drawGuiContainerForegroundLayer()
-    {
+    protected void drawGuiContainerForegroundLayer() {
         fontRenderer.drawString(lowerChestInventory.getInvName(), 8, 6, 0x404040);
         fontRenderer.drawString(upperChestInventory.getInvName(), 8, (ySize - 96) + 2, 0x404040);
     }
 
-    protected void drawGuiContainerBackgroundLayer(float f)
-    {
+    protected void drawGuiContainerBackgroundLayer(float f) {
         int i = mc.renderEngine.getTexture("/gui/container.png");
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         mc.renderEngine.bindTexture(i);

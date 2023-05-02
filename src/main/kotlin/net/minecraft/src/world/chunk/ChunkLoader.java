@@ -1,108 +1,91 @@
-package net.minecraft.src.world.chunk;// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
+package net.minecraft.src.world.chunk;
+
+// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) braces deadcode 
 
+import net.minecraft.src.CompressedStreamTools;
+import net.minecraft.src.NibbleArray;
 import net.minecraft.src.block.World;
 import net.minecraft.src.entity.Entity;
 import net.minecraft.src.entity.EntityList;
+import net.minecraft.src.entity.TileEntity;
+import net.minecraft.src.nbt.NBTTagCompound;
+import net.minecraft.src.nbt.NBTTagList;
 
 import java.io.*;
 import java.util.*;
 
-public class ChunkLoader
-    implements IChunkLoader
-{
-
-    public ChunkLoader(File file, boolean flag)
-    {
+public class ChunkLoader implements IChunkLoader {
+    public ChunkLoader(File file, boolean flag) {
         saveDir = file;
         createIfNecessary = flag;
     }
 
-    private File chunkFileForXZ(int i, int j)
-    {
+    private File chunkFileForXZ(int i, int j) {
         String s = (new StringBuilder()).append("c.").append(Integer.toString(i, 36)).append(".").append(Integer.toString(j, 36)).append(".dat").toString();
         String s1 = Integer.toString(i & 0x3f, 36);
         String s2 = Integer.toString(j & 0x3f, 36);
         File file = new File(saveDir, s1);
-        if(!file.exists())
-        {
-            if(createIfNecessary)
-            {
+        if (!file.exists()) {
+            if (createIfNecessary) {
                 file.mkdir();
-            } else
-            {
+            } else {
                 return null;
             }
         }
         file = new File(file, s2);
-        if(!file.exists())
-        {
-            if(createIfNecessary)
-            {
+        if (!file.exists()) {
+            if (createIfNecessary) {
                 file.mkdir();
-            } else
-            {
+            } else {
                 return null;
             }
         }
         file = new File(file, s);
-        if(!file.exists() && !createIfNecessary)
-        {
+        if (!file.exists() && !createIfNecessary) {
             return null;
-        } else
-        {
+        } else {
             return file;
         }
     }
 
-    public Chunk loadChunk(World world, int i, int j) throws IOException
-    {
+    public Chunk loadChunk(World world, int i, int j) throws IOException {
         File file = chunkFileForXZ(i, j);
-        if(file != null && file.exists())
-        {
-            try
-            {
+        if (file != null && file.exists()) {
+            try {
                 FileInputStream fileinputstream = new FileInputStream(file);
                 NBTTagCompound nbttagcompound = CompressedStreamTools.func_1138_a(fileinputstream);
-                if(!nbttagcompound.hasKey("Level"))
-                {
+                if (!nbttagcompound.hasKey("Level")) {
                     System.out.println((new StringBuilder()).append("net.minecraft.src.world.chunk.Chunk file at ").append(i).append(",").append(j).append(" is missing level data, skipping").toString());
                     return null;
                 }
-                if(!nbttagcompound.getCompoundTag("Level").hasKey("Blocks"))
-                {
+                if (!nbttagcompound.getCompoundTag("Level").hasKey("Blocks")) {
                     System.out.println((new StringBuilder()).append("net.minecraft.src.world.chunk.Chunk file at ").append(i).append(",").append(j).append(" is missing block data, skipping").toString());
                     return null;
                 }
                 Chunk chunk = loadChunkIntoWorldFromCompound(world, nbttagcompound.getCompoundTag("Level"));
-                if(!chunk.isAtLocation(i, j))
-                {
+                if (!chunk.isAtLocation(i, j)) {
                     System.out.println((new StringBuilder()).append("net.minecraft.src.world.chunk.Chunk file at ").append(i).append(",").append(j).append(" is in the wrong location; relocating. (Expected ").append(i).append(", ").append(j).append(", got ").append(chunk.xPosition).append(", ").append(chunk.zPosition).append(")").toString());
                     nbttagcompound.setInteger("xPos", i);
                     nbttagcompound.setInteger("zPos", j);
                     chunk = loadChunkIntoWorldFromCompound(world, nbttagcompound.getCompoundTag("Level"));
                 }
                 return chunk;
-            }
-            catch(Exception exception)
-            {
+            } catch (Exception exception) {
                 exception.printStackTrace();
             }
         }
         return null;
     }
 
-    public void saveChunk(World world, Chunk chunk) throws IOException
-    {
+    public void saveChunk(World world, Chunk chunk) throws IOException {
         world.func_663_l();
         File file = chunkFileForXZ(chunk.xPosition, chunk.zPosition);
-        if(file.exists())
-        {
+        if (file.exists()) {
             world.sizeOnDisk -= file.length();
         }
-        try
-        {
+        try {
             File file1 = new File(saveDir, "tmp_chunk.dat");
             FileOutputStream fileoutputstream = new FileOutputStream(file1);
             NBTTagCompound nbttagcompound = new NBTTagCompound();
@@ -111,21 +94,17 @@ public class ChunkLoader
             storeChunkInCompound(chunk, world, nbttagcompound1);
             CompressedStreamTools.writeGzippedCompoundToOutputStream(nbttagcompound, fileoutputstream);
             fileoutputstream.close();
-            if(file.exists())
-            {
+            if (file.exists()) {
                 file.delete();
             }
             file1.renameTo(file);
             world.sizeOnDisk += file.length();
-        }
-        catch(Exception exception)
-        {
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
     }
 
-    public void storeChunkInCompound(Chunk chunk, World world, NBTTagCompound nbttagcompound)
-    {
+    public void storeChunkInCompound(Chunk chunk, World world, NBTTagCompound nbttagcompound) {
         world.func_663_l();
         nbttagcompound.setInteger("xPos", chunk.xPosition);
         nbttagcompound.setInteger("zPos", chunk.zPosition);
@@ -138,32 +117,27 @@ public class ChunkLoader
         nbttagcompound.setBoolean("TerrainPopulated", chunk.isTerrainPopulated);
         chunk.hasEntities = false;
         NBTTagList nbttaglist = new NBTTagList();
-label0:
-        for(int i = 0; i < chunk.entities.length; i++)
-        {
+        label0:
+        for (int i = 0; i < chunk.entities.length; i++) {
             Iterator iterator = chunk.entities[i].iterator();
-            do
-            {
-                if(!iterator.hasNext())
-                {
+            do {
+                if (!iterator.hasNext()) {
                     continue label0;
                 }
-                Entity entity = (Entity)iterator.next();
+                Entity entity = (Entity) iterator.next();
                 chunk.hasEntities = true;
                 NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-                if(entity.func_358_c(nbttagcompound1))
-                {
+                if (entity.func_358_c(nbttagcompound1)) {
                     nbttaglist.setTag(nbttagcompound1);
                 }
-            } while(true);
+            } while (true);
         }
 
         nbttagcompound.setTag("Entities", nbttaglist);
         NBTTagList nbttaglist1 = new NBTTagList();
         NBTTagCompound nbttagcompound2;
-        for(Iterator iterator1 = chunk.chunkTileEntityMap.values().iterator(); iterator1.hasNext(); nbttaglist1.setTag(nbttagcompound2))
-        {
-            TileEntity tileentity = (TileEntity)iterator1.next();
+        for (Iterator iterator1 = chunk.chunkTileEntityMap.values().iterator(); iterator1.hasNext(); nbttaglist1.setTag(nbttagcompound2)) {
+            TileEntity tileentity = (TileEntity) iterator1.next();
             nbttagcompound2 = new NBTTagCompound();
             tileentity.writeToNBT(nbttagcompound2);
         }
@@ -171,8 +145,7 @@ label0:
         nbttagcompound.setTag("TileEntities", nbttaglist1);
     }
 
-    public static Chunk loadChunkIntoWorldFromCompound(World world, NBTTagCompound nbttagcompound)
-    {
+    public static Chunk loadChunkIntoWorldFromCompound(World world, NBTTagCompound nbttagcompound) {
         int i = nbttagcompound.getInteger("xPos");
         int j = nbttagcompound.getInteger("zPos");
         Chunk chunk = new Chunk(world, i, j);
@@ -182,45 +155,36 @@ label0:
         chunk.blocklightMap = new NibbleArray(nbttagcompound.getByteArray("BlockLight"));
         chunk.heightMap = nbttagcompound.getByteArray("HeightMap");
         chunk.isTerrainPopulated = nbttagcompound.getBoolean("TerrainPopulated");
-        if(!chunk.data.isValid())
-        {
+        if (!chunk.data.isValid()) {
             chunk.data = new NibbleArray(chunk.blocks.length);
         }
-        if(chunk.heightMap == null || !chunk.skylightMap.isValid())
-        {
+        if (chunk.heightMap == null || !chunk.skylightMap.isValid()) {
             chunk.heightMap = new byte[256];
             chunk.skylightMap = new NibbleArray(chunk.blocks.length);
             chunk.func_1024_c();
         }
-        if(!chunk.blocklightMap.isValid())
-        {
+        if (!chunk.blocklightMap.isValid()) {
             chunk.blocklightMap = new NibbleArray(chunk.blocks.length);
             chunk.func_1014_a();
         }
         NBTTagList nbttaglist = nbttagcompound.getTagList("Entities");
-        if(nbttaglist != null)
-        {
-            for(int k = 0; k < nbttaglist.tagCount(); k++)
-            {
-                NBTTagCompound nbttagcompound1 = (NBTTagCompound)nbttaglist.tagAt(k);
+        if (nbttaglist != null) {
+            for (int k = 0; k < nbttaglist.tagCount(); k++) {
+                NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.tagAt(k);
                 Entity entity = EntityList.createEntityFromNBT(nbttagcompound1, world);
                 chunk.hasEntities = true;
-                if(entity != null)
-                {
+                if (entity != null) {
                     chunk.addEntity(entity);
                 }
             }
 
         }
         NBTTagList nbttaglist1 = nbttagcompound.getTagList("TileEntities");
-        if(nbttaglist1 != null)
-        {
-            for(int l = 0; l < nbttaglist1.tagCount(); l++)
-            {
-                NBTTagCompound nbttagcompound2 = (NBTTagCompound)nbttaglist1.tagAt(l);
+        if (nbttaglist1 != null) {
+            for (int l = 0; l < nbttaglist1.tagCount(); l++) {
+                NBTTagCompound nbttagcompound2 = (NBTTagCompound) nbttaglist1.tagAt(l);
                 TileEntity tileentity = TileEntity.createAndLoadEntity(nbttagcompound2);
-                if(tileentity != null)
-                {
+                if (tileentity != null) {
                     chunk.func_1001_a(tileentity);
                 }
             }
@@ -229,16 +193,13 @@ label0:
         return chunk;
     }
 
-    public void func_814_a()
-    {
+    public void func_814_a() {
     }
 
-    public void saveExtraData()
-    {
+    public void saveExtraData() {
     }
 
-    public void saveExtraChunkData(World world, Chunk chunk) throws IOException
-    {
+    public void saveExtraChunkData(World world, Chunk chunk) throws IOException {
     }
 
     private File saveDir;

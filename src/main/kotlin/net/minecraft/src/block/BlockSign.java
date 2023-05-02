@@ -1,17 +1,20 @@
-package net.minecraft.src.block;// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
+package net.minecraft.src.block;
+
+// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) braces deadcode 
 
 import net.minecraft.src.AxisAlignedBB;
+import net.minecraft.src.IBlockAccess;
 import net.minecraft.src.Material;
+import net.minecraft.src.entity.TileEntity;
+import net.minecraft.src.item.Item;
 
 import java.util.Random;
 
-public class BlockSign extends BlockContainer
-{
+public class BlockSign extends BlockContainer {
 
-    protected BlockSign(int i, Class class1, boolean flag)
-    {
+    public BlockSign(int i, Class class1, boolean flag) {
         super(i, Material.wood);
         isFreestanding = flag;
         blockIndexInTexture = 4;
@@ -21,21 +24,17 @@ public class BlockSign extends BlockContainer
         setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, f1, 0.5F + f);
     }
 
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int i, int j, int k)
-    {
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int i, int j, int k) {
         return null;
     }
 
-    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int i, int j, int k)
-    {
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int i, int j, int k) {
         setBlockBoundsBasedOnState(world, i, j, k);
         return super.getSelectedBoundingBoxFromPool(world, i, j, k);
     }
 
-    public void setBlockBoundsBasedOnState(IBlockAccess iblockaccess, int i, int j, int k)
-    {
-        if(isFreestanding)
-        {
+    public void setBlockBoundsBasedOnState(IBlockAccess iblockaccess, int i, int j, int k) {
+        if (isFreestanding) {
             return;
         }
         int l = iblockaccess.getBlockMetadata(i, j, k);
@@ -45,88 +44,67 @@ public class BlockSign extends BlockContainer
         float f3 = 1.0F;
         float f4 = 0.125F;
         setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-        if(l == 2)
-        {
+        if (l == 2) {
             setBlockBounds(f2, f, 1.0F - f4, f3, f1, 1.0F);
         }
-        if(l == 3)
-        {
+        if (l == 3) {
             setBlockBounds(f2, f, 0.0F, f3, f1, f4);
         }
-        if(l == 4)
-        {
+        if (l == 4) {
             setBlockBounds(1.0F - f4, f, f2, 1.0F, f1, f3);
         }
-        if(l == 5)
-        {
+        if (l == 5) {
             setBlockBounds(0.0F, f, f2, f4, f1, f3);
         }
     }
 
-    public int getRenderType()
-    {
+    public int getRenderType() {
         return -1;
     }
 
-    public boolean renderAsNormalBlock()
-    {
+    public boolean renderAsNormalBlock() {
         return false;
     }
 
-    public boolean isOpaqueCube()
-    {
+    public boolean isOpaqueCube() {
         return false;
     }
 
-    protected TileEntity SetBlockEntity()
-    {
-        try
-        {
-            return (TileEntity)signEntityClass.newInstance();
-        }
-        catch(Exception exception)
-        {
+    protected TileEntity SetBlockEntity() {
+        try {
+            return (TileEntity) signEntityClass.newInstance();
+        } catch (Exception exception) {
             throw new RuntimeException(exception);
         }
     }
 
-    public int idDropped(int i, Random random)
-    {
+    public int idDropped(int i, Random random) {
         return Item.sign.shiftedIndex;
     }
 
-    public void onNeighborBlockChange(World world, int i, int j, int k, int l)
-    {
+    public void onNeighborBlockChange(World world, int i, int j, int k, int l) {
         boolean flag = false;
-        if(isFreestanding)
-        {
-            if(!world.getBlockMaterial(i, j - 1, k).func_878_a())
-            {
+        if (isFreestanding) {
+            if (!world.getBlockMaterial(i, j - 1, k).func_878_a()) {
                 flag = true;
             }
-        } else
-        {
+        } else {
             int i1 = world.getBlockMetadata(i, j, k);
             flag = true;
-            if(i1 == 2 && world.getBlockMaterial(i, j, k + 1).func_878_a())
-            {
+            if (i1 == 2 && world.getBlockMaterial(i, j, k + 1).func_878_a()) {
                 flag = false;
             }
-            if(i1 == 3 && world.getBlockMaterial(i, j, k - 1).func_878_a())
-            {
+            if (i1 == 3 && world.getBlockMaterial(i, j, k - 1).func_878_a()) {
                 flag = false;
             }
-            if(i1 == 4 && world.getBlockMaterial(i + 1, j, k).func_878_a())
-            {
+            if (i1 == 4 && world.getBlockMaterial(i + 1, j, k).func_878_a()) {
                 flag = false;
             }
-            if(i1 == 5 && world.getBlockMaterial(i - 1, j, k).func_878_a())
-            {
+            if (i1 == 5 && world.getBlockMaterial(i - 1, j, k).func_878_a()) {
                 flag = false;
             }
         }
-        if(flag)
-        {
+        if (flag) {
             dropBlockAsItem(world, i, j, k, world.getBlockMetadata(i, j, k));
             world.setBlockWithNotify(i, j, k, 0);
         }

@@ -1,90 +1,73 @@
-package net.minecraft.src.block;// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
+package net.minecraft.src.block;
+
+// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) braces deadcode 
 
 import net.minecraft.src.Block;
+import net.minecraft.src.IBlockAccess;
 import net.minecraft.src.Material;
 
 import java.util.Random;
 
-public class BlockStep extends Block
-{
-
-    public BlockStep(int i, boolean flag)
-    {
+public class BlockStep extends Block {
+    public BlockStep(int i, boolean flag) {
         super(i, 6, Material.rock);
         field_469_a = flag;
-        if(!flag)
-        {
+        if (!flag) {
             setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
         }
         setLightOpacity(255);
     }
 
-    public int getBlockTextureFromSide(int i)
-    {
+    public int getBlockTextureFromSide(int i) {
         return i > 1 ? 5 : 6;
     }
 
-    public boolean isOpaqueCube()
-    {
+    public boolean isOpaqueCube() {
         return field_469_a;
     }
 
-    public void onNeighborBlockChange(World world, int i, int j, int k, int l)
-    {
-        if(this != stairSingle)
-        {
+    public void onNeighborBlockChange(World world, int i, int j, int k, int l) {
+        if (this != stairSingle) {
             return;
-        } else
-        {
+        } else {
             return;
         }
     }
 
-    public void onBlockAdded(World world, int i, int j, int k)
-    {
-        if(this != stairSingle)
-        {
+    public void onBlockAdded(World world, int i, int j, int k) {
+        if (this != stairSingle) {
             super.onBlockAdded(world, i, j, k);
         }
         int l = world.getBlockId(i, j - 1, k);
-        if(l == stairSingle.blockID)
-        {
+        if (l == stairSingle.blockID) {
             world.setBlockWithNotify(i, j, k, 0);
             world.setBlockWithNotify(i, j - 1, k, stairDouble.blockID);
         }
     }
 
-    public int idDropped(int i, Random random)
-    {
+    public int idDropped(int i, Random random) {
         return stairSingle.blockID;
     }
 
-    public boolean renderAsNormalBlock()
-    {
+    public boolean renderAsNormalBlock() {
         return field_469_a;
     }
 
-    public boolean shouldSideBeRendered(IBlockAccess iblockaccess, int i, int j, int k, int l)
-    {
-        if(this != stairSingle)
-        {
+    public boolean shouldSideBeRendered(IBlockAccess iblockaccess, int i, int j, int k, int l) {
+        if (this != stairSingle) {
             super.shouldSideBeRendered(iblockaccess, i, j, k, l);
         }
-        if(l == 1)
-        {
+        if (l == 1) {
             return true;
         }
-        if(!super.shouldSideBeRendered(iblockaccess, i, j, k, l))
-        {
+        if (!super.shouldSideBeRendered(iblockaccess, i, j, k, l)) {
             return false;
         }
-        if(l == 0)
-        {
+        if (l == 0) {
             return true;
-        } else
-        {
+        } else {
             return iblockaccess.getBlockId(i, j, k) != blockID;
         }
     }

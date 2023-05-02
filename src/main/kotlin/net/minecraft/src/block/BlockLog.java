@@ -10,7 +10,7 @@ import java.util.Random;
 public class BlockLog extends Block
 {
 
-    protected BlockLog(int i)
+    public BlockLog(int i)
     {
         super(i, Material.wood);
         blockIndexInTexture = 20;

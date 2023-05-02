@@ -34,7 +34,7 @@ public class Start
 		for(int i = 0; i < count; ++i)
 		{
 			// compare thread name to find the main thread
-			if(threads[i].getName().equals("Minecraft main thread"))
+			if(threads[i].getName().equals("net.minecraft.client.Minecraft main thread"))
 			{
 				try
 				{

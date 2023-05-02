@@ -5,6 +5,8 @@ package net.minecraft.src.entity;// Decompiled by Jad v1.5.8g. Copyright 2001 Pa
 import java.util.*;
 
 import net.minecraft.src.block.World;
+import net.minecraft.src.rendering.FontRenderer;
+import net.minecraft.src.rendering.RenderEngine;
 import org.lwjgl.opengl.GL11;
 
 public class TileEntityRenderer

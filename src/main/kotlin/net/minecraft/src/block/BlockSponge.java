@@ -9,7 +9,7 @@ import net.minecraft.src.Material;
 public class BlockSponge extends Block
 {
 
-    protected BlockSponge(int i)
+    public BlockSponge(int i)
     {
         super(i, Material.sponge);
         blockIndexInTexture = 48;

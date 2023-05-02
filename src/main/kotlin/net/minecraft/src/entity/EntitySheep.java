@@ -4,26 +4,21 @@ package net.minecraft.src.entity;// Decompiled by Jad v1.5.8g. Copyright 2001 Pa
 
 import net.minecraft.src.Block;
 import net.minecraft.src.block.World;
+import net.minecraft.src.nbt.NBTTagCompound;
 
-public class EntitySheep extends EntityAnimals
-{
-
-    public EntitySheep(World world)
-    {
+public class EntitySheep extends EntityAnimals {
+    public EntitySheep(World world) {
         super(world);
         sheared = false;
         texture = "/mob/sheep.png";
         setSize(0.9F, 1.3F);
     }
 
-    public boolean attackEntityFrom(Entity entity, int i)
-    {
-        if(!worldObj.multiplayerWorld && !sheared && (entity instanceof EntityLiving))
-        {
+    public boolean attackEntityFrom(Entity entity, int i) {
+        if (!worldObj.multiplayerWorld && !sheared && (entity instanceof EntityLiving)) {
             sheared = true;
             int j = 1 + rand.nextInt(3);
-            for(int k = 0; k < j; k++)
-            {
+            for (int k = 0; k < j; k++) {
                 EntityItem entityitem = dropItemWithOffset(Block.cloth.blockID, 1, 1.0F);
                 entityitem.motionY += rand.nextFloat() * 0.05F;
                 entityitem.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
@@ -34,30 +29,25 @@ public class EntitySheep extends EntityAnimals
         return super.attackEntityFrom(entity, i);
     }
 
-    public void writeEntityToNBT(NBTTagCompound nbttagcompound)
-    {
+    public void writeEntityToNBT(NBTTagCompound nbttagcompound) {
         super.writeEntityToNBT(nbttagcompound);
         nbttagcompound.setBoolean("Sheared", sheared);
     }
 
-    public void readEntityFromNBT(NBTTagCompound nbttagcompound)
-    {
+    public void readEntityFromNBT(NBTTagCompound nbttagcompound) {
         super.readEntityFromNBT(nbttagcompound);
         sheared = nbttagcompound.getBoolean("Sheared");
     }
 
-    protected String getLivingSound()
-    {
+    protected String getLivingSound() {
         return "mob.sheep";
     }
 
-    protected String getHurtSound()
-    {
+    protected String getHurtSound() {
         return "mob.sheep";
     }
 
-    protected String getDeathSound()
-    {
+    protected String getDeathSound() {
         return "mob.sheep";
     }
 

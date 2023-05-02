@@ -3,7 +3,7 @@ package net.minecraft.src.canvas;// Decompiled by Jad v1.5.8g. Copyright 2001 Pa
 // Decompiler options: packimports(3) braces deadcode 
 
 import java.awt.Canvas;
-import MinecraftApplet;
+import net.minecraft.client.MinecraftApplet;
 
 public class CanvasMinecraftApplet extends Canvas
 {

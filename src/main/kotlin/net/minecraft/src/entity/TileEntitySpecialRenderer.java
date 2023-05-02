@@ -1,31 +1,30 @@
-package net.minecraft.src.entity;// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
+package net.minecraft.src.entity;
+
+// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) braces deadcode 
 
 
-public abstract class TileEntitySpecialRenderer
-{
+import net.minecraft.src.rendering.FontRenderer;
+import net.minecraft.src.rendering.RenderEngine;
 
-    public TileEntitySpecialRenderer()
-    {
-    }
+public abstract class TileEntitySpecialRenderer {
 
-    public abstract void renderTileEntityAt(TileEntity tileentity, double d, double d1, double d2, 
-            float f);
+    public TileEntitySpecialRenderer() {}
 
-    protected void bindTextureByName(String s)
-    {
+    public abstract void renderTileEntityAt(TileEntity tileentity, double d, double d1, double d2,
+                                            float f);
+
+    protected void bindTextureByName(String s) {
         RenderEngine renderengine = tileEntityRenderer.renderEngine;
         renderengine.bindTexture(renderengine.getTexture(s));
     }
 
-    public void setTileEntityRenderer(TileEntityRenderer tileentityrenderer)
-    {
+    public void setTileEntityRenderer(TileEntityRenderer tileentityrenderer) {
         tileEntityRenderer = tileentityrenderer;
     }
 
-    public FontRenderer getFontRenderer()
-    {
+    public FontRenderer getFontRenderer() {
         return tileEntityRenderer.getFontRenderer();
     }
 

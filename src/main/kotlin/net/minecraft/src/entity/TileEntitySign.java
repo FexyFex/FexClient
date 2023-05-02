@@ -3,6 +3,8 @@ package net.minecraft.src.entity;// Decompiled by Jad v1.5.8g. Copyright 2001 Pa
 // Decompiler options: packimports(3) braces deadcode 
 
 
+import net.minecraft.src.nbt.NBTTagCompound;
+
 public class TileEntitySign extends TileEntity
 {
 

@@ -16,12 +16,12 @@ if NOT EXIST "%MCPTEMPDIR%" mkdir "%MCPTEMPDIR%"
 if NOT EXIST "%MCPSOURCESDIR%" mkdir "%MCPSOURCESDIR%"
 if NOT EXIST "%MCPLOGDIR%" mkdir "%MCPLOGDIR%"
 
-echo === Minecraft Coder Pack %MCPVERSION% === >"%MCPLOG%"
+echo === net.minecraft.client.Minecraft Coder Pack %MCPVERSION% === >"%MCPLOG%"
 
 echo MCP %MCPVERSION% running in %MCPDIR%
 echo %MCJAR%
 if exist "%MCJAR%" (
-    if exist "%MCJADOUT%\net\minecraft\client\Minecraft.java" (
+    if exist "%MCJADOUT%\net\minecraft\client\net.minecraft.client.Minecraft.java" (
         echo *** minecraft.jar already decompiled, run cleanup.bat
         echo *** minecraft.jar already decompiled >>"%MCPLOG%"
         goto skip_mc

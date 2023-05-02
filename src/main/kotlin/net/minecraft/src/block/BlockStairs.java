@@ -5,16 +5,17 @@ package net.minecraft.src.block;// Decompiled by Jad v1.5.8g. Copyright 2001 Pav
 import net.minecraft.src.AxisAlignedBB;
 import net.minecraft.src.Block;
 import net.minecraft.src.IBlockAccess;
-import net.minecraft.src.Vec3D;
+import net.minecraft.src.datatype.Vec3D;
 import net.minecraft.src.entity.Entity;
+import net.minecraft.src.entity.EntityLiving;
 import net.minecraft.src.entity.EntityPlayer;
+import net.minecraft.src.helpers.MathHelper;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 public class BlockStairs extends Block {
-
-    protected BlockStairs(int i, Block block) {
+    public BlockStairs(int i, Block block) {
         super(i, block.blockIndexInTexture, block.blockMaterial);
         modelBlock = block;
         setHardness(block.blockHardness);

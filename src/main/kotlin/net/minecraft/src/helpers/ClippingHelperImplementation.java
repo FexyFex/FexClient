@@ -1,29 +1,27 @@
-package net.minecraft.src.helpers;// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
+package net.minecraft.src.helpers;
+
+// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) braces deadcode 
 
 import java.nio.FloatBuffer;
 
+import net.minecraft.src.opengl.GLAllocation;
 import org.lwjgl.opengl.GL11;
 
-public class ClippingHelperImplementation extends ClippingHelper
-{
-
-    public ClippingHelperImplementation()
-    {
+public class ClippingHelperImplementation extends ClippingHelper {
+    public ClippingHelperImplementation() {
         projectionMatrixBuffer = GLAllocation.createDirectFloatBuffer(16);
         modelviewMatrixBuffer = GLAllocation.createDirectFloatBuffer(16);
         unusedFloatBuffer = GLAllocation.createDirectFloatBuffer(16);
     }
 
-    public static ClippingHelper getInstance()
-    {
+    public static ClippingHelper getInstance() {
         instance.init();
         return instance;
     }
 
-    private void normalize(float af[][], int i)
-    {
+    private void normalize(float af[][], int i) {
         float f = MathHelper.sqrt_float(af[i][0] * af[i][0] + af[i][1] * af[i][1] + af[i][2] * af[i][2]);
         af[i][0] /= f;
         af[i][1] /= f;
@@ -31,8 +29,7 @@ public class ClippingHelperImplementation extends ClippingHelper
         af[i][3] /= f;
     }
 
-    private void init()
-    {
+    private void init() {
         projectionMatrixBuffer.clear();
         modelviewMatrixBuffer.clear();
         unusedFloatBuffer.clear();

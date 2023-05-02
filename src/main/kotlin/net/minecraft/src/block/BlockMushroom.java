@@ -6,7 +6,7 @@ package net.minecraft.src.block;// Decompiled by Jad v1.5.8g. Copyright 2001 Pav
 public class BlockMushroom extends BlockFlower
 {
 
-    protected BlockMushroom(int i, int j)
+    public BlockMushroom(int i, int j)
     {
         super(i, j);
         float f = 0.2F;

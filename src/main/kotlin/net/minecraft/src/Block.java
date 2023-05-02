@@ -1,28 +1,32 @@
-package net.minecraft.src;// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
+package net.minecraft.src;
+// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) braces deadcode 
 
+import me.fexclient.Config;
+import net.minecraft.src.audio.StepSound;
+import net.minecraft.src.audio.StepSoundSand;
+import net.minecraft.src.audio.StepSoundStone;
 import net.minecraft.src.block.*;
-import net.minecraft.src.entity.Entity;
-import net.minecraft.src.entity.EntityItem;
-import net.minecraft.src.entity.EntityPlayer;
+import net.minecraft.src.datatype.MovingObjectPosition;
+import net.minecraft.src.datatype.Vec3D;
+import net.minecraft.src.entity.*;
+import net.minecraft.src.enums.EnumMobType;
+import net.minecraft.src.item.Item;
+import net.minecraft.src.item.ItemBlock;
+import net.minecraft.src.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Block
-{
-
-    protected Block(int i, Material material)
-    {
+public class Block {
+    protected Block(int i, Material material) {
         stepSound = soundPowderFootstep;
         field_357_bm = 1.0F;
         slipperiness = 0.6F;
-        if(blocksList[i] != null)
-        {
-            throw new IllegalArgumentException((new StringBuilder()).append("Slot ").append(i).append(" is already occupied by ").append(blocksList[i]).append(" when adding ").append(this).toString());
-        } else
-        {
+        if (blocksList[i] != null) {
+            throw new IllegalArgumentException((new StringBuilder()).append("net.minecraft.src.inventory.Slot ").append(i).append(" is already occupied by ").append(blocksList[i]).append(" when adding ").append(this).toString());
+        } else {
             blockMaterial = material;
             blocksList[i] = this;
             blockID = i;
@@ -35,68 +39,56 @@ public class Block
         }
     }
 
-    protected Block(int i, int j, Material material)
-    {
+    protected Block(int i, int j, Material material) {
         this(i, material);
         blockIndexInTexture = j;
     }
 
-    protected Block setStepSound(StepSound stepsound)
-    {
+    protected Block setStepSound(StepSound stepsound) {
         stepSound = stepsound;
         return this;
     }
 
-    protected Block setLightOpacity(int i)
-    {
+    protected Block setLightOpacity(int i) {
         lightOpacity[blockID] = i;
         return this;
     }
 
-    protected Block setLightValue(float f)
-    {
-        lightValue[blockID] = (int)(15F * f);
+    protected Block setLightValue(float f) {
+        lightValue[blockID] = (int) (15F * f);
         return this;
     }
 
-    protected Block setResistance(float f)
-    {
+    protected Block setResistance(float f) {
         blockResistance = f * 3F;
         return this;
     }
 
-    private boolean unusedMethod()
-    {
+    private boolean unusedMethod() {
         return false;
     }
 
-    public boolean renderAsNormalBlock()
-    {
+    public boolean renderAsNormalBlock() {
         return true;
     }
 
-    public int getRenderType()
-    {
+    public int getRenderType() {
         return 0;
     }
 
-    protected Block setHardness(float f)
-    {
+    protected Block setHardness(float f) {
         blockHardness = f;
-        if(blockResistance < f * 5F)
-        {
+        if (blockResistance < f * 5F) {
             blockResistance = f * 5F;
         }
         return this;
     }
 
-    protected void setTickOnLoad(boolean flag)
-    {
+    protected void setTickOnLoad(boolean flag) {
         tickOnLoad[blockID] = flag;
     }
 
-    public void setBlockBounds(float f, float f1, float f2, float f3, float f4, float f5)
-    {
+    public void setBlockBounds(float f, float f1, float f2, float f3, float f4, float f5) {
         minX = f;
         minY = f1;
         minZ = f2;
@@ -105,171 +97,137 @@ public class Block
         maxZ = f5;
     }
 
-    public float getBlockBrightness(IBlockAccess iblockaccess, int i, int j, int k)
-    {
-        return iblockaccess.getLightBrightness(i, j, k);
+    public float getBlockBrightness(IBlockAccess iblockaccess, int i, int j, int k) {
+        if (Config.INSTANCE.getUseGlobalBrightness()) {
+            return Config.INSTANCE.getGlobalBrightness();
+        } else {
+            return iblockaccess.getLightBrightness(i, j, k);
+        }
     }
 
-    public boolean shouldSideBeRendered(IBlockAccess iblockaccess, int i, int j, int k, int l)
-    {
-        if(l == 0 && minY > 0.0D)
-        {
+    public boolean shouldSideBeRendered(IBlockAccess iblockaccess, int i, int j, int k, int l) {
+        if (l == 0 && minY > 0.0D) {
             return true;
         }
-        if(l == 1 && maxY < 1.0D)
-        {
+        if (l == 1 && maxY < 1.0D) {
             return true;
         }
-        if(l == 2 && minZ > 0.0D)
-        {
+        if (l == 2 && minZ > 0.0D) {
             return true;
         }
-        if(l == 3 && maxZ < 1.0D)
-        {
+        if (l == 3 && maxZ < 1.0D) {
             return true;
         }
-        if(l == 4 && minX > 0.0D)
-        {
+        if (l == 4 && minX > 0.0D) {
             return true;
         }
-        if(l == 5 && maxX < 1.0D)
-        {
+        if (l == 5 && maxX < 1.0D) {
             return true;
-        } else
-        {
+        } else {
             return !iblockaccess.isBlockOpaqueCube(i, j, k);
         }
     }
 
-    public int getBlockTexture(IBlockAccess iblockaccess, int i, int j, int k, int l)
-    {
+    public int getBlockTexture(IBlockAccess iblockaccess, int i, int j, int k, int l) {
         return getBlockTextureFromSideAndMetadata(l, iblockaccess.getBlockMetadata(i, j, k));
     }
 
-    public int getBlockTextureFromSideAndMetadata(int i, int j)
-    {
+    public int getBlockTextureFromSideAndMetadata(int i, int j) {
         return getBlockTextureFromSide(i);
     }
 
-    public int getBlockTextureFromSide(int i)
-    {
+    public int getBlockTextureFromSide(int i) {
         return blockIndexInTexture;
     }
 
-    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int i, int j, int k)
-    {
-        return AxisAlignedBB.getBoundingBoxFromPool((double)i + minX, (double)j + minY, (double)k + minZ, (double)i + maxX, (double)j + maxY, (double)k + maxZ);
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int i, int j, int k) {
+        return AxisAlignedBB.getBoundingBoxFromPool((double) i + minX, (double) j + minY, (double) k + minZ, (double) i + maxX, (double) j + maxY, (double) k + maxZ);
     }
 
-    public void getCollidingBoundingBoxes(World world, int i, int j, int k, AxisAlignedBB axisalignedbb, ArrayList arraylist)
-    {
+    public void getCollidingBoundingBoxes(World world, int i, int j, int k, AxisAlignedBB axisalignedbb, ArrayList arraylist) {
         AxisAlignedBB axisalignedbb1 = getCollisionBoundingBoxFromPool(world, i, j, k);
-        if(axisalignedbb1 != null && axisalignedbb.intersectsWith(axisalignedbb1))
-        {
+        if (axisalignedbb1 != null && axisalignedbb.intersectsWith(axisalignedbb1)) {
             arraylist.add(axisalignedbb1);
         }
     }
 
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int i, int j, int k)
-    {
-        return AxisAlignedBB.getBoundingBoxFromPool((double)i + minX, (double)j + minY, (double)k + minZ, (double)i + maxX, (double)j + maxY, (double)k + maxZ);
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int i, int j, int k) {
+        return AxisAlignedBB.getBoundingBoxFromPool((double) i + minX, (double) j + minY, (double) k + minZ, (double) i + maxX, (double) j + maxY, (double) k + maxZ);
     }
 
-    public boolean isOpaqueCube()
-    {
+    public boolean isOpaqueCube() {
         return true;
     }
 
-    public boolean canCollideCheck(int i, boolean flag)
-    {
+    public boolean canCollideCheck(int i, boolean flag) {
         return isCollidable();
     }
 
-    public boolean isCollidable()
-    {
+    public boolean isCollidable() {
         return true;
     }
 
-    public void updateTick(World world, int i, int j, int k, Random random)
-    {
+    public void updateTick(World world, int i, int j, int k, Random random) {
     }
 
-    public void randomDisplayTick(World world, int i, int j, int k, Random random)
-    {
+    public void randomDisplayTick(World world, int i, int j, int k, Random random) {
     }
 
-    public void onBlockDestroyedByPlayer(World world, int i, int j, int k, int l)
-    {
+    public void onBlockDestroyedByPlayer(World world, int i, int j, int k, int l) {
     }
 
-    public void onNeighborBlockChange(World world, int i, int j, int k, int l)
-    {
+    public void onNeighborBlockChange(World world, int i, int j, int k, int l) {
     }
 
-    public int tickRate()
-    {
+    public int tickRate() {
         return 10;
     }
 
-    public void onBlockAdded(World world, int i, int j, int k)
-    {
+    public void onBlockAdded(World world, int i, int j, int k) {
     }
 
-    public void onBlockRemoval(World world, int i, int j, int k)
-    {
+    public void onBlockRemoval(World world, int i, int j, int k) {
     }
 
-    public int quantityDropped(Random random)
-    {
+    public int quantityDropped(Random random) {
         return 1;
     }
 
-    public int idDropped(int i, Random random)
-    {
+    public int idDropped(int i, Random random) {
         return blockID;
     }
 
-    public float blockStrength(EntityPlayer entityplayer)
-    {
-        if(blockHardness < 0.0F)
-        {
+    public float blockStrength(EntityPlayer entityplayer) {
+        if (blockHardness < 0.0F) {
             return 0.0F;
         }
-        if(!entityplayer.canHarvestBlock(this))
-        {
+        if (!entityplayer.canHarvestBlock(this)) {
             return 1.0F / blockHardness / 100F;
-        } else
-        {
+        } else {
             return entityplayer.getCurrentPlayerStrVsBlock(this) / blockHardness / 30F;
         }
     }
 
-    public void dropBlockAsItem(World world, int i, int j, int k, int l)
-    {
+    public void dropBlockAsItem(World world, int i, int j, int k, int l) {
         dropBlockAsItemWithChance(world, i, j, k, l, 1.0F);
     }
 
-    public void dropBlockAsItemWithChance(World world, int i, int j, int k, int l, float f)
-    {
-        if(world.multiplayerWorld)
-        {
+    public void dropBlockAsItemWithChance(World world, int i, int j, int k, int l, float f) {
+        if (world.multiplayerWorld) {
             return;
         }
         int i1 = quantityDropped(world.rand);
-        for(int j1 = 0; j1 < i1; j1++)
-        {
-            if(world.rand.nextFloat() > f)
-            {
+        for (int j1 = 0; j1 < i1; j1++) {
+            if (world.rand.nextFloat() > f) {
                 continue;
             }
             int k1 = idDropped(l, world.rand);
-            if(k1 > 0)
-            {
+            if (k1 > 0) {
                 float f1 = 0.7F;
-                double d = (double)(world.rand.nextFloat() * f1) + (double)(1.0F - f1) * 0.5D;
-                double d1 = (double)(world.rand.nextFloat() * f1) + (double)(1.0F - f1) * 0.5D;
-                double d2 = (double)(world.rand.nextFloat() * f1) + (double)(1.0F - f1) * 0.5D;
-                EntityItem entityitem = new EntityItem(world, (double)i + d, (double)j + d1, (double)k + d2, new ItemStack(k1));
+                double d = (double) (world.rand.nextFloat() * f1) + (double) (1.0F - f1) * 0.5D;
+                double d1 = (double) (world.rand.nextFloat() * f1) + (double) (1.0F - f1) * 0.5D;
+                double d2 = (double) (world.rand.nextFloat() * f1) + (double) (1.0F - f1) * 0.5D;
+                EntityItem entityitem = new EntityItem(world, (double) i + d, (double) j + d1, (double) k + d2, new ItemStack(k1));
                 entityitem.delayBeforeCanPickup = 10;
                 world.entityJoinedWorld(entityitem);
             }
@@ -277,13 +235,11 @@ public class Block
 
     }
 
-    public float getExplosionResistance(Entity entity)
-    {
+    public float getExplosionResistance(Entity entity) {
         return blockResistance / 5F;
     }
 
-    public MovingObjectPosition collisionRayTrace(World world, int i, int j, int k, Vec3D vec3d, Vec3D vec3d1)
-    {
+    public MovingObjectPosition collisionRayTrace(World world, int i, int j, int k, Vec3D vec3d, Vec3D vec3d1) {
         setBlockBoundsBasedOnState(world, i, j, k);
         vec3d = vec3d.addVector(-i, -j, -k);
         vec3d1 = vec3d1.addVector(-i, -j, -k);
@@ -293,221 +249,169 @@ public class Block
         Vec3D vec3d5 = vec3d.getIntermediateWithYValue(vec3d1, maxY);
         Vec3D vec3d6 = vec3d.getIntermediateWithZValue(vec3d1, minZ);
         Vec3D vec3d7 = vec3d.getIntermediateWithZValue(vec3d1, maxZ);
-        if(!isVecInsideYZBounds(vec3d2))
-        {
+        if (!isVecInsideYZBounds(vec3d2)) {
             vec3d2 = null;
         }
-        if(!isVecInsideYZBounds(vec3d3))
-        {
+        if (!isVecInsideYZBounds(vec3d3)) {
             vec3d3 = null;
         }
-        if(!isVecInsideXZBounds(vec3d4))
-        {
+        if (!isVecInsideXZBounds(vec3d4)) {
             vec3d4 = null;
         }
-        if(!isVecInsideXZBounds(vec3d5))
-        {
+        if (!isVecInsideXZBounds(vec3d5)) {
             vec3d5 = null;
         }
-        if(!isVecInsideXYBounds(vec3d6))
-        {
+        if (!isVecInsideXYBounds(vec3d6)) {
             vec3d6 = null;
         }
-        if(!isVecInsideXYBounds(vec3d7))
-        {
+        if (!isVecInsideXYBounds(vec3d7)) {
             vec3d7 = null;
         }
         Vec3D vec3d8 = null;
-        if(vec3d2 != null && (vec3d8 == null || vec3d.distanceTo(vec3d2) < vec3d.distanceTo(vec3d8)))
-        {
+        if (vec3d2 != null && (vec3d8 == null || vec3d.distanceTo(vec3d2) < vec3d.distanceTo(vec3d8))) {
             vec3d8 = vec3d2;
         }
-        if(vec3d3 != null && (vec3d8 == null || vec3d.distanceTo(vec3d3) < vec3d.distanceTo(vec3d8)))
-        {
+        if (vec3d3 != null && (vec3d8 == null || vec3d.distanceTo(vec3d3) < vec3d.distanceTo(vec3d8))) {
             vec3d8 = vec3d3;
         }
-        if(vec3d4 != null && (vec3d8 == null || vec3d.distanceTo(vec3d4) < vec3d.distanceTo(vec3d8)))
-        {
+        if (vec3d4 != null && (vec3d8 == null || vec3d.distanceTo(vec3d4) < vec3d.distanceTo(vec3d8))) {
             vec3d8 = vec3d4;
         }
-        if(vec3d5 != null && (vec3d8 == null || vec3d.distanceTo(vec3d5) < vec3d.distanceTo(vec3d8)))
-        {
+        if (vec3d5 != null && (vec3d8 == null || vec3d.distanceTo(vec3d5) < vec3d.distanceTo(vec3d8))) {
             vec3d8 = vec3d5;
         }
-        if(vec3d6 != null && (vec3d8 == null || vec3d.distanceTo(vec3d6) < vec3d.distanceTo(vec3d8)))
-        {
+        if (vec3d6 != null && (vec3d8 == null || vec3d.distanceTo(vec3d6) < vec3d.distanceTo(vec3d8))) {
             vec3d8 = vec3d6;
         }
-        if(vec3d7 != null && (vec3d8 == null || vec3d.distanceTo(vec3d7) < vec3d.distanceTo(vec3d8)))
-        {
+        if (vec3d7 != null && (vec3d8 == null || vec3d.distanceTo(vec3d7) < vec3d.distanceTo(vec3d8))) {
             vec3d8 = vec3d7;
         }
-        if(vec3d8 == null)
-        {
+        if (vec3d8 == null) {
             return null;
         }
         byte byte0 = -1;
-        if(vec3d8 == vec3d2)
-        {
+        if (vec3d8 == vec3d2) {
             byte0 = 4;
         }
-        if(vec3d8 == vec3d3)
-        {
+        if (vec3d8 == vec3d3) {
             byte0 = 5;
         }
-        if(vec3d8 == vec3d4)
-        {
+        if (vec3d8 == vec3d4) {
             byte0 = 0;
         }
-        if(vec3d8 == vec3d5)
-        {
+        if (vec3d8 == vec3d5) {
             byte0 = 1;
         }
-        if(vec3d8 == vec3d6)
-        {
+        if (vec3d8 == vec3d6) {
             byte0 = 2;
         }
-        if(vec3d8 == vec3d7)
-        {
+        if (vec3d8 == vec3d7) {
             byte0 = 3;
         }
         return new MovingObjectPosition(i, j, k, byte0, vec3d8.addVector(i, j, k));
     }
 
-    private boolean isVecInsideYZBounds(Vec3D vec3d)
-    {
-        if(vec3d == null)
-        {
+    private boolean isVecInsideYZBounds(Vec3D vec3d) {
+        if (vec3d == null) {
             return false;
-        } else
-        {
+        } else {
             return vec3d.yCoord >= minY && vec3d.yCoord <= maxY && vec3d.zCoord >= minZ && vec3d.zCoord <= maxZ;
         }
     }
 
-    private boolean isVecInsideXZBounds(Vec3D vec3d)
-    {
-        if(vec3d == null)
-        {
+    private boolean isVecInsideXZBounds(Vec3D vec3d) {
+        if (vec3d == null) {
             return false;
-        } else
-        {
+        } else {
             return vec3d.xCoord >= minX && vec3d.xCoord <= maxX && vec3d.zCoord >= minZ && vec3d.zCoord <= maxZ;
         }
     }
 
-    private boolean isVecInsideXYBounds(Vec3D vec3d)
-    {
-        if(vec3d == null)
-        {
+    private boolean isVecInsideXYBounds(Vec3D vec3d) {
+        if (vec3d == null) {
             return false;
-        } else
-        {
+        } else {
             return vec3d.xCoord >= minX && vec3d.xCoord <= maxX && vec3d.yCoord >= minY && vec3d.yCoord <= maxY;
         }
     }
 
-    public void onBlockDestroyedByExplosion(World world, int i, int j, int k)
-    {
+    public void onBlockDestroyedByExplosion(World world, int i, int j, int k) {
     }
 
-    public int getRenderBlockPass()
-    {
+    public int getRenderBlockPass() {
         return 0;
     }
 
-    public boolean canPlaceBlockAt(World world, int i, int j, int k)
-    {
+    public boolean canPlaceBlockAt(World world, int i, int j, int k) {
         int l = world.getBlockId(i, j, k);
         return l == 0 || blocksList[l].blockMaterial.getIsLiquid();
     }
 
-    public boolean blockActivated(World world, int i, int j, int k, EntityPlayer entityplayer)
-    {
+    public boolean blockActivated(World world, int i, int j, int k, EntityPlayer entityplayer) {
         return false;
     }
 
-    public void onEntityWalking(World world, int i, int j, int k, Entity entity)
-    {
+    public void onEntityWalking(World world, int i, int j, int k, Entity entity) {
     }
 
-    public void onBlockPlaced(World world, int i, int j, int k, int l)
-    {
+    public void onBlockPlaced(World world, int i, int j, int k, int l) {
     }
 
-    public void onBlockClicked(World world, int i, int j, int k, EntityPlayer entityplayer)
-    {
+    public void onBlockClicked(World world, int i, int j, int k, EntityPlayer entityplayer) {
     }
 
-    public void velocityToAddToEntity(World world, int i, int j, int k, Entity entity, Vec3D vec3d)
-    {
+    public void velocityToAddToEntity(World world, int i, int j, int k, Entity entity, Vec3D vec3d) {
     }
 
-    public void setBlockBoundsBasedOnState(IBlockAccess iblockaccess, int i, int j, int k)
-    {
+    public void setBlockBoundsBasedOnState(IBlockAccess iblockaccess, int i, int j, int k) {
     }
 
-    public int colorMultiplier(IBlockAccess iblockaccess, int i, int j, int k)
-    {
+    public int colorMultiplier(IBlockAccess iblockaccess, int i, int j, int k) {
         return 0xffffff;
     }
 
-    public boolean isPoweringTo(IBlockAccess iblockaccess, int i, int j, int k, int l)
-    {
+    public boolean isPoweringTo(IBlockAccess iblockaccess, int i, int j, int k, int l) {
         return false;
     }
 
-    public boolean canProvidePower()
-    {
+    public boolean canProvidePower() {
         return false;
     }
 
-    public void onEntityCollidedWithBlock(World world, int i, int j, int k, Entity entity)
-    {
+    public void onEntityCollidedWithBlock(World world, int i, int j, int k, Entity entity) {
     }
 
-    public boolean isIndirectlyPoweringTo(World world, int i, int j, int k, int l)
-    {
+    public boolean isIndirectlyPoweringTo(World world, int i, int j, int k, int l) {
         return false;
     }
 
-    public void func_237_e()
-    {
+    public void func_237_e() {
     }
 
-    public void harvestBlock(World world, int i, int j, int k, int l)
-    {
+    public void harvestBlock(World world, int i, int j, int k, int l) {
         dropBlockAsItem(world, i, j, k, l);
     }
 
-    public boolean canBlockStay(World world, int i, int j, int k)
-    {
+    public boolean canBlockStay(World world, int i, int j, int k) {
         return true;
     }
 
-    public void onBlockPlacedBy(World world, int i, int j, int k, EntityLiving entityliving)
-    {
+    public void onBlockPlacedBy(World world, int i, int j, int k, EntityLiving entityliving) {
     }
 
-    public Block func_20012_a(String s)
-    {
+    public Block func_20012_a(String s) {
         field_469_a = (new StringBuilder()).append("tile.").append(s).toString();
         return this;
     }
 
-    public String func_20013_i()
-    {
+    public String func_20013_i() {
         return field_469_a;
     }
 
-    static Class _mthclass$(String s)
-    {
-        try
-        {
+    static Class _mthclass$(String s) {
+        try {
             return Class.forName(s);
-        }
-        catch(ClassNotFoundException classnotfoundexception)
-        {
+        } catch (ClassNotFoundException classnotfoundexception) {
             throw new NoClassDefFoundError(classnotfoundexception.getMessage());
         }
     }
@@ -621,8 +525,8 @@ public class Block
     public static final Block pumpkinLantern;
     public int blockIndexInTexture;
     public final int blockID;
-    protected float blockHardness;
-    protected float blockResistance;
+    public float blockHardness;
+    public float blockResistance;
     public double minX;
     public double minY;
     public double minZ;
@@ -635,8 +539,7 @@ public class Block
     public float slipperiness;
     private String field_469_a;
 
-    static 
-    {
+    static {
         soundPowderFootstep = new StepSound("stone", 1.0F, 1.0F);
         soundWoodFootstep = new StepSound("wood", 1.0F, 1.0F);
         soundGravelFootstep = new StepSound("gravel", 1.0F, 1.0F);
@@ -648,7 +551,7 @@ public class Block
         soundSandFootstep = new StepSoundSand("sand", 1.0F, 1.0F);
         blocksList = new Block[256];
         stone = (new BlockStone(1, 1)).setHardness(1.5F).setResistance(10F).setStepSound(soundStoneFootstep).func_20012_a("stone");
-        grass = (BlockGrass)(new BlockGrass(2)).setHardness(0.6F).setStepSound(soundGrassFootstep).func_20012_a("grass");
+        grass = (BlockGrass) (new BlockGrass(2)).setHardness(0.6F).setStepSound(soundGrassFootstep).func_20012_a("grass");
         dirt = (new BlockDirt(3, 2)).setHardness(0.5F).setStepSound(soundGravelFootstep).func_20012_a("dirt");
         cobblestone = (new Block(4, 16, Material.rock)).setHardness(2.0F).setResistance(10F).setStepSound(soundStoneFootstep).func_20012_a("stonebrick");
         planks = (new Block(5, 4, Material.wood)).setHardness(2.0F).setResistance(5F).setStepSound(soundWoodFootstep).func_20012_a("wood");
@@ -664,14 +567,14 @@ public class Block
         oreIron = (new BlockOre(15, 33)).setHardness(3F).setResistance(5F).setStepSound(soundStoneFootstep).func_20012_a("oreIron");
         oreCoal = (new BlockOre(16, 34)).setHardness(3F).setResistance(5F).setStepSound(soundStoneFootstep).func_20012_a("oreCoal");
         wood = (new BlockLog(17)).setHardness(2.0F).setStepSound(soundWoodFootstep).func_20012_a("log");
-        leaves = (BlockLeaves)(new BlockLeaves(18, 52)).setHardness(0.2F).setLightOpacity(1).setStepSound(soundGrassFootstep).func_20012_a("leaves");
+        leaves = (BlockLeaves) (new BlockLeaves(18, 52)).setHardness(0.2F).setLightOpacity(1).setStepSound(soundGrassFootstep).func_20012_a("leaves");
         sponge = (new BlockSponge(19)).setHardness(0.6F).setStepSound(soundGrassFootstep).func_20012_a("sponge");
         glass = (new BlockGlass(20, 49, Material.glass, false)).setHardness(0.3F).setStepSound(soundGlassFootstep).func_20012_a("glass");
         cloth = (new Block(35, 64, Material.cloth)).setHardness(0.8F).setStepSound(soundClothFootstep).func_20012_a("cloth");
-        plantYellow = (BlockFlower)(new BlockFlower(37, 13)).setHardness(0.0F).setStepSound(soundGrassFootstep).func_20012_a("flower");
-        plantRed = (BlockFlower)(new BlockFlower(38, 12)).setHardness(0.0F).setStepSound(soundGrassFootstep).func_20012_a("rose");
-        mushroomBrown = (BlockFlower)(new BlockMushroom(39, 29)).setHardness(0.0F).setStepSound(soundGrassFootstep).setLightValue(0.125F).func_20012_a("mushroom");
-        mushroomRed = (BlockFlower)(new BlockMushroom(40, 28)).setHardness(0.0F).setStepSound(soundGrassFootstep).func_20012_a("mushroom");
+        plantYellow = (BlockFlower) (new BlockFlower(37, 13)).setHardness(0.0F).setStepSound(soundGrassFootstep).func_20012_a("flower");
+        plantRed = (BlockFlower) (new BlockFlower(38, 12)).setHardness(0.0F).setStepSound(soundGrassFootstep).func_20012_a("rose");
+        mushroomBrown = (BlockFlower) (new BlockMushroom(39, 29)).setHardness(0.0F).setStepSound(soundGrassFootstep).setLightValue(0.125F).func_20012_a("mushroom");
+        mushroomRed = (BlockFlower) (new BlockMushroom(40, 28)).setHardness(0.0F).setStepSound(soundGrassFootstep).func_20012_a("mushroom");
         blockGold = (new BlockOreBlock(41, 39)).setHardness(3F).setResistance(10F).setStepSound(soundMetalFootstep).func_20012_a("blockGold");
         blockSteel = (new BlockOreBlock(42, 38)).setHardness(5F).setResistance(10F).setStepSound(soundMetalFootstep).func_20012_a("blockIron");
         stairDouble = (new BlockStep(43, true)).setHardness(2.0F).setResistance(10F).setStepSound(soundStoneFootstep).func_20012_a("stoneSlab");
@@ -682,7 +585,7 @@ public class Block
         cobblestoneMossy = (new Block(48, 36, Material.rock)).setHardness(2.0F).setResistance(10F).setStepSound(soundStoneFootstep).func_20012_a("stoneMoss");
         obsidian = (new BlockObsidian(49, 37)).setHardness(10F).setResistance(2000F).setStepSound(soundStoneFootstep).func_20012_a("obsidian");
         torchWood = (new BlockTorch(50, 80)).setHardness(0.0F).setLightValue(0.9375F).setStepSound(soundWoodFootstep).func_20012_a("torch");
-        fire = (BlockFire)(new BlockFire(51, 31)).setHardness(0.0F).setLightValue(1.0F).setStepSound(soundWoodFootstep).func_20012_a("fire");
+        fire = (BlockFire) (new BlockFire(51, 31)).setHardness(0.0F).setLightValue(1.0F).setStepSound(soundWoodFootstep).func_20012_a("fire");
         mobSpawner = (new BlockMobSpawner(52, 65)).setHardness(5F).setStepSound(soundMetalFootstep).func_20012_a("mobSpawner");
         stairCompactPlanks = (new BlockStairs(53, planks)).func_20012_a("stairsWood");
         crate = (new BlockChest(54)).setHardness(2.5F).setStepSound(soundWoodFootstep).func_20012_a("chest");
@@ -721,12 +624,10 @@ public class Block
         bloodStone = (new BlockBloodStone(87, 103)).setHardness(0.4F).setStepSound(soundStoneFootstep).func_20012_a("hellrock");
         slowSand = (new BlockSlowSand(88, 104)).setHardness(0.5F).setStepSound(soundSandFootstep).func_20012_a("hellsand");
         lightStone = (new BlockLightStone(89, 105, Material.glass)).setHardness(0.3F).setStepSound(soundGlassFootstep).setLightValue(1.0F).func_20012_a("lightgem");
-        portal = (BlockPortal)(new BlockPortal(90, 14)).setHardness(-1F).setStepSound(soundGlassFootstep).setLightValue(0.75F).func_20012_a("portal");
+        portal = (BlockPortal) (new BlockPortal(90, 14)).setHardness(-1F).setStepSound(soundGlassFootstep).setLightValue(0.75F).func_20012_a("portal");
         pumpkinLantern = (new BlockPumpkin(91, 102, true)).setHardness(1.0F).setStepSound(soundWoodFootstep).setLightValue(1.0F).func_20012_a("pumpkin");
-        for(int i = 0; i < 256; i++)
-        {
-            if(blocksList[i] != null)
-            {
+        for (int i = 0; i < 256; i++) {
+            if (blocksList[i] != null) {
                 Item.itemsList[i] = new ItemBlock(i - 256);
             }
         }

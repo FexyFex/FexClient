@@ -3,14 +3,22 @@ package net.minecraft.src.block;// Decompiled by Jad v1.5.8g. Copyright 2001 Pav
 // Decompiler options: packimports(3) braces deadcode 
 
 import net.minecraft.src.Block;
+import net.minecraft.src.IBlockAccess;
 import net.minecraft.src.Material;
+import net.minecraft.src.entity.EntityItem;
+import net.minecraft.src.entity.EntityPlayer;
+import net.minecraft.src.entity.TileEntity;
+import net.minecraft.src.entity.TileEntityChest;
+import net.minecraft.src.inventory.IInventory;
+import net.minecraft.src.inventory.InventoryLargeChest;
+import net.minecraft.src.item.ItemStack;
 
 import java.util.Random;
 
 public class BlockChest extends BlockContainer
 {
 
-    protected BlockChest(int i)
+    public BlockChest(int i)
     {
         super(i, Material.wood);
         random = new Random();

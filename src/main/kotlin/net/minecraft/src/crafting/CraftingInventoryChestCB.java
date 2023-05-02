@@ -4,6 +4,8 @@ package net.minecraft.src.crafting;// Decompiled by Jad v1.5.8g. Copyright 2001 
 
 
 import net.minecraft.src.entity.EntityPlayer;
+import net.minecraft.src.inventory.IInventory;
+import net.minecraft.src.inventory.Slot;
 
 public class CraftingInventoryChestCB extends CraftingInventoryCB
 {

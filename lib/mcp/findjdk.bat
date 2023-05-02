@@ -17,5 +17,5 @@ echo Finding javac.exe... if you want to speed this up, add it to your PATH
 FOR /F "TOKENS=*" %%A IN ('%MCPTOOLSDIR%\whereis.exe -d "%PROGRAMFILES%" javac.exe') DO SET JAVACPATH=%%A
 set PATH=%PATH%;%JAVACPATH%
 
-echo Path set.
+echo net.minecraft.src.Path set.
 set "%~1=%PATH%"

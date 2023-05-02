@@ -1,22 +1,22 @@
-package net.minecraft.src.entity;// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
+package net.minecraft.src.entity;
+
+// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) braces deadcode 
 
 
 import net.minecraft.src.block.World;
+import net.minecraft.src.helpers.MathHelper;
+import net.minecraft.src.nbt.NBTTagCompound;
 
-public class EntityFallingSand extends Entity
-{
-
-    public EntityFallingSand(World world)
-    {
+public class EntityFallingSand extends Entity {
+    public EntityFallingSand(World world) {
         super(world);
         fallTime = 0;
     }
 
-    public EntityFallingSand(World world, double d, double d1, double d2, 
-            int i)
-    {
+    public EntityFallingSand(World world, double d, double d1, double d2,
+                             int i) {
         super(world);
         fallTime = 0;
         entityID = i;
@@ -33,15 +33,12 @@ public class EntityFallingSand extends Entity
         prevPosZ = d2;
     }
 
-    public boolean canBeCollidedWith()
-    {
+    public boolean canBeCollidedWith() {
         return !isDead;
     }
 
-    public void onUpdate()
-    {
-        if(entityID == 0)
-        {
+    public void onUpdate() {
+        if (entityID == 0) {
             setEntityDead();
             return;
         }
@@ -57,45 +54,36 @@ public class EntityFallingSand extends Entity
         int i = MathHelper.floor_double(posX);
         int j = MathHelper.floor_double(posY);
         int k = MathHelper.floor_double(posZ);
-        if(worldObj.getBlockId(i, j, k) == entityID)
-        {
+        if (worldObj.getBlockId(i, j, k) == entityID) {
             worldObj.setBlockWithNotify(i, j, k, 0);
         }
-        if(onGround)
-        {
+        if (onGround) {
             motionX *= 0.69999998807907104D;
             motionZ *= 0.69999998807907104D;
             motionY *= -0.5D;
             setEntityDead();
-            if(!worldObj.canBlockBePlacedAt(entityID, i, j, k, true) || !worldObj.setBlockWithNotify(i, j, k, entityID))
-            {
+            if (!worldObj.canBlockBePlacedAt(entityID, i, j, k, true) || !worldObj.setBlockWithNotify(i, j, k, entityID)) {
                 dropItem(entityID, 1);
             }
-        } else
-        if(fallTime > 100)
-        {
+        } else if (fallTime > 100) {
             dropItem(entityID, 1);
             setEntityDead();
         }
     }
 
-    protected void writeEntityToNBT(NBTTagCompound nbttagcompound)
-    {
-        nbttagcompound.setByte("Tile", (byte)entityID);
+    protected void writeEntityToNBT(NBTTagCompound nbttagcompound) {
+        nbttagcompound.setByte("Tile", (byte) entityID);
     }
 
-    protected void readEntityFromNBT(NBTTagCompound nbttagcompound)
-    {
+    protected void readEntityFromNBT(NBTTagCompound nbttagcompound) {
         entityID = nbttagcompound.getByte("Tile") & 0xff;
     }
 
-    public float func_392_h_()
-    {
+    public float func_392_h_() {
         return 0.0F;
     }
 
-    public World func_465_i()
-    {
+    public World func_465_i() {
         return worldObj;
     }
 

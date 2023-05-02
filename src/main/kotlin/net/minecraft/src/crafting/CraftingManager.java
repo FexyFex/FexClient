@@ -1,8 +1,13 @@
-package net.minecraft.src.crafting;// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
+package net.minecraft.src.crafting;
+
+// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) braces deadcode 
 
 import net.minecraft.src.Block;
+import net.minecraft.src.item.Item;
+import net.minecraft.src.item.ItemStack;
+import net.minecraft.src.recipe.*;
 
 import java.util.*;
 
@@ -150,7 +155,7 @@ public class CraftingManager
         System.out.println((new StringBuilder()).append(recipes.size()).append(" recipes").toString());
     }
 
-    void addRecipe(ItemStack itemstack, Object aobj[])
+    public void addRecipe(ItemStack itemstack, Object aobj[])
     {
         String s = "";
         int i = 0;

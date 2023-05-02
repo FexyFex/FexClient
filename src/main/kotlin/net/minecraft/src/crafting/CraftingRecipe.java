@@ -3,6 +3,8 @@ package net.minecraft.src.crafting;// Decompiled by Jad v1.5.8g. Copyright 2001 
 // Decompiler options: packimports(3) braces deadcode 
 
 
+import net.minecraft.src.item.ItemStack;
+
 public class CraftingRecipe
 {
 

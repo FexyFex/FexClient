@@ -9,7 +9,7 @@ import net.minecraft.src.Material;
 public class BlockDirt extends Block
 {
 
-    protected BlockDirt(int i, int j)
+    public BlockDirt(int i, int j)
     {
         super(i, j, Material.ground);
     }

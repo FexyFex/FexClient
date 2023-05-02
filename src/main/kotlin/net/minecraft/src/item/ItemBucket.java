@@ -4,6 +4,8 @@ package net.minecraft.src.item;// Decompiled by Jad v1.5.8g. Copyright 2001 Pave
 
 import net.minecraft.src.*;
 import net.minecraft.src.block.World;
+import net.minecraft.src.datatype.MovingObjectPosition;
+import net.minecraft.src.datatype.Vec3D;
 import net.minecraft.src.entity.EntityCow;
 import net.minecraft.src.entity.EntityPlayer;
 import net.minecraft.src.helpers.MathHelper;

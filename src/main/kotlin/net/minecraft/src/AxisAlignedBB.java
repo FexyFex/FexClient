@@ -2,6 +2,9 @@ package net.minecraft.src;// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kou
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) braces deadcode 
 
+import net.minecraft.src.datatype.MovingObjectPosition;
+import net.minecraft.src.datatype.Vec3D;
+
 import java.util.ArrayList;
 import java.util.List;
 

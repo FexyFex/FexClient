@@ -1,35 +1,34 @@
-package net.minecraft.src.gui;// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
+package net.minecraft.src.gui;
+
+// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) braces deadcode 
 
+import net.minecraft.src.crafting.CraftingInventoryFurnaceCB;
 import net.minecraft.src.entity.TileEntityFurnace;
+import net.minecraft.src.inventory.InventoryPlayer;
 import org.lwjgl.opengl.GL11;
 
-public class GuiFurnace extends GuiContainer
-{
+public class GuiFurnace extends GuiContainer {
 
-    public GuiFurnace(InventoryPlayer inventoryplayer, TileEntityFurnace tileentityfurnace)
-    {
+    public GuiFurnace(InventoryPlayer inventoryplayer, TileEntityFurnace tileentityfurnace) {
         super(new CraftingInventoryFurnaceCB(inventoryplayer, tileentityfurnace));
         furnaceInventory = tileentityfurnace;
     }
 
-    protected void drawGuiContainerForegroundLayer()
-    {
+    protected void drawGuiContainerForegroundLayer() {
         fontRenderer.drawString("Furnace", 60, 6, 0x404040);
         fontRenderer.drawString("Inventory", 8, (ySize - 96) + 2, 0x404040);
     }
 
-    protected void drawGuiContainerBackgroundLayer(float f)
-    {
+    protected void drawGuiContainerBackgroundLayer(float f) {
         int i = mc.renderEngine.getTexture("/gui/furnace.png");
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         mc.renderEngine.bindTexture(i);
         int j = (width - xSize) / 2;
         int k = (height - ySize) / 2;
         drawTexturedModalRect(j, k, 0, 0, xSize, ySize);
-        if(furnaceInventory.isBurning())
-        {
+        if (furnaceInventory.isBurning()) {
             int l = furnaceInventory.getBurnTimeRemainingScaled(12);
             drawTexturedModalRect(j + 56, (k + 36 + 12) - l, 176, 12 - l, 14, l + 2);
         }

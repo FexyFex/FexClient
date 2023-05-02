@@ -3,7 +3,12 @@ package net.minecraft.src.world;// Decompiled by Jad v1.5.8g. Copyright 2001 Pav
 // Decompiler options: packimports(3) braces deadcode 
 
 import net.minecraft.src.Block;
-import net.minecraft.src.Vec3D;
+import net.minecraft.src.datatype.Vec3D;
+import net.minecraft.src.gen.MobSpawnerBase;
+import net.minecraft.src.world.chunk.ChunkLoader;
+import net.minecraft.src.world.chunk.ChunkProviderHell;
+import net.minecraft.src.world.chunk.IChunkLoader;
+import net.minecraft.src.world.chunk.IChunkProvider;
 
 import java.io.File;
 

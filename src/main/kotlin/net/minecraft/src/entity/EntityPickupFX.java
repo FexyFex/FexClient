@@ -1,8 +1,13 @@
-package net.minecraft.src.entity;// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
+package net.minecraft.src.entity;
+
+// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) braces deadcode 
 
+import net.minecraft.src.Tessellator;
 import net.minecraft.src.block.World;
+import net.minecraft.src.helpers.MathHelper;
+import net.minecraft.src.rendering.RenderManager;
 import org.lwjgl.opengl.GL11;
 
 public class EntityPickupFX extends EntityFX

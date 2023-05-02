@@ -1,17 +1,21 @@
-package net.minecraft.src.world.chunk;// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
+package net.minecraft.src.world.chunk;
+
+// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) braces deadcode 
 
 import net.minecraft.src.Block;
+import net.minecraft.src.IProgressUpdate;
 import net.minecraft.src.block.BlockSand;
 import net.minecraft.src.block.World;
+import net.minecraft.src.gen.MapGenBase;
+import net.minecraft.src.gen.MapGenCavesHell;
+import net.minecraft.src.noise.NoiseGeneratorOctaves;
 import net.minecraft.src.world.*;
 
 import java.util.Random;
 
-public class ChunkProviderHell
-    implements IChunkProvider
-{
+public class ChunkProviderHell implements IChunkProvider {
 
     public ChunkProviderHell(World world, long l)
     {

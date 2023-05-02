@@ -1,6 +1,11 @@
-package net.minecraft.src.block;// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
+package net.minecraft.src.block;
+
+// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) braces deadcode 
+
+import net.minecraft.src.IBlockAccess;
+import net.minecraft.src.RedstoneUpdateInfo;
 
 import java.util.*;
 
@@ -37,7 +42,7 @@ public class BlockRedstoneTorch extends BlockTorch
         return false;
     }
 
-    protected BlockRedstoneTorch(int i, int j, boolean flag)
+    public BlockRedstoneTorch(int i, int j, boolean flag)
     {
         super(i, j);
         torchActive = false;
