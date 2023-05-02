@@ -7,8 +7,6 @@ class ExternalCommandSetTime(timeValue: Long): ExternalCommand {
         if (it.theWorld != null) it.theWorld.setWorldTime(timeValue)
     }
 
-    override fun getCommandName(): String = ExternalCommandSetBrightness.commandName
-
     companion object {
         const val commandName: String = "time"
         const val commandParams: String = "<value>"

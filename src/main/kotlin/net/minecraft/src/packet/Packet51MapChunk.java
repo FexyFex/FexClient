@@ -2,6 +2,8 @@ package net.minecraft.src.packet;// Decompiled by Jad v1.5.8g. Copyright 2001 Pa
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) braces deadcode 
 
+import net.minecraft.src.Block;
+import net.minecraft.src.block.BlockOre;
 import net.minecraft.src.networking.NetHandler;
 
 import java.io.*;
@@ -22,7 +24,7 @@ public class Packet51MapChunk extends Packet {
         ySize = datainputstream.read() + 1;
         zSize = datainputstream.read() + 1;
         int i = datainputstream.readInt();
-        byte abyte0[] = new byte[i];
+        byte[] abyte0 = new byte[i];
         datainputstream.readFully(abyte0);
         chunk = new byte[(xSize * ySize * zSize * 5) / 2];
         Inflater inflater = new Inflater();
@@ -34,6 +36,23 @@ public class Packet51MapChunk extends Packet {
         } finally {
             inflater.end();
         }
+
+        /*
+        int globalIndex = 0;
+        for (int x = 0; x < 16; x++) {
+            for (int z = 0; z < 16; z++) {
+                for (int y = 0; y < 16; y++) {
+                    byte id = chunk[globalIndex];
+
+                    if (id == Block.oreDiamond.blockID) {
+                        System.out.println("Diamond at " + xPosition / 16 + x + "," + yPosition / 16 + y + "," + zPosition / 16 + z);
+                    }
+
+                    globalIndex++;
+                }
+            }
+        }
+         */
     }
 
     public void writePacketData(DataOutputStream dataoutputstream) throws IOException {

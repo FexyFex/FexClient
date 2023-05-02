@@ -215,7 +215,9 @@ public class RenderGlobal implements IWorldAccess {
         if (worldObj != null) {
             EntityPlayerSP entityplayersp = mc.thePlayer;
             func_956_b(MathHelper.floor_double(((Entity) (entityplayersp)).posX), MathHelper.floor_double(((Entity) (entityplayersp)).posY), MathHelper.floor_double(((Entity) (entityplayersp)).posZ));
-            Arrays.sort(sortedWorldRenderers, new EntitySorter(entityplayersp));
+            try {
+                Arrays.sort(sortedWorldRenderers, new EntitySorter(entityplayersp));
+            } catch (IllegalArgumentException e) { System.out.println("TimSort failed with IllegalArgumentException!"); }
         }
         field_1424_I = 2;
     }
@@ -345,7 +347,9 @@ public class RenderGlobal implements IWorldAccess {
             field_1452_g = entityplayer.posY;
             field_1451_h = entityplayer.posZ;
             func_956_b(MathHelper.floor_double(entityplayer.posX), MathHelper.floor_double(entityplayer.posY), MathHelper.floor_double(entityplayer.posZ));
-            Arrays.sort(sortedWorldRenderers, new EntitySorter(entityplayer));
+            try {
+                Arrays.sort(sortedWorldRenderers, new EntitySorter(entityplayer));
+            } catch (IllegalArgumentException e) { System.out.println("TimSort Failed with IllegalArgumentException!"); }
         }
         int j = 0;
         if (field_1436_w && !mc.gameSettings.anaglyph && i == 0) {

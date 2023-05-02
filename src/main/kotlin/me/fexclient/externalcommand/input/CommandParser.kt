@@ -54,6 +54,26 @@ class CommandParser(private val rawCommandString: String) {
                 ExternalCommandSetBrightness(brightnessValue)
             }
 
+            ExternalCommandTeleport.commandName -> {
+                if (arguments.size < 3) return "Not enough arguments"
+                val xString = arguments[0]
+                val yString = arguments[1]
+                val zString = arguments[2]
+                val x: Int
+                val y: Int
+                val z: Int
+
+                try {
+                    x = xString.toInt()
+                    y = yString.toInt()
+                    z = zString.toInt()
+                } catch (e: Exception) {
+                    return "Invalid coords \"$xString,$yString,$zString\""
+                }
+
+                ExternalCommandTeleport(x,y,z)
+            }
+
             else -> UnknownExternalCommand()
         }
 

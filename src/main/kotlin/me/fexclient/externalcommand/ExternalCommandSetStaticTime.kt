@@ -17,8 +17,6 @@ class ExternalCommandSetStaticTime(timeValue: Long): ExternalCommand {
         }
     }
 
-    override fun getCommandName(): String = ExternalCommandSetBrightness.commandName
-
     companion object {
         const val commandName: String = "statictime"
         const val commandParams: String = "<value>"

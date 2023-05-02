@@ -90,7 +90,6 @@ public class Chunk {
             for (int i1 = 0; i1 < 16; i1++) {
                 func_996_c(k, i1);
             }
-
         }
 
         isModified = true;

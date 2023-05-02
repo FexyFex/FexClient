@@ -19,8 +19,6 @@ class ExternalCommandSetBrightness(fullBrightValue: Float): ExternalCommand {
         }
     }
 
-    override fun getCommandName(): String = commandName
-
     companion object {
         const val commandName: String = "brightness"
         const val commandParams: String = "<value>"

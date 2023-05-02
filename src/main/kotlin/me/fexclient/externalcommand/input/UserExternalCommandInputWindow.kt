@@ -1,9 +1,6 @@
 package me.fexclient.externalcommand.input
 
-import me.fexclient.externalcommand.ExternalCommand
-import me.fexclient.externalcommand.ExternalCommandSetBrightness
-import me.fexclient.externalcommand.ExternalCommandSetStaticTime
-import me.fexclient.externalcommand.ExternalCommandSetTime
+import me.fexclient.externalcommand.*
 import java.awt.BorderLayout
 import java.awt.Dimension
 import java.awt.event.ActionEvent
@@ -21,9 +18,7 @@ class UserExternalCommandInputWindow(private val commandList: MutableList<Extern
     private val inputField = JTextField("")
 
     private val allCommands = arrayOf(
-        ExternalCommandSetBrightness::class,
-        ExternalCommandSetTime::class,
-        ExternalCommandSetStaticTime::class
+        ExternalCommandSetBrightness::class, ExternalCommandSetTime::class, ExternalCommandTeleport::class
     )
 
     init {
@@ -49,6 +44,8 @@ class UserExternalCommandInputWindow(private val commandList: MutableList<Extern
         isVisible = true
         size = Dimension(300,200)
         defaultCloseOperation = JFrame.DO_NOTHING_ON_CLOSE
+
+        title = "FexClient Command Line"
     }
 
     private class TextInputListener(val commandList: MutableList<ExternalCommand>): ActionListener {
