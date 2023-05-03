@@ -37,7 +37,7 @@ public class EntityDiggingFX extends EntityFX {
         return 1;
     }
 
-    public void func_406_a(Tessellator tessellator, float f, float f1, float f2, float f3, float f4, float f5) {
+    public void drawQuad(Tessellator tessellator, float f, float f1, float f2, float f3, float f4, float f5) {
         float f6 = ((float) (field_670_b % 16) + field_669_c / 4F) / 16F;
         float f7 = f6 + 0.01560938F;
         float f8 = ((float) (field_670_b / 16) + field_668_d / 4F) / 16F;

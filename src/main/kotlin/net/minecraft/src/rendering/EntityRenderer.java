@@ -23,9 +23,6 @@ import net.minecraft.src.helpers.MathHelper;
 import net.minecraft.src.item.ItemRenderer;
 import net.minecraft.src.opengl.GLAllocation;
 import net.minecraft.src.player.PlayerControllerTest;
-import net.minecraft.src.rendering.EffectRenderer;
-import net.minecraft.src.rendering.RenderGlobal;
-import net.minecraft.src.rendering.RenderHelper;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.*;
@@ -337,14 +334,14 @@ public class EntityRenderer {
                 func_4140_a(-1);
                 renderglobal.func_4142_a(f);
             }
-            GL11.glEnable(2912);
+            GL11.glEnable(GL11.GL_FOG);
             func_4140_a(1);
             Frustrum frustrum = new Frustrum();
             frustrum.setPosition(d, d1, d2);
             mc.renderGlobal.func_960_a(frustrum, f);
             mc.renderGlobal.updateRenderers(entityplayersp, false);
             func_4140_a(0);
-            GL11.glEnable(2912);
+            GL11.glEnable(GL11.GL_FOG);
             GL11.glBindTexture(3553, mc.renderEngine.getTexture("/terrain.png"));
             RenderHelper.disableStandardItemLighting();
             renderglobal.func_943_a(entityplayersp, 0, f);
@@ -353,16 +350,16 @@ public class EntityRenderer {
             effectrenderer.func_1187_b(entityplayersp, f);
             RenderHelper.disableStandardItemLighting();
             func_4140_a(0);
-            effectrenderer.func_1189_a(entityplayersp, f);
+            effectrenderer.draw(entityplayersp, f);
             if (mc.objectMouseOver != null && entityplayersp.isInsideOfMaterial(Material.water)) {
-                GL11.glDisable(3008);
+                GL11.glDisable(GL11.GL_ALPHA_TEST);
                 renderglobal.func_959_a(entityplayersp, mc.objectMouseOver, 0, ((EntityPlayer) (entityplayersp)).inventory.getCurrentItem(), f);
                 renderglobal.drawSelectionBox(entityplayersp, mc.objectMouseOver, 0, ((EntityPlayer) (entityplayersp)).inventory.getCurrentItem(), f);
                 GL11.glEnable(3008);
             }
             GL11.glBlendFunc(770, 771);
             func_4140_a(0);
-            GL11.glEnable(3042);
+            GL11.glEnable(GL11.GL_BLEND);
             GL11.glDisable(2884);
             GL11.glBindTexture(3553, mc.renderEngine.getTexture("/terrain.png"));
             if (mc.gameSettings.fancyGraphics) {

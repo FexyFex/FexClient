@@ -28,13 +28,13 @@ public class EntityPortalFX extends EntityFX {
         field_670_b = (int) (Math.random() * 8D);
     }
 
-    public void func_406_a(Tessellator tessellator, float f, float f1, float f2, float f3, float f4, float f5) {
+    public void drawQuad(Tessellator tessellator, float f, float f1, float f2, float f3, float f4, float f5) {
         float f6 = ((float) field_667_e + f) / (float) field_666_f;
         f6 = 1.0F - f6;
         f6 *= f6;
         f6 = 1.0F - f6;
         field_665_g = field_4083_a * f6;
-        super.func_406_a(tessellator, f, f1, f2, f3, f4, f5);
+        super.drawQuad(tessellator, f, f1, f2, f3, f4, f5);
     }
 
     public float getEntityBrightness(float f) {

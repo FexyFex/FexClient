@@ -10,9 +10,7 @@ import net.minecraft.src.helpers.MathHelper;
 import net.minecraft.src.nbt.NBTTagCompound;
 
 public class EntityFX extends Entity {
-
-    public EntityFX(World world, double d, double d1, double d2,
-                    double d3, double d4, double d5) {
+    public EntityFX(World world, double d, double d1, double d2, double d3, double d4, double d5) {
         super(world);
         field_667_e = 0;
         field_666_f = 0;
@@ -67,7 +65,7 @@ public class EntityFX extends Entity {
         }
     }
 
-    public void func_406_a(Tessellator tessellator, float f, float f1, float f2, float f3, float f4, float f5) {
+    public void drawQuad(Tessellator tessellator, float f, float f1, float f2, float f3, float f4, float f5) {
         float f6 = (float) (field_670_b % 16) / 16F;
         float f7 = f6 + 0.0624375F;
         float f8 = (float) (field_670_b / 16) / 16F;

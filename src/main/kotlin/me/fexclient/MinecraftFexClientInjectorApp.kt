@@ -12,7 +12,7 @@ object MinecraftFexClientInjectorApp {
     private val externalCommands = mutableListOf<ExternalCommand>()
     private val commandInput = UserExternalCommandInputApp(externalCommands)
 
-    init {
+    fun init(mc: Minecraft) {
         Thread(commandInput, "ExternalCommandInputThread").start()
     }
 
@@ -49,7 +49,6 @@ object MinecraftFexClientInjectorApp {
             )
         }
     }
-
 
 
     fun destroy() {

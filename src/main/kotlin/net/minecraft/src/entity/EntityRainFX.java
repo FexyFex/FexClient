@@ -24,8 +24,8 @@ public class EntityRainFX extends EntityFX {
         field_666_f = (int) (8D / (Math.random() * 0.80000000000000004D + 0.20000000000000001D));
     }
 
-    public void func_406_a(Tessellator tessellator, float f, float f1, float f2, float f3, float f4, float f5) {
-        super.func_406_a(tessellator, f, f1, f2, f3, f4, f5);
+    public void drawQuad(Tessellator tessellator, float f, float f1, float f2, float f3, float f4, float f5) {
+        super.drawQuad(tessellator, f, f1, f2, f3, f4, f5);
     }
 
     public void onUpdate() {

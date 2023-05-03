@@ -24,16 +24,16 @@ public class EntityPickupFX extends EntityFX
         field_676_r = f;
     }
 
-    public void func_406_a(Tessellator tessellator, float f, float f1, float f2, float f3, float f4, float f5)
+    public void drawQuad(Tessellator tessellator, float f, float f1, float f2, float f3, float f4, float f5)
     {
         float f6 = ((float)field_678_p + f) / (float)field_677_q;
         f6 *= f6;
         double d = field_675_a.posX;
         double d1 = field_675_a.posY;
         double d2 = field_675_a.posZ;
-        double d3 = field_679_o.lastTickPosX + (field_679_o.posX - field_679_o.lastTickPosX) * (double)f;
-        double d4 = field_679_o.lastTickPosY + (field_679_o.posY - field_679_o.lastTickPosY) * (double)f + (double)field_676_r;
-        double d5 = field_679_o.lastTickPosZ + (field_679_o.posZ - field_679_o.lastTickPosZ) * (double)f;
+        double d3 = field_679_o.lastTickPosX + (field_679_o.posX - field_679_o.lastTickPosX) * (double) f;
+        double d4 = field_679_o.lastTickPosY + (field_679_o.posY - field_679_o.lastTickPosY) * (double) f + (double)field_676_r;
+        double d5 = field_679_o.lastTickPosZ + (field_679_o.posZ - field_679_o.lastTickPosZ) * (double) f;
         double d6 = d + (d3 - d) * (double)f6;
         double d7 = d1 + (d4 - d1) * (double)f6;
         double d8 = d2 + (d5 - d2) * (double)f6;

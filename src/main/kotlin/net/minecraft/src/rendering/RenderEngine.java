@@ -1,4 +1,6 @@
-package net.minecraft.src.rendering;// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
+package net.minecraft.src.rendering;
+
+// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) braces deadcode 
 
@@ -23,11 +25,8 @@ import net.minecraft.src.texture.TexturePackList;
 import net.minecraft.src.threading.ThreadDownloadImageData;
 import org.lwjgl.opengl.GL11;
 
-public class RenderEngine
-{
-
-    public RenderEngine(TexturePackList texturepacklist, GameSettings gamesettings)
-    {
+public class RenderEngine {
+    public RenderEngine(TexturePackList texturepacklist, GameSettings gamesettings) {
         textureMap = new HashMap();
         textureNameToImageMap = new HashMap();
         singleIntBuffer = GLAllocation.createDirectIntBuffer(1);
@@ -40,54 +39,41 @@ public class RenderEngine
         options = gamesettings;
     }
 
-    public int getTexture(String s)
-    {
+    public int getTexture(String s) {
         TexturePackBase texturepackbase = field_6527_k.selectedTexturePack;
-        Integer integer = (Integer)textureMap.get(s);
-        if(integer != null)
-        {
+        Integer integer = (Integer) textureMap.get(s);
+        if (integer != null) {
             return integer.intValue();
         }
-        try
-        {
+        try {
             singleIntBuffer.clear();
             GLAllocation.generateTextureNames(singleIntBuffer);
             int i = singleIntBuffer.get(0);
-            if(s.startsWith("##"))
-            {
+            if (s.startsWith("##")) {
                 setupTexture(unwrapImageByColumns(readTextureImage(texturepackbase.func_6481_a(s.substring(2)))), i);
-            } else
-            if(s.startsWith("%clamp%"))
-            {
+            } else if (s.startsWith("%clamp%")) {
                 clampTexture = true;
                 setupTexture(readTextureImage(texturepackbase.func_6481_a(s.substring(7))), i);
                 clampTexture = false;
-            } else
-            if(s.startsWith("%blur%"))
-            {
+            } else if (s.startsWith("%blur%")) {
                 blurTexture = true;
                 setupTexture(readTextureImage(texturepackbase.func_6481_a(s.substring(6))), i);
                 blurTexture = false;
-            } else
-            {
+            } else {
                 setupTexture(readTextureImage(texturepackbase.func_6481_a(s)), i);
             }
             textureMap.put(s, Integer.valueOf(i));
             return i;
-        }
-        catch(IOException ioexception)
-        {
+        } catch (IOException ioexception) {
             throw new RuntimeException("!!");
         }
     }
 
-    private BufferedImage unwrapImageByColumns(BufferedImage bufferedimage)
-    {
+    private BufferedImage unwrapImageByColumns(BufferedImage bufferedimage) {
         int i = bufferedimage.getWidth() / 16;
         BufferedImage bufferedimage1 = new BufferedImage(16, bufferedimage.getHeight() * i, 2);
         Graphics g = bufferedimage1.getGraphics();
-        for(int j = 0; j < i; j++)
-        {
+        for (int j = 0; j < i; j++) {
             g.drawImage(bufferedimage, -j * 16, j * bufferedimage.getHeight(), null);
         }
 
@@ -95,8 +81,7 @@ public class RenderEngine
         return bufferedimage1;
     }
 
-    public int allocateAndSetupTexture(BufferedImage bufferedimage)
-    {
+    public int allocateAndSetupTexture(BufferedImage bufferedimage) {
         singleIntBuffer.clear();
         GLAllocation.generateTextureNames(singleIntBuffer);
         int i = singleIntBuffer.get(0);
@@ -105,29 +90,23 @@ public class RenderEngine
         return i;
     }
 
-    public void setupTexture(BufferedImage bufferedimage, int i)
-    {
+    public void setupTexture(BufferedImage bufferedimage, int i) {
         GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, i);
-        if(useMipmaps)
-        {
+        if (useMipmaps) {
             GL11.glTexParameteri(3553 /*GL_TEXTURE_2D*/, 10241 /*GL_TEXTURE_MIN_FILTER*/, 9987 /*GL_LINEAR_MIPMAP_LINEAR*/);
             GL11.glTexParameteri(3553 /*GL_TEXTURE_2D*/, 10240 /*GL_TEXTURE_MAG_FILTER*/, 9729 /*GL_LINEAR*/);
-        } else
-        {
+        } else {
             GL11.glTexParameteri(3553 /*GL_TEXTURE_2D*/, 10241 /*GL_TEXTURE_MIN_FILTER*/, 9728 /*GL_NEAREST*/);
             GL11.glTexParameteri(3553 /*GL_TEXTURE_2D*/, 10240 /*GL_TEXTURE_MAG_FILTER*/, 9728 /*GL_NEAREST*/);
         }
-        if(blurTexture)
-        {
+        if (blurTexture) {
             GL11.glTexParameteri(3553 /*GL_TEXTURE_2D*/, 10241 /*GL_TEXTURE_MIN_FILTER*/, 9729 /*GL_LINEAR*/);
             GL11.glTexParameteri(3553 /*GL_TEXTURE_2D*/, 10240 /*GL_TEXTURE_MAG_FILTER*/, 9729 /*GL_LINEAR*/);
         }
-        if(clampTexture)
-        {
+        if (clampTexture) {
             GL11.glTexParameteri(3553 /*GL_TEXTURE_2D*/, 10242 /*GL_TEXTURE_WRAP_S*/, 10496 /*GL_CLAMP*/);
             GL11.glTexParameteri(3553 /*GL_TEXTURE_2D*/, 10243 /*GL_TEXTURE_WRAP_T*/, 10496 /*GL_CLAMP*/);
-        } else
-        {
+        } else {
             GL11.glTexParameteri(3553 /*GL_TEXTURE_2D*/, 10242 /*GL_TEXTURE_WRAP_S*/, 10497 /*GL_REPEAT*/);
             GL11.glTexParameteri(3553 /*GL_TEXTURE_2D*/, 10243 /*GL_TEXTURE_WRAP_T*/, 10497 /*GL_REPEAT*/);
         }
@@ -136,14 +115,12 @@ public class RenderEngine
         int ai[] = new int[j * k];
         byte abyte0[] = new byte[j * k * 4];
         bufferedimage.getRGB(0, 0, j, k, ai, 0, j);
-        for(int l = 0; l < ai.length; l++)
-        {
+        for (int l = 0; l < ai.length; l++) {
             int j1 = ai[l] >> 24 & 0xff;
             int l1 = ai[l] >> 16 & 0xff;
             int j2 = ai[l] >> 8 & 0xff;
             int l2 = ai[l] & 0xff;
-            if(options != null && options.anaglyph)
-            {
+            if (options != null && options.anaglyph) {
                 int j3 = (l1 * 30 + j2 * 59 + l2 * 11) / 100;
                 int l3 = (l1 * 30 + j2 * 70) / 100;
                 int j4 = (l1 * 30 + l2 * 70) / 100;
@@ -151,27 +128,23 @@ public class RenderEngine
                 j2 = l3;
                 l2 = j4;
             }
-            abyte0[l * 4 + 0] = (byte)l1;
-            abyte0[l * 4 + 1] = (byte)j2;
-            abyte0[l * 4 + 2] = (byte)l2;
-            abyte0[l * 4 + 3] = (byte)j1;
+            abyte0[l * 4 + 0] = (byte) l1;
+            abyte0[l * 4 + 1] = (byte) j2;
+            abyte0[l * 4 + 2] = (byte) l2;
+            abyte0[l * 4 + 3] = (byte) j1;
         }
 
         imageData.clear();
         imageData.put(abyte0);
         imageData.position(0).limit(abyte0.length);
         GL11.glTexImage2D(3553 /*GL_TEXTURE_2D*/, 0, 6408 /*GL_RGBA*/, j, k, 0, 6408 /*GL_RGBA*/, 5121 /*GL_UNSIGNED_BYTE*/, imageData);
-        if(useMipmaps)
-        {
-            for(int i1 = 1; i1 <= 4; i1++)
-            {
+        if (useMipmaps) {
+            for (int i1 = 1; i1 <= 4; i1++) {
                 int k1 = j >> i1 - 1;
                 int i2 = j >> i1;
                 int k2 = k >> i1;
-                for(int i3 = 0; i3 < i2; i3++)
-                {
-                    for(int k3 = 0; k3 < k2; k3++)
-                    {
+                for (int i3 = 0; i3 < i2; i3++) {
+                    for (int k3 = 0; k3 < k2; k3++) {
                         int i4 = imageData.getInt((i3 * 2 + 0 + (k3 * 2 + 0) * k1) * 4);
                         int k4 = imageData.getInt((i3 * 2 + 1 + (k3 * 2 + 0) * k1) * 4);
                         int l4 = imageData.getInt((i3 * 2 + 1 + (k3 * 2 + 1) * k1) * 4);
@@ -188,8 +161,7 @@ public class RenderEngine
         }
     }
 
-    public void deleteTexture(int i)
-    {
+    public void deleteTexture(int i) {
         textureNameToImageMap.remove(Integer.valueOf(i));
         singleIntBuffer.clear();
         singleIntBuffer.put(i);
@@ -197,58 +169,43 @@ public class RenderEngine
         GL11.glDeleteTextures(singleIntBuffer);
     }
 
-    public int getTextureForDownloadableImage(String s, String s1)
-    {
-        ThreadDownloadImageData threaddownloadimagedata = (ThreadDownloadImageData)urlToImageDataMap.get(s);
-        if(threaddownloadimagedata != null && threaddownloadimagedata.image != null && !threaddownloadimagedata.textureSetupComplete)
-        {
-            if(threaddownloadimagedata.textureName < 0)
-            {
+    public int getTextureForDownloadableImage(String s, String s1) {
+        ThreadDownloadImageData threaddownloadimagedata = (ThreadDownloadImageData) urlToImageDataMap.get(s);
+        if (threaddownloadimagedata != null && threaddownloadimagedata.image != null && !threaddownloadimagedata.textureSetupComplete) {
+            if (threaddownloadimagedata.textureName < 0) {
                 threaddownloadimagedata.textureName = allocateAndSetupTexture(threaddownloadimagedata.image);
-            } else
-            {
+            } else {
                 setupTexture(threaddownloadimagedata.image, threaddownloadimagedata.textureName);
             }
             threaddownloadimagedata.textureSetupComplete = true;
         }
-        if(threaddownloadimagedata == null || threaddownloadimagedata.textureName < 0)
-        {
-            if(s1 == null)
-            {
+        if (threaddownloadimagedata == null || threaddownloadimagedata.textureName < 0) {
+            if (s1 == null) {
                 return -1;
-            } else
-            {
+            } else {
                 return getTexture(s1);
             }
-        } else
-        {
+        } else {
             return threaddownloadimagedata.textureName;
         }
     }
 
-    public ThreadDownloadImageData obtainImageData(String s, ImageBuffer imagebuffer)
-    {
-        ThreadDownloadImageData threaddownloadimagedata = (ThreadDownloadImageData)urlToImageDataMap.get(s);
-        if(threaddownloadimagedata == null)
-        {
+    public ThreadDownloadImageData obtainImageData(String s, ImageBuffer imagebuffer) {
+        ThreadDownloadImageData threaddownloadimagedata = (ThreadDownloadImageData) urlToImageDataMap.get(s);
+        if (threaddownloadimagedata == null) {
             urlToImageDataMap.put(s, new ThreadDownloadImageData(s, imagebuffer));
-        } else
-        {
+        } else {
             threaddownloadimagedata.referenceCount++;
         }
         return threaddownloadimagedata;
     }
 
-    public void releaseImageData(String s)
-    {
-        ThreadDownloadImageData threaddownloadimagedata = (ThreadDownloadImageData)urlToImageDataMap.get(s);
-        if(threaddownloadimagedata != null)
-        {
+    public void releaseImageData(String s) {
+        ThreadDownloadImageData threaddownloadimagedata = (ThreadDownloadImageData) urlToImageDataMap.get(s);
+        if (threaddownloadimagedata != null) {
             threaddownloadimagedata.referenceCount--;
-            if(threaddownloadimagedata.referenceCount == 0)
-            {
-                if(threaddownloadimagedata.textureName >= 0)
-                {
+            if (threaddownloadimagedata.referenceCount == 0) {
+                if (threaddownloadimagedata.textureName >= 0) {
                     deleteTexture(threaddownloadimagedata.textureName);
                 }
                 urlToImageDataMap.remove(s);
@@ -256,46 +213,36 @@ public class RenderEngine
         }
     }
 
-    public void registerTextureFX(TextureFX texturefx)
-    {
+    public void registerTextureFX(TextureFX texturefx) {
         field_1604_f.add(texturefx);
         texturefx.func_783_a();
     }
 
-    public void func_1067_a()
-    {
-        for(int i = 0; i < field_1604_f.size(); i++)
-        {
-            TextureFX texturefx = (TextureFX)field_1604_f.get(i);
+    public void func_1067_a() {
+        for (int i = 0; i < field_1604_f.size(); i++) {
+            TextureFX texturefx = (TextureFX) field_1604_f.get(i);
             texturefx.field_1131_c = options.anaglyph;
             texturefx.func_783_a();
             imageData.clear();
             imageData.put(texturefx.field_1127_a);
             imageData.position(0).limit(texturefx.field_1127_a.length);
             texturefx.func_782_a(this);
-            for(int k = 0; k < texturefx.field_1129_e; k++)
-            {
-label0:
-                for(int i1 = 0; i1 < texturefx.field_1129_e; i1++)
-                {
+            for (int k = 0; k < texturefx.field_1129_e; k++) {
+                label0:
+                for (int i1 = 0; i1 < texturefx.field_1129_e; i1++) {
                     GL11.glTexSubImage2D(3553 /*GL_TEXTURE_2D*/, 0, (texturefx.field_1126_b % 16) * 16 + k * 16, (texturefx.field_1126_b / 16) * 16 + i1 * 16, 16, 16, 6408 /*GL_RGBA*/, 5121 /*GL_UNSIGNED_BYTE*/, imageData);
-                    if(!useMipmaps)
-                    {
+                    if (!useMipmaps) {
                         continue;
                     }
                     int k1 = 1;
-                    do
-                    {
-                        if(k1 > 4)
-                        {
+                    do {
+                        if (k1 > 4) {
                             continue label0;
                         }
                         int i2 = 16 >> k1 - 1;
                         int k2 = 16 >> k1;
-                        for(int i3 = 0; i3 < k2; i3++)
-                        {
-                            for(int k3 = 0; k3 < k2; k3++)
-                            {
+                        for (int i3 = 0; i3 < k2; i3++) {
+                            for (int k3 = 0; k3 < k2; k3++) {
                                 int i4 = imageData.getInt((i3 * 2 + 0 + (k3 * 2 + 0) * i2) * 4);
                                 int k4 = imageData.getInt((i3 * 2 + 1 + (k3 * 2 + 0) * i2) * 4);
                                 int i5 = imageData.getInt((i3 * 2 + 1 + (k3 * 2 + 1) * i2) * 4);
@@ -308,19 +255,17 @@ label0:
 
                         GL11.glTexSubImage2D(3553 /*GL_TEXTURE_2D*/, k1, (texturefx.field_1126_b % 16) * k2, (texturefx.field_1126_b / 16) * k2, k2, k2, 6408 /*GL_RGBA*/, 5121 /*GL_UNSIGNED_BYTE*/, imageData);
                         k1++;
-                    } while(true);
+                    } while (true);
                 }
 
             }
 
         }
 
-label1:
-        for(int j = 0; j < field_1604_f.size(); j++)
-        {
-            TextureFX texturefx1 = (TextureFX)field_1604_f.get(j);
-            if(texturefx1.field_1130_d <= 0)
-            {
+        label1:
+        for (int j = 0; j < field_1604_f.size(); j++) {
+            TextureFX texturefx1 = (TextureFX) field_1604_f.get(j);
+            if (texturefx1.field_1130_d <= 0) {
                 continue;
             }
             imageData.clear();
@@ -328,23 +273,18 @@ label1:
             imageData.position(0).limit(texturefx1.field_1127_a.length);
             GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, texturefx1.field_1130_d);
             GL11.glTexSubImage2D(3553 /*GL_TEXTURE_2D*/, 0, 0, 0, 16, 16, 6408 /*GL_RGBA*/, 5121 /*GL_UNSIGNED_BYTE*/, imageData);
-            if(!useMipmaps)
-            {
+            if (!useMipmaps) {
                 continue;
             }
             int l = 1;
-            do
-            {
-                if(l > 4)
-                {
+            do {
+                if (l > 4) {
                     continue label1;
                 }
                 int j1 = 16 >> l - 1;
                 int l1 = 16 >> l;
-                for(int j2 = 0; j2 < l1; j2++)
-                {
-                    for(int l2 = 0; l2 < l1; l2++)
-                    {
+                for (int j2 = 0; j2 < l1; j2++) {
+                    for (int l2 = 0; l2 < l1; l2++) {
                         int j3 = imageData.getInt((j2 * 2 + 0 + (l2 * 2 + 0) * j1) * 4);
                         int l3 = imageData.getInt((j2 * 2 + 1 + (l2 * 2 + 0) * j1) * 4);
                         int j4 = imageData.getInt((j2 * 2 + 1 + (l2 * 2 + 1) * j1) * 4);
@@ -357,25 +297,22 @@ label1:
 
                 GL11.glTexSubImage2D(3553 /*GL_TEXTURE_2D*/, l, 0, 0, l1, l1, 6408 /*GL_RGBA*/, 5121 /*GL_UNSIGNED_BYTE*/, imageData);
                 l++;
-            } while(true);
+            } while (true);
         }
 
     }
 
-    private int averageColor(int i, int j)
-    {
+    private int averageColor(int i, int j) {
         int k = (i & 0xff000000) >> 24 & 0xff;
         int l = (j & 0xff000000) >> 24 & 0xff;
         return ((k + l >> 1) << 24) + ((i & 0xfefefe) + (j & 0xfefefe) >> 1);
     }
 
-    private int weightedAverageColor(int i, int j)
-    {
+    private int weightedAverageColor(int i, int j) {
         int k = (i & 0xff000000) >> 24 & 0xff;
         int l = (j & 0xff000000) >> 24 & 0xff;
         char c = '\377';
-        if(k + l == 0)
-        {
+        if (k + l == 0) {
             k = 1;
             l = 1;
             c = '\0';
@@ -392,73 +329,56 @@ label1:
         return c << 24 | k2 << 16 | l2 << 8 | i3;
     }
 
-    public void refreshTextures()
-    {
+    public void refreshTextures() {
         TexturePackBase texturepackbase = field_6527_k.selectedTexturePack;
         int i;
         BufferedImage bufferedimage;
-        for(Iterator iterator = textureNameToImageMap.keySet().iterator(); iterator.hasNext(); setupTexture(bufferedimage, i))
-        {
-            i = ((Integer)iterator.next()).intValue();
-            bufferedimage = (BufferedImage)textureNameToImageMap.get(Integer.valueOf(i));
+        for (Iterator iterator = textureNameToImageMap.keySet().iterator(); iterator.hasNext(); setupTexture(bufferedimage, i)) {
+            i = ((Integer) iterator.next()).intValue();
+            bufferedimage = (BufferedImage) textureNameToImageMap.get(Integer.valueOf(i));
         }
 
-        for(Iterator iterator1 = urlToImageDataMap.values().iterator(); iterator1.hasNext();)
-        {
-            ThreadDownloadImageData threaddownloadimagedata = (ThreadDownloadImageData)iterator1.next();
+        for (Iterator iterator1 = urlToImageDataMap.values().iterator(); iterator1.hasNext(); ) {
+            ThreadDownloadImageData threaddownloadimagedata = (ThreadDownloadImageData) iterator1.next();
             threaddownloadimagedata.textureSetupComplete = false;
         }
 
-        for(Iterator iterator2 = textureMap.keySet().iterator(); iterator2.hasNext();)
-        {
-            String s = (String)iterator2.next();
-            try
-            {
+        for (Iterator iterator2 = textureMap.keySet().iterator(); iterator2.hasNext(); ) {
+            String s = (String) iterator2.next();
+            try {
                 BufferedImage bufferedimage1;
-                if(s.startsWith("##"))
-                {
+                if (s.startsWith("##")) {
                     bufferedimage1 = unwrapImageByColumns(readTextureImage(texturepackbase.func_6481_a(s.substring(2))));
-                } else
-                if(s.startsWith("%clamp%"))
-                {
+                } else if (s.startsWith("%clamp%")) {
                     clampTexture = true;
                     bufferedimage1 = readTextureImage(texturepackbase.func_6481_a(s.substring(7)));
-                } else
-                if(s.startsWith("%blur%"))
-                {
+                } else if (s.startsWith("%blur%")) {
                     blurTexture = true;
                     bufferedimage1 = readTextureImage(texturepackbase.func_6481_a(s.substring(6)));
-                } else
-                {
+                } else {
                     bufferedimage1 = readTextureImage(texturepackbase.func_6481_a(s));
                 }
-                int j = ((Integer)textureMap.get(s)).intValue();
+                int j = ((Integer) textureMap.get(s)).intValue();
                 setupTexture(bufferedimage1, j);
                 blurTexture = false;
                 clampTexture = false;
-            }
-            catch(IOException ioexception)
-            {
+            } catch (IOException ioexception) {
                 ioexception.printStackTrace();
             }
         }
 
     }
 
-    private BufferedImage readTextureImage(InputStream inputstream) throws IOException
-    {
+    private BufferedImage readTextureImage(InputStream inputstream) throws IOException {
         BufferedImage bufferedimage = ImageIO.read(inputstream);
         inputstream.close();
         return bufferedimage;
     }
 
-    public void bindTexture(int i)
-    {
-        if(i < 0)
-        {
+    public void bindTexture(int i) {
+        if (i < 0) {
             return;
-        } else
-        {
+        } else {
             GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, i);
             return;
         }

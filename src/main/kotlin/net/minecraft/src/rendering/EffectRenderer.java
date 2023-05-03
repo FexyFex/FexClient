@@ -13,7 +13,6 @@ import net.minecraft.src.block.World;
 import net.minecraft.src.entity.Entity;
 import net.minecraft.src.entity.EntityDiggingFX;
 import net.minecraft.src.entity.EntityFX;
-import net.minecraft.src.rendering.RenderEngine;
 import org.lwjgl.opengl.GL11;
 
 public class EffectRenderer {
@@ -49,11 +48,11 @@ public class EffectRenderer {
 
     }
 
-    public void func_1189_a(Entity entity, float f) {
-        float f1 = MathHelper.cos((entity.rotationYaw * 3.141593F) / 180F);
-        float f2 = MathHelper.sin((entity.rotationYaw * 3.141593F) / 180F);
-        float f3 = -f2 * MathHelper.sin((entity.rotationPitch * 3.141593F) / 180F);
-        float f4 = f1 * MathHelper.sin((entity.rotationPitch * 3.141593F) / 180F);
+    public void draw(Entity entity, float f) {
+        float cosY = MathHelper.cos((entity.rotationYaw * 3.141593F) / 180F);
+        float sinY = MathHelper.sin((entity.rotationYaw * 3.141593F) / 180F);
+        float f3 = -sinY * MathHelper.sin((entity.rotationPitch * 3.141593F) / 180F);
+        float f4 = cosY * MathHelper.sin((entity.rotationPitch * 3.141593F) / 180F);
         float f5 = MathHelper.cos((entity.rotationPitch * 3.141593F) / 180F);
         EntityFX.field_660_l = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * (double) f;
         EntityFX.field_659_m = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * (double) f;
@@ -77,7 +76,7 @@ public class EffectRenderer {
             tessellator.startDrawingQuads();
             for (int k = 0; k < field_1728_b[i].size(); k++) {
                 EntityFX entityfx = (EntityFX) field_1728_b[i].get(k);
-                entityfx.func_406_a(tessellator, f, f1, f5, f2, f3, f4);
+                entityfx.drawQuad(tessellator, f, cosY, f5, sinY, f3, f4);
             }
 
             tessellator.draw();
@@ -93,7 +92,7 @@ public class EffectRenderer {
         Tessellator tessellator = Tessellator.instance;
         for (int i = 0; i < field_1728_b[byte0].size(); i++) {
             EntityFX entityfx = (EntityFX) field_1728_b[byte0].get(i);
-            entityfx.func_406_a(tessellator, f, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F);
+            entityfx.drawQuad(tessellator, f, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F);
         }
 
     }

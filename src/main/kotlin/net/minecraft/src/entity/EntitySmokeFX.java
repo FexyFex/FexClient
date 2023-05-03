@@ -28,7 +28,7 @@ public class EntitySmokeFX extends EntityFX {
         noClip = false;
     }
 
-    public void func_406_a(Tessellator tessellator, float f, float f1, float f2, float f3, float f4, float f5) {
+    public void drawQuad(Tessellator tessellator, float f, float f1, float f2, float f3, float f4, float f5) {
         float f6 = (((float) field_667_e + f) / (float) field_666_f) * 32F;
         if (f6 < 0.0F) {
             f6 = 0.0F;
@@ -37,7 +37,7 @@ public class EntitySmokeFX extends EntityFX {
             f6 = 1.0F;
         }
         field_665_g = field_671_a * f6;
-        super.func_406_a(tessellator, f, f1, f2, f3, f4, f5);
+        super.drawQuad(tessellator, f, f1, f2, f3, f4, f5);
     }
 
     public void onUpdate() {

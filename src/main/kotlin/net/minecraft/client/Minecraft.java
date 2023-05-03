@@ -176,6 +176,7 @@ public abstract class Minecraft implements Runnable {
         } else {
             displayGuiScreen(new GuiMainMenu());
         }
+        MinecraftFexClientInjectorApp.INSTANCE.init(this);
     }
 
     private void loadScreen() throws LWJGLException {
@@ -1142,7 +1143,7 @@ public abstract class Minecraft implements Runnable {
     public int displayWidth;
     public int displayHeight;
     private OpenGlCapsChecker glCapabilities;
-    private Timer timer;
+    public Timer timer;
     public World theWorld;
     public RenderGlobal renderGlobal;
     public EntityPlayerSP thePlayer;

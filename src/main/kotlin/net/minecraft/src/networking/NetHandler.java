@@ -15,9 +15,7 @@ public class NetHandler {
         System.out.println("Handle Map Chunk");
     }
 
-    public void func_4114_b(Packet packet) {
-        System.out.println("Handle other");
-    }
+    public void func_4114_b(Packet packet) {}
 
     public void handleErrorMessage(String s, Object[] aobj) {
     }
