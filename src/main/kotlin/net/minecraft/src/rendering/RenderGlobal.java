@@ -929,6 +929,7 @@ public class RenderGlobal implements IWorldAccess {
         tessellator.draw();
     }
 
+    // I think this funtion might check all loaded chunks and send them into an update queue. Not 100% sure though
     public void func_949_a(int i, int j, int k, int l, int i1, int j1) {
         int k1 = MathHelper.bucketInt(i, 16);
         int l1 = MathHelper.bucketInt(j, 16);

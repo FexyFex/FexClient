@@ -24,15 +24,15 @@ public class PlayerController {
         sendBlockRemoved(i, j, k, l);
     }
 
-    public boolean sendBlockRemoved(int i, int j, int k, int l) {
-        mc.effectRenderer.func_1186_a(i, j, k);
+    public boolean sendBlockRemoved(int x, int y, int z, int l) {
+        mc.effectRenderer.func_1186_a(x, y, z);
         World world = mc.theWorld;
-        Block block = Block.blocksList[world.getBlockId(i, j, k)];
-        int i1 = world.getBlockMetadata(i, j, k);
-        boolean flag = world.setBlockWithNotify(i, j, k, 0);
+        Block block = Block.blocksList[world.getBlockId(x, y, z)];
+        int i1 = world.getBlockMetadata(x, y, z);
+        boolean flag = world.setBlockWithNotify(x, y, z, 0);
         if (block != null && flag) {
-            mc.sndManager.playSound(block.stepSound.func_1146_a(), (float) i + 0.5F, (float) j + 0.5F, (float) k + 0.5F, (block.stepSound.func_1147_b() + 1.0F) / 2.0F, block.stepSound.func_1144_c() * 0.8F);
-            block.onBlockDestroyedByPlayer(world, i, j, k, i1);
+            mc.sndManager.playSound(block.stepSound.func_1146_a(), (float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F, (block.stepSound.func_1147_b() + 1.0F) / 2.0F, block.stepSound.func_1144_c() * 0.8F);
+            block.onBlockDestroyedByPlayer(world, x, y, z, i1);
         }
         return flag;
     }

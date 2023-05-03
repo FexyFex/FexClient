@@ -200,14 +200,14 @@ public class ChunkProviderHell implements IChunkProvider {
 
     }
 
-    public Chunk provideChunk(int i, int j)
+    public Chunk provideChunk(int x, int z)
     {
-        field_4170_h.setSeed((long)i * 0x4f9939f508L + (long)j * 0x1ef1565bd5L);
+        field_4170_h.setSeed((long) x * 0x4f9939f508L + (long) z * 0x1ef1565bd5L);
         byte abyte0[] = new byte[32768];
-        func_4059_a(i, j, abyte0);
-        func_4058_b(i, j, abyte0);
-        field_4159_s.func_867_a(this, field_4164_n, i, j, abyte0);
-        Chunk chunk = new Chunk(field_4164_n, abyte0, i, j);
+        func_4059_a(x, z, abyte0);
+        func_4058_b(x, z, abyte0);
+        field_4159_s.func_867_a(this, field_4164_n, x, z, abyte0);
+        Chunk chunk = new Chunk(field_4164_n, abyte0, x, z);
         chunk.func_1024_c();
         chunk.func_4143_d();
         return chunk;

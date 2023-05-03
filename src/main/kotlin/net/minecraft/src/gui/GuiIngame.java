@@ -158,7 +158,9 @@ public class GuiIngame extends Gui {
         } else {
             //fontrenderer.drawStringWithShadow("net.minecraft.client.Minecraft Beta 1.1_02", 2, 2, 0xffffff);
             // Modified by FexClient
-            fontrenderer.drawStringWithShadow(MinecraftFexClientConfig.versionText, 2, 2, 0xffffff);
+            //fontrenderer.drawStringWithShadow(MinecraftFexClientConfig.versionText, 2, 2, 0xffffff);
+            // remove version text when F3 is not down
+            fontrenderer.drawStringWithShadow("", 2, 2, 0xffffff);
         }
         if (field_9419_j > 0) {
             float f2 = (float) field_9419_j - f;

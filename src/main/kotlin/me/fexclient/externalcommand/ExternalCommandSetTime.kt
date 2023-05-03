@@ -10,6 +10,6 @@ class ExternalCommandSetTime(timeValue: Long): ExternalCommand {
     companion object {
         const val commandName: String = "time"
         const val commandParams: String = "<value>"
-        const val commandUsage: String = "Usage: <value> must be a positive number"
+        const val commandUsage: String = "Usage: <value> must be a positive number. Does not work on servers."
     }
 }

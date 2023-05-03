@@ -22,13 +22,13 @@ public class ChunkProviderIso implements IChunkProvider {
         return chunks[k] != null && chunks[k].isAtLocation(i, j);
     }
 
-    public Chunk provideChunk(int i, int j) {
-        int k = i & 0xf | (j & 0xf) * 16;
+    public Chunk provideChunk(int x, int z) {
+        int k = x & 0xf | (z & 0xf) * 16;
         try {
-            if (!chunkExists(i, j)) {
-                Chunk chunk = func_543_c(i, j);
+            if (!chunkExists(x, z)) {
+                Chunk chunk = func_543_c(x, z);
                 if (chunk == null) {
-                    chunk = new Chunk(worldObj, field_899_a, i, j);
+                    chunk = new Chunk(worldObj, field_899_a, x, z);
                     chunk.field_1524_q = true;
                     chunk.neverSave = true;
                 }

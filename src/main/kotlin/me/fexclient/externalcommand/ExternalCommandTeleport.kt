@@ -6,7 +6,7 @@ class ExternalCommandTeleport(val x: Int, val y: Int, val z: Int): ExternalComma
     override val action: (mc: Minecraft) -> Unit = {
         if (it.thePlayer != null && it.playerController != null) {
             it.thePlayer.setPosition(x.toDouble(), y.toDouble(), z.toDouble())
-            it.playerController.clickBlock(x, 0, z, 0)
+            //it.playerController.clickBlock(x, 0, z, 0)
             //it.playerController.sendBlockRemoved(x,y,z,0)
         }
     }
@@ -14,6 +14,6 @@ class ExternalCommandTeleport(val x: Int, val y: Int, val z: Int): ExternalComma
     companion object {
         const val commandName: String = "tp"
         const val commandParams: String = "<x> <y> <z>"
-        const val commandUsage: String = "Usage: <x>, <y> and <z> must be a number"
+        const val commandUsage: String = "Usage: <x>, <y> and <z> must be a number. Probably won't work on servers."
     }
 }

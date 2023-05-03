@@ -28,16 +28,16 @@ public class PlayerControllerSP extends PlayerController
         entityplayer.rotationYaw = -180F;
     }
 
-    public boolean sendBlockRemoved(int i, int j, int k, int l)
+    public boolean sendBlockRemoved(int x, int y, int z, int l)
     {
-        int i1 = mc.theWorld.getBlockId(i, j, k);
-        int j1 = mc.theWorld.getBlockMetadata(i, j, k);
-        boolean flag = super.sendBlockRemoved(i, j, k, l);
+        int i1 = mc.theWorld.getBlockId(x, y, z);
+        int j1 = mc.theWorld.getBlockMetadata(x, y, z);
+        boolean flag = super.sendBlockRemoved(x, y, z, l);
         ItemStack itemstack = mc.thePlayer.getCurrentEquippedItem();
         boolean flag1 = mc.thePlayer.canHarvestBlock(Block.blocksList[i1]);
         if(itemstack != null)
         {
-            itemstack.hitBlock(i1, i, j, k);
+            itemstack.hitBlock(i1, x, y, z);
             if(itemstack.stackSize == 0)
             {
                 itemstack.func_1097_a(mc.thePlayer);
@@ -46,7 +46,7 @@ public class PlayerControllerSP extends PlayerController
         }
         if(flag && flag1)
         {
-            Block.blocksList[i1].harvestBlock(mc.theWorld, i, j, k, j1);
+            Block.blocksList[i1].harvestBlock(mc.theWorld, x, y, z, j1);
         }
         return flag;
     }

@@ -34,13 +34,13 @@ public class PlayerControllerMP extends PlayerController {
         entityplayer.rotationYaw = -180F;
     }
 
-    public boolean sendBlockRemoved(int i, int j, int k, int l) {
-        field_9438_k.addToSendQueue(new Packet14BlockDig(3, i, j, k, l));
-        int i1 = mc.theWorld.getBlockId(i, j, k);
-        boolean flag = super.sendBlockRemoved(i, j, k, l);
+    public boolean sendBlockRemoved(int x, int y, int z, int l) {
+        field_9438_k.addToSendQueue(new Packet14BlockDig(3, x, y, z, l));
+        int i1 = mc.theWorld.getBlockId(x, y, z);
+        boolean flag = super.sendBlockRemoved(x, y, z, l);
         ItemStack itemstack = mc.thePlayer.getCurrentEquippedItem();
         if (itemstack != null) {
-            itemstack.hitBlock(i1, i, j, k);
+            itemstack.hitBlock(i1, x, y, z);
             if (itemstack.stackSize == 0) {
                 itemstack.func_1097_a(mc.thePlayer);
                 mc.thePlayer.destroyCurrentEquippedItem();

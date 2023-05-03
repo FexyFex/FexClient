@@ -31,25 +31,25 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
         }
     }
 
-    public Chunk provideChunk(int i, int j) {
-        if (i == lastQueriedChunkXPos && j == lastQueriedChunkZPos && lastQueriedChunk != null) {
+    public Chunk provideChunk(int x, int z) {
+        if (x == lastQueriedChunkXPos && z == lastQueriedChunkZPos && lastQueriedChunk != null) {
             return lastQueriedChunk;
         }
-        int k = i & 0x1f;
-        int l = j & 0x1f;
+        int k = x & 0x1f;
+        int l = z & 0x1f;
         int i1 = k + l * 32;
-        if (!chunkExists(i, j)) {
+        if (!chunkExists(x, z)) {
             if (chunks[i1] != null) {
                 chunks[i1].onChunkUnload();
                 saveChunk(chunks[i1]);
                 saveExtraChunkData(chunks[i1]);
             }
-            Chunk chunk = func_542_c(i, j);
+            Chunk chunk = func_542_c(x, z);
             if (chunk == null) {
                 if (chunkProvider == null) {
                     chunk = blankChunk;
                 } else {
-                    chunk = chunkProvider.provideChunk(i, j);
+                    chunk = chunkProvider.provideChunk(x, z);
                 }
             }
             chunks[i1] = chunk;
@@ -57,21 +57,21 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
             if (chunks[i1] != null) {
                 chunks[i1].onChunkLoad();
             }
-            if (!chunks[i1].isTerrainPopulated && chunkExists(i + 1, j + 1) && chunkExists(i, j + 1) && chunkExists(i + 1, j)) {
-                populate(this, i, j);
+            if (!chunks[i1].isTerrainPopulated && chunkExists(x + 1, z + 1) && chunkExists(x, z + 1) && chunkExists(x + 1, z)) {
+                populate(this, x, z);
             }
-            if (chunkExists(i - 1, j) && !provideChunk(i - 1, j).isTerrainPopulated && chunkExists(i - 1, j + 1) && chunkExists(i, j + 1) && chunkExists(i - 1, j)) {
-                populate(this, i - 1, j);
+            if (chunkExists(x - 1, z) && !provideChunk(x - 1, z).isTerrainPopulated && chunkExists(x - 1, z + 1) && chunkExists(x, z + 1) && chunkExists(x - 1, z)) {
+                populate(this, x - 1, z);
             }
-            if (chunkExists(i, j - 1) && !provideChunk(i, j - 1).isTerrainPopulated && chunkExists(i + 1, j - 1) && chunkExists(i, j - 1) && chunkExists(i + 1, j)) {
-                populate(this, i, j - 1);
+            if (chunkExists(x, z - 1) && !provideChunk(x, z - 1).isTerrainPopulated && chunkExists(x + 1, z - 1) && chunkExists(x, z - 1) && chunkExists(x + 1, z)) {
+                populate(this, x, z - 1);
             }
-            if (chunkExists(i - 1, j - 1) && !provideChunk(i - 1, j - 1).isTerrainPopulated && chunkExists(i - 1, j - 1) && chunkExists(i, j - 1) && chunkExists(i - 1, j)) {
-                populate(this, i - 1, j - 1);
+            if (chunkExists(x - 1, z - 1) && !provideChunk(x - 1, z - 1).isTerrainPopulated && chunkExists(x - 1, z - 1) && chunkExists(x, z - 1) && chunkExists(x - 1, z)) {
+                populate(this, x - 1, z - 1);
             }
         }
-        lastQueriedChunkXPos = i;
-        lastQueriedChunkZPos = j;
+        lastQueriedChunkXPos = x;
+        lastQueriedChunkZPos = z;
         lastQueriedChunk = chunks[i1];
         return chunks[i1];
     }

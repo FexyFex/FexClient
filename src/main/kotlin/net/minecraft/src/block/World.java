@@ -408,8 +408,8 @@ public class World
         return getChunkFromChunkCoords(i >> 4, j >> 4);
     }
 
-    public Chunk getChunkFromChunkCoords(int i, int j) {
-        return chunkProvider.provideChunk(i, j);
+    public Chunk getChunkFromChunkCoords(int x, int z) {
+        return chunkProvider.provideChunk(x, z);
     }
 
     public boolean setBlockAndMetadata(int i, int j, int k, int l, int i1) {
@@ -1980,7 +1980,7 @@ public class World
     public boolean field_1033_r;
     public final WorldProvider worldProvider;
     protected List worldAccesses;
-    private IChunkProvider chunkProvider;
+    public IChunkProvider chunkProvider;
     public File field_9433_s;
     public File field_9432_t;
     public long randomSeed;

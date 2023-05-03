@@ -49,9 +49,9 @@ public class ChunkProviderClient
         return chunk;
     }
 
-    public Chunk provideChunk(int i, int j)
+    public Chunk provideChunk(int x, int z)
     {
-        ChunkCoordinates chunkcoordinates = new ChunkCoordinates(i, j);
+        ChunkCoordinates chunkcoordinates = new ChunkCoordinates(x, z);
         Chunk chunk = (Chunk)chunkMapping.get(chunkcoordinates);
         if(chunk == null)
         {

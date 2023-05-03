@@ -47,8 +47,8 @@ public class MetadataChunkBlock
                     }
                     int l1 = world.getSavedLightValue(field_1299_a, i1, k1, j1);
                     int i2 = 0;
-                    int j2 = world.getBlockId(i1, k1, j1);
-                    int k2 = Block.lightOpacity[j2];
+                    int blockId = world.getBlockId(i1, k1, j1);
+                    int k2 = Block.lightOpacity[blockId];
                     if(k2 == 0)
                     {
                         k2 = 1;
@@ -63,7 +63,7 @@ public class MetadataChunkBlock
                     } else
                     if(field_1299_a == EnumSkyBlock.Block)
                     {
-                        l2 = Block.lightValue[j2];
+                        l2 = Block.lightValue[blockId];
                     }
                     if(k2 >= 15 && l2 == 0)
                     {

@@ -14,11 +14,16 @@ import kotlin.reflect.full.companionObject
 
 class UserExternalCommandInputWindow(private val commandList: MutableList<ExternalCommand>): JFrame() {
     private val mainPanel = JPanel()
-    private val tutorialTextArea = JTextArea("Tutorial")
+    private val tutorialTextArea = JTextArea("")
     private val inputField = JTextField("")
 
     private val allCommands = arrayOf(
-        ExternalCommandSetBrightness::class, ExternalCommandSetTime::class, ExternalCommandTeleport::class
+        ExternalCommandSetBrightness::class,
+        ExternalCommandSetTime::class,
+        ExternalCommandSetStaticTime::class,
+        ExternalCommandTeleport::class,
+        ExternalCommandBlockScan::class,
+        ExternalCommandInstaMine::class
     )
 
     init {

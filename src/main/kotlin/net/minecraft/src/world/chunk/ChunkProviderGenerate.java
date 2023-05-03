@@ -174,15 +174,15 @@ public class ChunkProviderGenerate implements IChunkProvider {
 
     }
 
-    public Chunk provideChunk(int i, int j) {
-        rand.setSeed((long) i * 0x4f9939f508L + (long) j * 0x1ef1565bd5L);
+    public Chunk provideChunk(int x, int z) {
+        rand.setSeed((long) x * 0x4f9939f508L + (long) z * 0x1ef1565bd5L);
         byte abyte0[] = new byte[32768];
-        Chunk chunk = new Chunk(worldObj, abyte0, i, j);
-        biomesForGeneration = worldObj.func_4075_a().loadBlockGeneratorData(biomesForGeneration, i * 16, j * 16, 16, 16);
+        Chunk chunk = new Chunk(worldObj, abyte0, x, z);
+        biomesForGeneration = worldObj.func_4075_a().loadBlockGeneratorData(biomesForGeneration, x * 16, z * 16, 16, 16);
         double ad[] = worldObj.func_4075_a().temperature;
-        generateTerrain(i, j, abyte0, biomesForGeneration, ad);
-        replaceBlocksForBiome(i, j, abyte0, biomesForGeneration);
-        field_902_u.func_867_a(this, worldObj, i, j, abyte0);
+        generateTerrain(x, z, abyte0, biomesForGeneration, ad);
+        replaceBlocksForBiome(x, z, abyte0, biomesForGeneration);
+        field_902_u.func_867_a(this, worldObj, x, z, abyte0);
         chunk.func_1024_c();
         return chunk;
     }

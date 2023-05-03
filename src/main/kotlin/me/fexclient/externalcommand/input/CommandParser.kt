@@ -55,14 +55,13 @@ class CommandParser(private val rawCommandString: String) {
             }
 
             ExternalCommandTeleport.commandName -> {
-                if (arguments.size < 3) return "Not enough arguments"
+                if (arguments.size < 3) return "Not enough arguments!"
                 val xString = arguments[0]
                 val yString = arguments[1]
                 val zString = arguments[2]
                 val x: Int
                 val y: Int
                 val z: Int
-
                 try {
                     x = xString.toInt()
                     y = yString.toInt()
@@ -70,8 +69,27 @@ class CommandParser(private val rawCommandString: String) {
                 } catch (e: Exception) {
                     return "Invalid coords \"$xString,$yString,$zString\""
                 }
-
                 ExternalCommandTeleport(x,y,z)
+            }
+
+            ExternalCommandBlockScan.commandName -> {
+                if (arguments.isEmpty()) return "Not enough arguments!"
+                val blockIdString = arguments[0]
+                val blockId: Int
+                try {
+                    blockId = blockIdString.toInt()
+                } catch (e: Exception) { return "Invalid Block ID \"$blockIdString\"" }
+                ExternalCommandBlockScan(blockId)
+            }
+
+            ExternalCommandInstaMine.commandName -> {
+                if (arguments.isEmpty()) return "Not enough arguments!"
+                val statusString = arguments[0]
+                val status: Boolean
+                try {
+                    status = statusString.toInt() == 1
+                } catch (e: Exception) { return "Invalid status \"$statusString\""}
+                ExternalCommandInstaMine(status)
             }
 
             else -> UnknownExternalCommand()

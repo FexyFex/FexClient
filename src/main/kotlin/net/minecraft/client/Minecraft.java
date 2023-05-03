@@ -383,7 +383,6 @@ public abstract class Minecraft implements Runnable {
                 for (int j = 0; j < timer.elapsedTicks; j++) {
                     ticksRan++;
                     try {
-                        MinecraftFexClientInjectorApp.INSTANCE.tick(this); // Added by FexClient
                         runTick();
                         continue;
                     } catch (MinecraftException minecraftexception) {
@@ -631,6 +630,7 @@ public abstract class Minecraft implements Runnable {
                 if (block != Block.bedrock || thePlayer.field_9371_f >= 100) {
                     playerController.clickBlock(j, k, l, objectMouseOver.sideHit);
                 }
+                MinecraftFexClientInjectorApp.INSTANCE.onBlockHit(this, block, Vec3D.createVector(j,k,l), i1);
             } else {
                 ItemStack itemstack1 = thePlayer.inventory.getCurrentItem();
                 int j1 = itemstack1 == null ? 0 : itemstack1.stackSize;
@@ -737,6 +737,7 @@ public abstract class Minecraft implements Runnable {
     }
 
     public void runTick() {
+        MinecraftFexClientInjectorApp.INSTANCE.preWorldtick(this); // Added by FexClient
         ingameGUI.func_555_a();
         entityRenderer.getMouseOver(1.0F);
         if (thePlayer != null) {
@@ -882,6 +883,7 @@ public abstract class Minecraft implements Runnable {
                 effectRenderer.func_1193_a();
             }
         }
+        MinecraftFexClientInjectorApp.INSTANCE.postWorldTick(this); // Added by FexClient
         systemTime = System.currentTimeMillis();
     }
 

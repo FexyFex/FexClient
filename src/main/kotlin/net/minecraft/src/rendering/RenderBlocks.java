@@ -1123,10 +1123,10 @@ public class RenderBlocks {
         float f = (float) (l >> 16 & 0xff) / 255F;
         float f1 = (float) (l >> 8 & 0xff) / 255F;
         float f2 = (float) (l & 0xff) / 255F;
-        return func_1230_b(block, i, j, k, f, f1, f2);
+        return renderCactusWithColorMultiplier(block, i, j, k, f, f1, f2);
     }
 
-    public boolean func_1230_b(Block block, int i, int j, int k, float f, float f1, float f2) {
+    public boolean renderCactusWithColorMultiplier(Block block, int i, int j, int k, float f, float f1, float f2) {
         Tessellator tessellator = Tessellator.instance;
         boolean flag = false;
         float f3 = 0.5F;

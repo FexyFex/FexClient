@@ -4,9 +4,7 @@ import me.fexclient.externalcommand.ExternalCommand
 import me.fexclient.externalcommand.input.UserExternalCommandInputApp
 import net.minecraft.client.Minecraft
 import net.minecraft.src.Block
-import net.minecraft.src.block.BlockTNT
-import net.minecraft.src.item.Item
-import net.minecraft.src.item.ItemStack
+import net.minecraft.src.datatype.Vec3D
 import kotlin.math.roundToInt
 
 
@@ -18,7 +16,7 @@ object MinecraftFexClientInjectorApp {
         Thread(commandInput, "ExternalCommandInputThread").start()
     }
 
-    fun tick(mc: Minecraft) {
+    fun preWorldtick(mc: Minecraft) {
         val cleanupList = mutableListOf<ExternalCommand>()
         try {
             externalCommands.forEach {
@@ -31,22 +29,27 @@ object MinecraftFexClientInjectorApp {
         }
         cleanupList.forEach { externalCommands.remove(it) }
         cleanupList.clear()
+    }
 
-        if (mc.theWorld != null) {
-            val playerPosX = mc.thePlayer.posX.roundToInt()
-            val playerPosY = mc.thePlayer.posY.roundToInt()
-            val playerPosZ = mc.thePlayer.posZ.roundToInt()
-            val chunk = mc.theWorld.getChunkFromBlockCoords(playerPosX, playerPosZ)
 
-            val index = chunk.blocks.indexOfFirst { it.toInt() == Block.dirt.blockID }
-            val x = (index shr 11) + (chunk.xPosition * 16)
-            val y = (index and 127)
-            val z = ((index and 1920) shr 7) + (chunk.zPosition)
-            println("$x,$y,$z")
-            mc.playerController.sendBlockRemoving(x,y,z,0)
-            mc.playerController.sendPlaceBlock(mc.thePlayer, mc.theWorld, ItemStack(Block.tnt, 1), x, y, z, 0)
+    fun postWorldTick(mc: Minecraft) {
+        if (MinecraftFexClientConfig.useStaticTime && mc.theWorld != null) {
+            mc.theWorld.setWorldTime(MinecraftFexClientConfig.staticTime)
         }
     }
+
+
+    fun onBlockHit(mc: Minecraft, block: Block, position: Vec3D, side: Int) {
+        if (MinecraftFexClientConfig.useInstaMine && mc.theWorld != null && mc.thePlayer != null) {
+            mc.playerController.sendBlockRemoved(
+                position.xCoord.roundToInt(),
+                position.yCoord.roundToInt(),
+                position.zCoord.roundToInt(),
+                side
+            )
+        }
+    }
+
 
 
     fun destroy() {
