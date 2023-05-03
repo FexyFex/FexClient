@@ -73,13 +73,18 @@ class CommandParser(private val rawCommandString: String) {
             }
 
             ExternalCommandBlockScan.commandName -> {
-                if (arguments.isEmpty()) return "Not enough arguments!"
+                if (arguments.size < 2) return "Not enough arguments!"
                 val blockIdString = arguments[0]
+                val radiusString = arguments[1]
                 val blockId: Int
+                val radius: Int
                 try {
                     blockId = blockIdString.toInt()
                 } catch (e: Exception) { return "Invalid Block ID \"$blockIdString\"" }
-                ExternalCommandBlockScan(blockId)
+                try {
+                    radius = radiusString.toInt()
+                } catch (e: Exception) { return "Invalid Radius \"$radiusString\"" }
+                ExternalCommandBlockScan(blockId, radius)
             }
 
             ExternalCommandInstaMine.commandName -> {
@@ -90,6 +95,31 @@ class CommandParser(private val rawCommandString: String) {
                     status = statusString.toInt() == 1
                 } catch (e: Exception) { return "Invalid status \"$statusString\""}
                 ExternalCommandInstaMine(status)
+            }
+
+            ExternalCommandGive.commandName -> {
+                if (arguments.size < 2) return "Not enough arguments!"
+                val itemIdString = arguments[0]
+                val amountString = arguments[1]
+                val itemId: Int
+                val amount: Int
+                try {
+                    itemId = itemIdString.toInt()
+                } catch (e: Exception) { return "Invalid Item ID \"$itemIdString\"" }
+                try {
+                    amount = amountString.toInt()
+                } catch (e: Exception) { return "Invalid amount \"$amountString\"" }
+                ExternalCommandGive(itemId, amount)
+            }
+
+            ExternalCommandFullHealth.commandName -> {
+                if (arguments.isEmpty()) return "Not enough arguments!"
+                val statusString = arguments[0]
+                val status: Boolean
+                try {
+                    status = statusString.toInt() == 1
+                } catch (e: Exception) { return "Invalid status \"$statusString\""}
+                ExternalCommandFullHealth(status)
             }
 
             else -> UnknownExternalCommand()

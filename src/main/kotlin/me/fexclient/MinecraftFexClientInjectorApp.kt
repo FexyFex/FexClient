@@ -16,6 +16,7 @@ object MinecraftFexClientInjectorApp {
         Thread(commandInput, "ExternalCommandInputThread").start()
     }
 
+
     fun preWorldtick(mc: Minecraft) {
         val cleanupList = mutableListOf<ExternalCommand>()
         try {
@@ -29,13 +30,18 @@ object MinecraftFexClientInjectorApp {
         }
         cleanupList.forEach { externalCommands.remove(it) }
         cleanupList.clear()
-    }
 
+        if (MinecraftFexClientConfig.useFullHealth && mc.thePlayer != null)
+            mc.thePlayer.setHealth(20)
+    }
 
     fun postWorldTick(mc: Minecraft) {
         if (MinecraftFexClientConfig.useStaticTime && mc.theWorld != null) {
             mc.theWorld.setWorldTime(MinecraftFexClientConfig.staticTime)
         }
+
+        if (MinecraftFexClientConfig.useFullHealth && mc.thePlayer != null)
+            mc.thePlayer.setHealth(20)
     }
 
 

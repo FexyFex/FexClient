@@ -13,5 +13,7 @@ public class MinecraftFexClientConfig {
 
     public static boolean useInstaMine = false;
 
+    public static boolean useFullHealth = false;
+
     private MinecraftFexClientConfig() {}
 }

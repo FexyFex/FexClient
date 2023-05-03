@@ -33,7 +33,8 @@ public class BlockSand extends Block {
         int j1 = k;
         if (canFallBelow(world, l, i1 - 1, j1) && i1 >= 0) {
             EntityFallingSand entityfallingsand = new EntityFallingSand(world, (float) i + 0.5F, (float) j + 0.5F, (float) k + 0.5F, blockID);
-            if (fallInstantly) {
+            //if (fallInstantly) {
+            if (false) {
                 while (!entityfallingsand.isDead) {
                     entityfallingsand.onUpdate();
                 }
