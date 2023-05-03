@@ -17,7 +17,7 @@ object MinecraftFexClientInjectorApp {
     }
 
 
-    fun preWorldtick(mc: Minecraft) {
+    fun preWorldTick(mc: Minecraft) {
         val cleanupList = mutableListOf<ExternalCommand>()
         try {
             externalCommands.forEach {

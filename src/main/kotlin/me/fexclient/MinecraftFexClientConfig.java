@@ -15,5 +15,7 @@ public class MinecraftFexClientConfig {
 
     public static boolean useFullHealth = false;
 
+    public static boolean doFalling = false;
+
     private MinecraftFexClientConfig() {}
 }

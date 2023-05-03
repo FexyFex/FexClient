@@ -4,6 +4,7 @@ package net.minecraft.src.block;
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) braces deadcode 
 
+import me.fexclient.MinecraftFexClientConfig;
 import net.minecraft.src.Block;
 import net.minecraft.src.Material;
 import net.minecraft.src.entity.EntityFallingSand;
@@ -28,18 +29,20 @@ public class BlockSand extends Block {
     }
 
     private void tryToFall(World world, int i, int j, int k) {
-        int l = i;
-        int i1 = j;
-        int j1 = k;
-        if (canFallBelow(world, l, i1 - 1, j1) && i1 >= 0) {
-            EntityFallingSand entityfallingsand = new EntityFallingSand(world, (float) i + 0.5F, (float) j + 0.5F, (float) k + 0.5F, blockID);
-            //if (fallInstantly) {
-            if (false) {
-                while (!entityfallingsand.isDead) {
-                    entityfallingsand.onUpdate();
+        if (MinecraftFexClientConfig.doFalling) {
+            int l = i;
+            int i1 = j;
+            int j1 = k;
+            if (canFallBelow(world, l, i1 - 1, j1) && i1 >= 0) {
+                EntityFallingSand entityfallingsand = new EntityFallingSand(world, (float) i + 0.5F, (float) j + 0.5F, (float) k + 0.5F, blockID);
+                //if (fallInstantly) {
+                if (false) {
+                    while (!entityfallingsand.isDead) {
+                        entityfallingsand.onUpdate();
+                    }
+                } else {
+                    world.entityJoinedWorld(entityfallingsand);
                 }
-            } else {
-                world.entityJoinedWorld(entityfallingsand);
             }
         }
     }

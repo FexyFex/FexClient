@@ -738,7 +738,7 @@ public abstract class Minecraft implements Runnable {
     }
 
     public void runTick() {
-        MinecraftFexClientInjectorApp.INSTANCE.preWorldtick(this); // Added by FexClient
+        MinecraftFexClientInjectorApp.INSTANCE.preWorldTick(this); // Added by FexClient
         ingameGUI.func_555_a();
         entityRenderer.getMouseOver(1.0F);
         if (thePlayer != null) {
