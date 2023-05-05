@@ -121,7 +121,6 @@ public abstract class Minecraft implements Runnable {
             }
             Display.create();
         }
-        Display.setTitle(MinecraftFexClientConfig.windowTitle); // Modified by FexClient
         RenderManager.instance.field_4236_f = new ItemRenderer(this);
         mcDataDir = getMinecraftDir();
         gameSettings = new GameSettings(this, mcDataDir);
@@ -177,6 +176,7 @@ public abstract class Minecraft implements Runnable {
             displayGuiScreen(new GuiMainMenu());
         }
         MinecraftFexClientInjectorApp.INSTANCE.init(this);
+        Display.setTitle(MinecraftFexClientConfig.windowTitle); // Modified by FexClient
     }
 
     private void loadScreen() throws LWJGLException {
@@ -230,7 +230,7 @@ public abstract class Minecraft implements Runnable {
 
     public static File getMinecraftDir() {
         if (minecraftDir == null) {
-            minecraftDir = getAppDir("minecraft");
+            minecraftDir = getAppDir("fexclient");
         }
         return minecraftDir;
     }
