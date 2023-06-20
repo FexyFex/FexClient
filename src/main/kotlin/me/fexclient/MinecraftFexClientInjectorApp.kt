@@ -5,8 +5,8 @@ import me.fexclient.externalcommand.input.UserExternalCommandInputApp
 import net.minecraft.client.Minecraft
 import net.minecraft.src.Block
 import net.minecraft.src.datatype.Vec3D
+import net.minecraft.src.gui.GuiMainMenu
 import org.lwjgl.input.Keyboard
-import java.security.Key
 import kotlin.math.roundToInt
 
 
@@ -16,9 +16,6 @@ object MinecraftFexClientInjectorApp {
 
     private lateinit var tunneler: AutoTunneler
     private lateinit var mc: Minecraft
-
-    private val pressedKeys = mutableSetOf<Int>()
-    private val downKeys = mutableSetOf<Int>()
 
 
     fun init(mc: Minecraft) {
@@ -49,7 +46,7 @@ object MinecraftFexClientInjectorApp {
     fun tick(elapsedTimeInNanos: Float) {
         val delta = elapsedTimeInNanos / 1_000_000_000f
 
-        if (Keyboard.isKeyDown(Keyboard.KEY_L) && !Keyboard.isRepeatEvent()) {
+        if (Keyboard.isKeyDown(Keyboard.KEY_L) && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
             if (MinecraftFexClientConfig.tunnelerActive) {
                 tunneler.stop()
                 MinecraftFexClientConfig.tunnelerActive = false
@@ -60,6 +57,15 @@ object MinecraftFexClientInjectorApp {
 
         if (MinecraftFexClientConfig.tunnelerActive && mc.theWorld != null && mc.thePlayer != null) {
             tunneler.tick(delta)
+        }
+
+        if (MinecraftFexClientConfig.requestedLogout) {
+            MinecraftFexClientConfig.resetToDefault()
+
+            if (mc.isMultiplayerWorld)
+                mc.theWorld.sendQuittingDisconnectingPacket()
+            mc.func_6261_a(null)
+            mc.displayGuiScreen(GuiMainMenu())
         }
     }
 

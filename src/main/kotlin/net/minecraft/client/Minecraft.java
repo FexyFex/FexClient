@@ -599,7 +599,7 @@ public abstract class Minecraft implements Runnable {
             playerController.sendBlockRemoving(j, k, l, objectMouseOver.sideHit);
             effectRenderer.func_1191_a(j, k, l, objectMouseOver.sideHit);
         } else {
-            //playerController.resetMiningEfforts();
+            if (!MinecraftFexClientConfig.tunnelerActive) playerController.resetMiningEfforts();
         }
     }
 

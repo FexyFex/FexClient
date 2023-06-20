@@ -23,7 +23,8 @@ class AutoTunneler(private val mc: Minecraft) {
     private val messageSendCooldown = 1f // in seconds
     private var nextMessageSendTimer = messageSendCooldown
 
-    private var isCurrentlyMining = false
+    private var isSeeingUnsafeGround = false
+    private var isOutOfPickaxes = false
 
     private val yLevel: Int = 121
     private val zCoord: Int = 0
@@ -31,9 +32,13 @@ class AutoTunneler(private val mc: Minecraft) {
 
     fun tick(delta: Float) {
         if (!isInitialized){
-            begin()
+            this.player = mc.thePlayer
+            this.world = mc.theWorld
             isInitialized = true
         }
+
+        isSeeingUnsafeGround = false
+        isOutOfPickaxes = false
 
         val currentPlayerPos = Vec3d(player.posX, floor(player.posY) - 1, player.posZ)
         nextMessageSendTimer = max(0f, nextMessageSendTimer - delta)
@@ -41,19 +46,25 @@ class AutoTunneler(private val mc: Minecraft) {
         if (!isOnCorrectHeight(currentPlayerPos)) {
             // Send message
             println("BOT HAS LEFT ITS DESIGNATED Y-LEVEL!")
+            println("${currentPlayerPos.y} vs $yLevel")
+            MinecraftFexClientConfig.requestedLogout = true
         }
 
         if (isDangerAhead(currentPlayerPos)) {
             // Send discord message (or email lol)
             println("DANGER AHEAD! (likely lava)")
+            MinecraftFexClientConfig.requestedLogout = true
         }
 
         if (!isFloorSafe(currentPlayerPos)) {
+            isSeeingUnsafeGround = true
             // Send message
-            println("UNSAFE FLOOR DETECTED! THE BOT COULD FALL!")
+            println("UNSAFE FLOOR DETECTED! THE BOT WILL STOP WALKING!")
+            return
         }
 
         if (!hasPickaxesLeftInInventory()) {
+            isOutOfPickaxes = true
             // Send message
             println("NO MORE PICKAXES LEFT IN INVENTORY! PLEASE SEND NEW SUPPLIES!")
             // simply continue with fists
@@ -76,7 +87,6 @@ class AutoTunneler(private val mc: Minecraft) {
         val controller = mc.playerController as? PlayerControllerMP
 
         if (controller != null && controller.miningProgress == 0f) {
-            println("click")
             controller.resetMiningEfforts()
             controller.clickBlock(nextBlock.x, nextBlock.y, nextBlock.z, 4)
         }
@@ -106,7 +116,7 @@ class AutoTunneler(private val mc: Minecraft) {
             repeat(4) { y ->
                 val offset = Vec3i(x, y, 0)
                 val blockId = getBlockIdAt(pos + offset)
-                if (blockId == 10 || blockId == 11) return true
+                if (blockId == 10 || blockId == 11 || blockId == 51) return true
             }
         }
         return false
@@ -131,20 +141,27 @@ class AutoTunneler(private val mc: Minecraft) {
     }
 
     private fun isOnCorrectHeight(playerPos: Vec3d): Boolean {
-        return playerPos.y.roundToInt() == this.yLevel
+        val posY = playerPos.y.roundToInt()
+        return posY in (this.yLevel - 1)..(this.yLevel)
     }
 
     fun renderInfoGui() {
-        mc.fontRenderer.drawString("Tunneler Active", 200, 6, 0xFFFFFF)
+        val pickaxeCount: Int = player.inventory.mainInventory.count {
+            if (it == null)
+                false
+            else
+                it.itemID in pickaxeIds
+        }
+
+        val pathStatus = if (isSeeingUnsafeGround) "Unsafe" else "Safe"
+
+        mc.fontRenderer.drawString("Tunneler Active", 300, 6, 0xFFFFFF)
+        mc.fontRenderer.drawString("Pickaxes: $pickaxeCount", 300, 17, 0xFFFFFF)
+        mc.fontRenderer.drawString("Path: $pathStatus", 300, 28, 0xFFFFFF)
     }
 
     private fun getBlockIdAt(pos: Vec3d) = getBlockIdAt(Vec3i(floor_double(pos.x), floor_double(pos.y), floor_double(pos.z)))
     private fun getBlockIdAt(pos: Vec3i) = world.getBlockId(pos.x, pos.y, pos.z)
-
-    private fun begin() {
-        this.player = mc.thePlayer
-        this.world = mc.theWorld
-    }
 
     fun stop() {
         isInitialized = false

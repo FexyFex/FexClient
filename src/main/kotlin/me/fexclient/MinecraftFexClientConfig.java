@@ -19,5 +19,22 @@ public class MinecraftFexClientConfig {
 
     public static boolean tunnelerActive = false;
 
+    public static boolean requestedLogout = false;
+
     private MinecraftFexClientConfig() {}
+
+
+    public static void resetToDefault() {
+        useUniformBrightness = false;
+        uniformBrightness = 1.0f;
+
+        useStaticTime = false;
+        staticTime = 0L;
+        useInstaMine = false;
+        useFullHealth = false;
+        doFalling = false;
+
+        tunnelerActive = false;
+        requestedLogout = false;
+    }
 }
