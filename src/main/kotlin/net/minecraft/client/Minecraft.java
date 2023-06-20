@@ -395,6 +395,7 @@ public abstract class Minecraft implements Runnable {
 
                 long l2 = System.nanoTime() - l1;
                 checkGLError("Pre render");
+                MinecraftFexClientInjectorApp.INSTANCE.tick(l2);
                 sndManager.func_338_a(thePlayer, timer.renderPartialTicks);
                 GL11.glEnable(3553);
                 if (theWorld != null && !theWorld.multiplayerWorld) {

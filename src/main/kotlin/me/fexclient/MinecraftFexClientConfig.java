@@ -17,5 +17,7 @@ public class MinecraftFexClientConfig {
 
     public static boolean doFalling = false;
 
+    public static boolean tunnelerActive = false;
+
     private MinecraftFexClientConfig() {}
 }

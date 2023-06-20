@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.BufferOverflowException;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class RenderEngine {
         textureMap = new HashMap();
         textureNameToImageMap = new HashMap();
         singleIntBuffer = GLAllocation.createDirectIntBuffer(1);
-        imageData = GLAllocation.createDirectByteBuffer(0x100000);
+        imageData = GLAllocation.createDirectByteBuffer(16777216);
         field_1604_f = new ArrayList();
         urlToImageDataMap = new HashMap();
         clampTexture = false;
@@ -135,7 +136,11 @@ public class RenderEngine {
         }
 
         imageData.clear();
-        imageData.put(abyte0);
+        try {
+            imageData.put(abyte0);
+        } catch (BufferOverflowException e) {
+            System.out.println("meh");
+        }
         imageData.position(0).limit(abyte0.length);
         GL11.glTexImage2D(3553 /*GL_TEXTURE_2D*/, 0, 6408 /*GL_RGBA*/, j, k, 0, 6408 /*GL_RGBA*/, 5121 /*GL_UNSIGNED_BYTE*/, imageData);
         if (useMipmaps) {

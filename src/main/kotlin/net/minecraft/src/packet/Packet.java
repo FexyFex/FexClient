@@ -45,7 +45,7 @@ public abstract class Packet {
     }
 
     public final int getPacketId() {
-        return ((Integer) packetClassToIdMap.get(getClass())).intValue();
+        return (Integer) packetClassToIdMap.get(getClass());
     }
 
     public static Packet readPacket(DataInputStream datainputstream) throws IOException {

@@ -5,6 +5,7 @@ import me.fexclient.externalcommand.input.UserExternalCommandInputApp
 import net.minecraft.client.Minecraft
 import net.minecraft.src.Block
 import net.minecraft.src.datatype.Vec3D
+import org.lwjgl.input.Keyboard
 import kotlin.math.roundToInt
 
 
@@ -12,7 +13,16 @@ object MinecraftFexClientInjectorApp {
     private val externalCommands = mutableListOf<ExternalCommand>()
     private val commandInput = UserExternalCommandInputApp(externalCommands)
 
+    private lateinit var tunneler: AutoTunneler
+    private lateinit var mc: Minecraft
+
+    private val pressedKeys = mutableSetOf<Int>()
+    private val downKeys = mutableSetOf<Int>()
+
+
     fun init(mc: Minecraft) {
+        tunneler = AutoTunneler(mc)
+        this.mc = mc
         Thread(commandInput, "ExternalCommandInputThread").start()
     }
 
@@ -35,6 +45,19 @@ object MinecraftFexClientInjectorApp {
             mc.thePlayer.setHealth(20)
     }
 
+    fun tick(elapsedTimeInNanos: Float) {
+        val delta = elapsedTimeInNanos / 1_000_000_000f
+
+        manageInput()
+
+        if (keyPressed(Keyboard.KEY_L))
+            MinecraftFexClientConfig.tunnelerActive = !MinecraftFexClientConfig.tunnelerActive
+
+        if (MinecraftFexClientConfig.tunnelerActive && mc.theWorld != null && mc.thePlayer != null) {
+            tunneler.tick(delta)
+        }
+    }
+
     fun postWorldTick(mc: Minecraft) {
         if (MinecraftFexClientConfig.useStaticTime && mc.theWorld != null) {
             mc.theWorld.setWorldTime(MinecraftFexClientConfig.staticTime)
@@ -53,6 +76,24 @@ object MinecraftFexClientInjectorApp {
                 position.zCoord.roundToInt(),
                 side
             )
+        }
+    }
+
+    private fun keyPressed(key: Int): Boolean {
+        return key in pressedKeys
+    }
+
+    private fun manageInput() {
+        val key = Keyboard.getEventKey()
+        if (Keyboard.isKeyDown(Keyboard.KEY_L)) {
+            if (Keyboard.KEY_L !in downKeys)
+                pressedKeys.add(Keyboard.KEY_L)
+            else
+                pressedKeys.remove(Keyboard.KEY_L)
+
+            downKeys.add(Keyboard.KEY_L)
+        } else {
+            downKeys.remove(Keyboard.KEY_L)
         }
     }
 
