@@ -394,8 +394,8 @@ public abstract class Minecraft implements Runnable {
                 }
 
                 long l2 = System.nanoTime() - l1;
-                checkGLError("Pre render");
                 MinecraftFexClientInjectorApp.INSTANCE.tick(l2);
+                checkGLError("Pre render");
                 sndManager.func_338_a(thePlayer, timer.renderPartialTicks);
                 GL11.glEnable(3553);
                 if (theWorld != null && !theWorld.multiplayerWorld) {
@@ -584,7 +584,7 @@ public abstract class Minecraft implements Runnable {
         }
     }
 
-    private void func_6254_a(int i, boolean flag) {
+    private void doMining(int i, boolean flag) {
         if (playerController.field_1064_b) {
             return;
         }
@@ -598,7 +598,7 @@ public abstract class Minecraft implements Runnable {
             playerController.sendBlockRemoving(j, k, l, objectMouseOver.sideHit);
             effectRenderer.func_1191_a(j, k, l, objectMouseOver.sideHit);
         } else {
-            playerController.func_6468_a();
+            //playerController.func_6468_a();
         }
     }
 
@@ -852,8 +852,11 @@ public abstract class Minecraft implements Runnable {
                     field_6302_aa = ticksRan;
                 }
             }
-            func_6254_a(0, currentScreen == null && Mouse.isButtonDown(0) && field_6289_L);
+            doMining(0, currentScreen == null && Mouse.isButtonDown(0) && field_6289_L);
         }
+
+        //MinecraftFexClientInjectorApp.INSTANCE.tick(ticksRan - field_6302_aa);
+
         if (theWorld != null) {
             if (thePlayer != null) {
                 field_6300_ab++;

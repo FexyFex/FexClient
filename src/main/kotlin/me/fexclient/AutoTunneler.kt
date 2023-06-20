@@ -6,7 +6,6 @@ import net.minecraft.client.Minecraft
 import net.minecraft.src.block.World
 import net.minecraft.src.entity.EntityPlayerSP
 import net.minecraft.src.helpers.MathHelper.floor_double
-import net.minecraft.src.item.ItemStack
 import kotlin.math.floor
 import kotlin.math.max
 import kotlin.math.roundToInt
@@ -24,12 +23,17 @@ class AutoTunneler(private val mc: Minecraft) {
     private var nextMessageSendTimer = messageSendCooldown
 
     private var isCurrentlyMining = false
+    private var currentlyMiningPos: Vec3i? = null
 
-    private val yLevel: Int = 64
+    private val yLevel: Int = 120
+    private val zCoord: Int = 0
 
 
     fun tick(delta: Float) {
-        if (!isInitialized) begin()
+        if (!isInitialized){
+            begin()
+            isInitialized = true
+        }
 
         val currentPlayerPos = Vec3d(player.posX, floor(player.posY) - 1, player.posZ)
         nextMessageSendTimer = max(0f, nextMessageSendTimer - delta)
@@ -56,12 +60,36 @@ class AutoTunneler(private val mc: Minecraft) {
         }
 
         // After all those checks, we start walking and mining (if blocks are in range)
+
+
         if (player.rotationYaw != 0f)
             player.setPositionAndRotation(player.posX, player.posY, player.posZ, 270f, 0f)
 
         player.moveEntityWithHeading(0f, 0.5f) // moving forwards
-
         renderInfoGui()
+
+        val nextBlock: Vec3i? = getNextBlockToBreak(currentPlayerPos)
+        if (nextBlock == null) {
+            println("FUDGE")
+            return
+        }
+        mc.playerController.sendBlockRemoving(nextBlock.x, nextBlock.y, nextBlock.z, 3)
+    }
+
+    private fun getNextBlockToBreak(playerPos: Vec3d): Vec3i? {
+        val pos = playerPos.floorToVec3i()
+        var targetPos: Vec3i? = null
+        repeat(foreSight) { x ->
+            if (targetPos != null) return@repeat
+            repeat(2) { y ->
+                val offset = Vec3i(x + 1, y, 0)
+                val blockId = getBlockIdAt(pos + offset)
+                if (blockId != 0 && targetPos == null) {
+                    targetPos = pos + offset
+                }
+            }
+        }
+        return targetPos
     }
 
     private fun isDangerAhead(playerPos: Vec3d): Boolean {
@@ -99,7 +127,7 @@ class AutoTunneler(private val mc: Minecraft) {
     }
 
     private fun renderInfoGui() {
-        mc.fontRenderer.drawString("Tunneler status: Active", 60, 6, 0xFFFFFF)
+        mc.fontRenderer.drawString("Tunneler Active", 200, 6, 0xFFFFFF)
     }
 
     private fun getBlockIdAt(pos: Vec3d) = getBlockIdAt(Vec3i(floor_double(pos.x), floor_double(pos.y), floor_double(pos.z)))
