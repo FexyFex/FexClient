@@ -64,7 +64,7 @@ public class PlayerControllerSP extends PlayerController
         }
     }
 
-    public void func_6468_a()
+    public void resetMiningEfforts()
     {
         curBlockDamage = 0.0F;
         field_1068_i = 0;

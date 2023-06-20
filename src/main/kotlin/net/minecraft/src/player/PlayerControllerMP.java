@@ -61,7 +61,7 @@ public class PlayerControllerMP extends PlayerController {
         }
     }
 
-    public void func_6468_a() {
+    public void resetMiningEfforts() {
         if (!field_9439_j) {
             return;
         } else {

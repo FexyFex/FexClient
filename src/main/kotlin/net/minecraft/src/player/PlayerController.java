@@ -40,7 +40,7 @@ public class PlayerController {
     public void sendBlockRemoving(int i, int j, int k, int l) {
     }
 
-    public void func_6468_a() {
+    public void resetMiningEfforts() {
     }
 
     public void setPartialTime(float f) {
