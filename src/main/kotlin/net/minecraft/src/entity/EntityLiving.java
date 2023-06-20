@@ -734,7 +734,7 @@ public class EntityLiving extends Entity {
     protected int field_9346_af;
     protected int field_9344_ag;
     protected float moveStrafing;
-    protected float moveForward;
+    public float moveForward;
     protected float randomYawVelocity;
     protected boolean isJumping;
     protected float defaultPitch;

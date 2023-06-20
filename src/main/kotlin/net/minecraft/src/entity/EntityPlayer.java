@@ -23,7 +23,7 @@ public abstract class EntityPlayer extends EntityLiving {
     public EntityPlayer(World world) {
         super(world);
         inventory = new InventoryPlayer(this);
-        field_9371_f = 0;
+        unusedStregthFieldMaybe = 0;
         score = 0;
         isSwinging = false;
         swingProgressInt = 0;
@@ -348,7 +348,7 @@ public abstract class EntityPlayer extends EntityLiving {
     public InventoryPlayer inventory;
     public CraftingInventoryCB field_20069_g;
     public CraftingInventoryCB field_20068_h;
-    public byte field_9371_f;
+    public byte unusedStregthFieldMaybe;
     public int score;
     public float field_775_e;
     public float field_774_f;

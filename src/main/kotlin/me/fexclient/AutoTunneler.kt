@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft
 import net.minecraft.src.block.World
 import net.minecraft.src.entity.EntityPlayerSP
 import net.minecraft.src.helpers.MathHelper.floor_double
+import net.minecraft.src.player.PlayerControllerMP
 import kotlin.math.floor
 import kotlin.math.max
 import kotlin.math.roundToInt
@@ -18,14 +19,13 @@ class AutoTunneler(private val mc: Minecraft) {
 
     private var isInitialized = false
 
-    private val foreSight = 6
+    private val foreSight = 5
     private val messageSendCooldown = 1f // in seconds
     private var nextMessageSendTimer = messageSendCooldown
 
     private var isCurrentlyMining = false
-    private var currentlyMiningPos: Vec3i? = null
 
-    private val yLevel: Int = 120
+    private val yLevel: Int = 121
     private val zCoord: Int = 0
 
 
@@ -56,24 +56,32 @@ class AutoTunneler(private val mc: Minecraft) {
         if (!hasPickaxesLeftInInventory()) {
             // Send message
             println("NO MORE PICKAXES LEFT IN INVENTORY! PLEASE SEND NEW SUPPLIES!")
-            // simply continue with fists.
+            // simply continue with fists
         }
 
         // After all those checks, we start walking and mining (if blocks are in range)
 
-
-        if (player.rotationYaw != 0f)
-            player.setPositionAndRotation(player.posX, player.posY, player.posZ, 270f, 0f)
-
-        player.moveEntityWithHeading(0f, 0.5f) // moving forwards
-        renderInfoGui()
-
         val nextBlock: Vec3i? = getNextBlockToBreak(currentPlayerPos)
-        if (nextBlock == null) {
-            println("FUDGE")
-            return
+        var lookAngle = 0f
+        if (nextBlock != null) {
+            val diff = currentPlayerPos.y + 1 - nextBlock.y
+            lookAngle = diff.toFloat() * 70f
         }
-        mc.playerController.sendBlockRemoving(nextBlock.x, nextBlock.y, nextBlock.z, 3)
+
+        if (player.rotationYaw != 0f) player.setPositionAndRotation(player.posX, player.posY, player.posZ, 270f, lookAngle)
+        player.moveEntityWithHeading(0f, 0.98f) // moving forwards
+
+        if (nextBlock == null) return
+
+        val controller = mc.playerController as? PlayerControllerMP
+
+        if (controller != null && controller.miningProgress == 0f) {
+            println("click")
+            controller.resetMiningEfforts()
+            controller.clickBlock(nextBlock.x, nextBlock.y, nextBlock.z, 4)
+        }
+
+        mc.playerController.sendBlockRemoving(nextBlock.x, nextBlock.y, nextBlock.z, 4)
     }
 
     private fun getNextBlockToBreak(playerPos: Vec3d): Vec3i? {
@@ -126,7 +134,7 @@ class AutoTunneler(private val mc: Minecraft) {
         return playerPos.y.roundToInt() == this.yLevel
     }
 
-    private fun renderInfoGui() {
+    fun renderInfoGui() {
         mc.fontRenderer.drawString("Tunneler Active", 200, 6, 0xFFFFFF)
     }
 
@@ -138,7 +146,9 @@ class AutoTunneler(private val mc: Minecraft) {
         this.world = mc.theWorld
     }
 
-    private fun stop() {}
+    fun stop() {
+        isInitialized = false
+    }
 
 
     companion object {

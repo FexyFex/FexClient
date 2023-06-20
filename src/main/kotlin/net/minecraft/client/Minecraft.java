@@ -381,6 +381,7 @@ public abstract class Minecraft implements Runnable {
                     timer.updateTimer();
                 }
                 long l1 = System.nanoTime();
+                MinecraftFexClientInjectorApp.INSTANCE.frameUpdate();
                 for (int j = 0; j < timer.elapsedTicks; j++) {
                     ticksRan++;
                     try {
@@ -394,7 +395,7 @@ public abstract class Minecraft implements Runnable {
                 }
 
                 long l2 = System.nanoTime() - l1;
-                MinecraftFexClientInjectorApp.INSTANCE.tick(l2);
+                //MinecraftFexClientInjectorApp.INSTANCE.tick(l2);
                 checkGLError("Pre render");
                 sndManager.func_338_a(thePlayer, timer.renderPartialTicks);
                 GL11.glEnable(3553);
@@ -584,14 +585,14 @@ public abstract class Minecraft implements Runnable {
         }
     }
 
-    private void doMining(int i, boolean flag) {
-        if (playerController.field_1064_b) {
-            return;
-        }
-        if (i == 0 && field_6282_S > 0) {
-            return;
-        }
-        if (flag && objectMouseOver != null && objectMouseOver.typeOfHit == 0 && i == 0) {
+    private void doMining(int mouseButton, boolean flag) {
+        //if (playerController.field_1064_b) {
+        //    return;
+        //}
+        //if (mouseButton == 0 && field_6282_S > 0) {
+        //    return;
+        //}
+        if (flag && objectMouseOver != null && objectMouseOver.typeOfHit == 0 && mouseButton == 0) {
             int j = objectMouseOver.blockX;
             int k = objectMouseOver.blockY;
             int l = objectMouseOver.blockZ;
@@ -602,23 +603,24 @@ public abstract class Minecraft implements Runnable {
         }
     }
 
-    private void clickMouse(int i) {
-        if (i == 0 && field_6282_S > 0) {
+    private void clickMouse(int mouseButton) {
+        // 0 = left click, 1 = right click
+        if (mouseButton == 0 && field_6282_S > 0) {
             return;
         }
-        if (i == 0) {
+        if (mouseButton == 0) {
             thePlayer.swingItem();
         }
         boolean flag = true;
         if (objectMouseOver == null) {
-            if (i == 0 && !(playerController instanceof PlayerControllerTest)) {
+            if (mouseButton == 0 && !(playerController instanceof PlayerControllerTest)) {
                 field_6282_S = 10;
             }
         } else if (objectMouseOver.typeOfHit == 1) {
-            if (i == 0) {
+            if (mouseButton == 0) {
                 playerController.func_6472_b(thePlayer, objectMouseOver.entityHit);
             }
-            if (i == 1) {
+            if (mouseButton == 1) {
                 playerController.func_6475_a(thePlayer, objectMouseOver.entityHit);
             }
         } else if (objectMouseOver.typeOfHit == 0) {
@@ -627,9 +629,9 @@ public abstract class Minecraft implements Runnable {
             int l = objectMouseOver.blockZ;
             int i1 = objectMouseOver.sideHit;
             Block block = Block.blocksList[theWorld.getBlockId(j, k, l)];
-            if (i == 0) {
+            if (mouseButton == 0) {
                 theWorld.onBlockHit(j, k, l, objectMouseOver.sideHit);
-                if (block != Block.bedrock || thePlayer.field_9371_f >= 100) {
+                if (block != Block.bedrock || thePlayer.unusedStregthFieldMaybe >= 100) { // part 2 is always false
                     playerController.clickBlock(j, k, l, objectMouseOver.sideHit);
                 }
                 MinecraftFexClientInjectorApp.INSTANCE.onBlockHit(this, block, Vec3D.createVector(j,k,l), i1);
@@ -650,7 +652,7 @@ public abstract class Minecraft implements Runnable {
                 }
             }
         }
-        if (flag && i == 1) {
+        if (flag && mouseButton == 1) {
             ItemStack itemstack = thePlayer.inventory.getCurrentItem();
             if (itemstack != null && playerController.sendUseItem(thePlayer, theWorld, itemstack)) {
                 entityRenderer.itemRenderer.func_9450_c();
@@ -853,9 +855,8 @@ public abstract class Minecraft implements Runnable {
                 }
             }
             doMining(0, currentScreen == null && Mouse.isButtonDown(0) && field_6289_L);
+            MinecraftFexClientInjectorApp.INSTANCE.tick(ticksRan - field_6302_aa);
         }
-
-        //MinecraftFexClientInjectorApp.INSTANCE.tick(ticksRan - field_6302_aa);
 
         if (theWorld != null) {
             if (thePlayer != null) {

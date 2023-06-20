@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft
 import net.minecraft.src.Block
 import net.minecraft.src.datatype.Vec3D
 import org.lwjgl.input.Keyboard
+import java.security.Key
 import kotlin.math.roundToInt
 
 
@@ -48,13 +49,23 @@ object MinecraftFexClientInjectorApp {
     fun tick(elapsedTimeInNanos: Float) {
         val delta = elapsedTimeInNanos / 1_000_000_000f
 
-        manageInput()
-
-        if (keyPressed(Keyboard.KEY_L))
-            MinecraftFexClientConfig.tunnelerActive = !MinecraftFexClientConfig.tunnelerActive
+        if (Keyboard.isKeyDown(Keyboard.KEY_L) && !Keyboard.isRepeatEvent()) {
+            if (MinecraftFexClientConfig.tunnelerActive) {
+                tunneler.stop()
+                MinecraftFexClientConfig.tunnelerActive = false
+            } else {
+                MinecraftFexClientConfig.tunnelerActive = true
+            }
+        }
 
         if (MinecraftFexClientConfig.tunnelerActive && mc.theWorld != null && mc.thePlayer != null) {
             tunneler.tick(delta)
+        }
+    }
+
+    fun frameUpdate() {
+        if (MinecraftFexClientConfig.tunnelerActive && mc.theWorld != null && mc.thePlayer != null) {
+            tunneler.renderInfoGui()
         }
     }
 
@@ -76,24 +87,6 @@ object MinecraftFexClientInjectorApp {
                 position.zCoord.roundToInt(),
                 side
             )
-        }
-    }
-
-    private fun keyPressed(key: Int): Boolean {
-        return key in pressedKeys
-    }
-
-    private fun manageInput() {
-        val key = Keyboard.getEventKey()
-        if (Keyboard.isKeyDown(Keyboard.KEY_L)) {
-            if (Keyboard.KEY_L !in downKeys)
-                pressedKeys.add(Keyboard.KEY_L)
-            else
-                pressedKeys.remove(Keyboard.KEY_L)
-
-            downKeys.add(Keyboard.KEY_L)
-        } else {
-            downKeys.remove(Keyboard.KEY_L)
         }
     }
 
