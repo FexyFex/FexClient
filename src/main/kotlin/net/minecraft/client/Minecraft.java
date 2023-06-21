@@ -624,21 +624,21 @@ public abstract class Minecraft implements Runnable {
                 playerController.func_6475_a(thePlayer, objectMouseOver.entityHit);
             }
         } else if (objectMouseOver.typeOfHit == 0) {
-            int j = objectMouseOver.blockX;
-            int k = objectMouseOver.blockY;
-            int l = objectMouseOver.blockZ;
-            int i1 = objectMouseOver.sideHit;
-            Block block = Block.blocksList[theWorld.getBlockId(j, k, l)];
+            int x = objectMouseOver.blockX;
+            int y = objectMouseOver.blockY;
+            int z = objectMouseOver.blockZ;
+            int side = objectMouseOver.sideHit;
+            Block block = Block.blocksList[theWorld.getBlockId(x, y, z)];
             if (mouseButton == 0) {
-                theWorld.onBlockHit(j, k, l, objectMouseOver.sideHit);
+                theWorld.onBlockHit(x, y, z, objectMouseOver.sideHit);
                 if (block != Block.bedrock || thePlayer.unusedStregthFieldMaybe >= 100) { // part 2 is always false
-                    playerController.clickBlock(j, k, l, objectMouseOver.sideHit);
+                    playerController.clickBlock(x, y, z, objectMouseOver.sideHit);
                 }
-                MinecraftFexClientInjectorApp.INSTANCE.onBlockHit(this, block, Vec3D.createVector(j,k,l), i1);
+                MinecraftFexClientInjectorApp.INSTANCE.onBlockHit(this, block, Vec3D.createVector(x,y,z), side);
             } else {
                 ItemStack itemstack1 = thePlayer.inventory.getCurrentItem();
-                int j1 = itemstack1 == null ? 0 : itemstack1.stackSize;
-                if (playerController.sendPlaceBlock(thePlayer, theWorld, itemstack1, j, k, l, i1)) {
+                int stackSize = itemstack1 == null ? 0 : itemstack1.stackSize;
+                if (playerController.sendPlaceBlock(thePlayer, theWorld, itemstack1, x, y, z, side)) {
                     flag = false;
                     thePlayer.swingItem();
                 }
@@ -647,7 +647,7 @@ public abstract class Minecraft implements Runnable {
                 }
                 if (itemstack1.stackSize == 0) {
                     thePlayer.inventory.mainInventory[thePlayer.inventory.currentItem] = null;
-                } else if (itemstack1.stackSize != j1) {
+                } else if (itemstack1.stackSize != stackSize) {
                     entityRenderer.itemRenderer.func_9449_b();
                 }
             }
@@ -773,9 +773,9 @@ public abstract class Minecraft implements Runnable {
                 }
                 long l = System.currentTimeMillis() - systemTime;
                 if (l <= 200L) {
-                    int j = Mouse.getEventDWheel();
-                    if (j != 0) {
-                        thePlayer.inventory.changeCurrentItem(j);
+                    int mouseWheelEvent = Mouse.getEventDWheel();
+                    if (mouseWheelEvent != 0) {
+                        thePlayer.inventory.changeCurrentItem(mouseWheelEvent);
                     }
                     if (currentScreen == null) {
                         if (!field_6289_L && Mouse.getEventButtonState()) {

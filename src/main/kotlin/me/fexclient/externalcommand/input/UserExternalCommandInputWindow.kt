@@ -25,7 +25,8 @@ class UserExternalCommandInputWindow(private val commandList: MutableList<Extern
         ExternalCommandBlockScan::class,
         ExternalCommandInstaMine::class,
         ExternalCommandGive::class,
-        ExternalCommandFullHealth::class
+        ExternalCommandFullHealth::class,
+        ExternalCommandPlaceBlock::class
     )
 
     init {

@@ -7,6 +7,9 @@ import net.minecraft.src.block.World
 import net.minecraft.src.entity.EntityPlayerSP
 import net.minecraft.src.helpers.MathHelper.floor_double
 import net.minecraft.src.player.PlayerControllerMP
+import java.io.File
+import java.sql.Timestamp
+import kotlin.math.absoluteValue
 import kotlin.math.floor
 import kotlin.math.max
 import kotlin.math.roundToInt
@@ -20,8 +23,8 @@ class AutoTunneler(private val mc: Minecraft) {
     private var isInitialized = false
 
     private val foreSight = 5
-    private val messageSendCooldown = 1f // in seconds
-    private var nextMessageSendTimer = messageSendCooldown
+    private val messageSendCooldown = 200f // not really seconds but kinda close if you're on 60 fps lel
+    private var nextMessageSendTimer = 0f
 
     private var isSeeingUnsafeGround = false
     private var isOutOfPickaxes = false
@@ -31,9 +34,14 @@ class AutoTunneler(private val mc: Minecraft) {
 
 
     fun tick(delta: Float) {
-        if (!isInitialized){
+        if (!isInitialized) {
             this.player = mc.thePlayer
             this.world = mc.theWorld
+            if (!isInventoryArrangedCorrectly()) {
+                println("Auto Tunneler will not start without some netherrack in the first slot")
+                MinecraftFexClientConfig.tunnelerActive = false
+                return
+            }
             isInitialized = true
         }
 
@@ -41,42 +49,80 @@ class AutoTunneler(private val mc: Minecraft) {
         isOutOfPickaxes = false
 
         val currentPlayerPos = Vec3d(player.posX, floor(player.posY) - 1, player.posZ)
-        nextMessageSendTimer = max(0f, nextMessageSendTimer - delta)
+        nextMessageSendTimer = max(0f, nextMessageSendTimer - 0.16f)
+
+        if (player.health < 8) {
+            Log.writeln("THE BOT IS GETTING LOW ON HEALTH! SAFETLY LOGOUT AT $currentPlayerPos")
+            MinecraftFexClientConfig.requestedLogout
+        }
 
         if (!isOnCorrectHeight(currentPlayerPos)) {
             // Send message
-            println("BOT HAS LEFT ITS DESIGNATED Y-LEVEL!")
-            println("${currentPlayerPos.y} vs $yLevel")
+            Log.write("BOT HAS LEFT ITS DESIGNATED Y-LEVEL! ")
+            Log.writeln("Logout position: ${Vec3d(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ)}")
             MinecraftFexClientConfig.requestedLogout = true
         }
 
         if (isDangerAhead(currentPlayerPos)) {
             // Send discord message (or email lol)
-            println("DANGER AHEAD! (likely lava)")
+            Log.write("LAVA OR FIRE AHEAD! ")
+            Log.writeln("Logout position: $currentPlayerPos")
             MinecraftFexClientConfig.requestedLogout = true
         }
 
         if (!isFloorSafe(currentPlayerPos)) {
             isSeeingUnsafeGround = true
             // Send message
-            println("UNSAFE FLOOR DETECTED! THE BOT WILL STOP WALKING!")
-            return
+            Log.write("UNSAFE FLOOR DETECTED! TRYING TO BRIDGE: ")
+            if (!bridgeUnsafeFloor(currentPlayerPos)) {
+                Log.writeln("FAILED!")
+                return
+            } else {
+                Log.writeln("SUCCESS!")
+            }
         }
 
         if (!hasPickaxesLeftInInventory()) {
             isOutOfPickaxes = true
             // Send message
-            println("NO MORE PICKAXES LEFT IN INVENTORY! PLEASE SEND NEW SUPPLIES!")
+            if (nextMessageSendTimer <= 0f) {
+                Log.writeln("NO MORE PICKAXES LEFT IN INVENTORY! PLEASE SEND NEW SUPPLIES!")
+
+                val minecraftDir = Minecraft.getMinecraftDir()
+                val minecraftDirPath = minecraftDir.toPath().toString()
+                val logDir = "$minecraftDirPath/logs/"
+                val logDirFile = File(logDir)
+
+                if (!logDirFile.exists()) logDirFile.mkdir()
+
+                val timeStamp = System.currentTimeMillis()
+                val fileName = "tunnellog_$timeStamp.txt"
+                val filePath = logDir + fileName
+
+                Log.writeToFile(filePath)
+                nextMessageSendTimer = messageSendCooldown
+            }
             // simply continue with fists
         }
 
         // After all those checks, we start walking and mining (if blocks are in range)
 
+        player.inventory.currentItem = 1
+
+        if (player.inventory.mainInventory[1]?.itemID !in pickaxeIds) {
+            val nextPickaxeSlotIndex = player.inventory.mainInventory.indexOfFirst { it != null && it.itemID in pickaxeIds }
+            if (nextPickaxeSlotIndex > 0) {
+                val pickaxeSlot = player.inventory.mainInventory[nextPickaxeSlotIndex]!!
+                player.inventory.setInventorySlotContents(1, pickaxeSlot)
+                player.inventory.setInventorySlotContents(nextPickaxeSlotIndex, null)
+            }
+        }
+
         val nextBlock: Vec3i? = getNextBlockToBreak(currentPlayerPos)
         var lookAngle = 0f
         if (nextBlock != null) {
             val diff = currentPlayerPos.y + 1 - nextBlock.y
-            lookAngle = diff.toFloat() * 70f
+            lookAngle = diff.toFloat() * 65f
         }
 
         if (player.rotationYaw != 0f) player.setPositionAndRotation(player.posX, player.posY, player.posZ, 270f, lookAngle)
@@ -123,12 +169,38 @@ class AutoTunneler(private val mc: Minecraft) {
     }
 
     private fun isFloorSafe(playerPos: Vec3d): Boolean {
-        repeat(foreSight) {
-            val offset = Vec3i(it + 1, -1, 0)
+        repeat(3) {
+            val offset = Vec3i(it, -1, 0)
             val blockId = getBlockIdAt(playerPos.floorToVec3i() + offset)
             if (blockId == 0) return false
         }
         return true
+    }
+
+    private fun bridgeUnsafeFloor(playerPos: Vec3d): Boolean {
+        var nextUnsafeBlock: Vec3i? = null
+        for(it in 0 until foreSight) {
+            val offset = Vec3i(it, -1, 0)
+            val target = playerPos.floorToVec3i() + offset
+            val blockId = getBlockIdAt(target)
+            if (blockId == 0) {
+                nextUnsafeBlock = target
+                nextUnsafeBlock.y += 1
+                break
+            }
+        }
+        if (nextUnsafeBlock == null) { return false }
+
+        player.inventory.currentItem = 0
+        val heldItem = player.inventory.getCurrentItem()
+        if (heldItem != null && heldItem.stackSize > 0) {
+            return mc.playerController.sendPlaceBlock(
+                player, world, player.inventory.getCurrentItem(),
+                nextUnsafeBlock.x, nextUnsafeBlock.y, nextUnsafeBlock.z, 0
+            )
+        } else {
+            return false
+        }
     }
 
     private fun hasPickaxesLeftInInventory(): Boolean {
@@ -143,6 +215,10 @@ class AutoTunneler(private val mc: Minecraft) {
     private fun isOnCorrectHeight(playerPos: Vec3d): Boolean {
         val posY = playerPos.y.roundToInt()
         return posY in (this.yLevel - 1)..(this.yLevel)
+    }
+
+    private fun isInventoryArrangedCorrectly(): Boolean {
+        return player.inventory.mainInventory[0]?.itemID == 87
     }
 
     fun renderInfoGui() {
@@ -171,5 +247,24 @@ class AutoTunneler(private val mc: Minecraft) {
     companion object {
         //                               iron  wood  stone  dia   gold
         private val pickaxeIds = arrayOf(257 , 270 , 274  , 278 , 285 )
+
+        object Log {
+            private var fullLog: String = ""
+            private var newLine = true
+
+            fun write(text: String) { fullLog += timeStamp() + text; newLine = false }
+            fun writeln(line: String) { fullLog += timeStamp() + line + "\n"; newLine = true }
+            fun writeln() { fullLog += "\n"; newLine = true }
+
+            private fun timeStamp() = if (newLine) Timestamp(System.currentTimeMillis()).toString() + ": " else ""
+
+            fun writeToFile(path: String) {
+                if (fullLog == "") return
+                val file = File(path)
+                file.createNewFile()
+                file.writeText(fullLog)
+                fullLog = ""
+            }
+        }
     }
 }

@@ -1,5 +1,6 @@
 package me.fexclient.externalcommand.input
 
+import me.fexclient.datatype.Vec3i
 import me.fexclient.externalcommand.*
 
 
@@ -120,6 +121,17 @@ class CommandParser(private val rawCommandString: String) {
                     status = statusString.toInt() == 1
                 } catch (e: Exception) { return "Invalid status \"$statusString\""}
                 ExternalCommandFullHealth(status)
+            }
+
+            ExternalCommandPlaceBlock.commandName -> {
+                if (arguments.size != 3) return "Unexpected number of arguments!"
+                val position = Vec3i(0,0,0)
+                try {
+                    position.x = arguments[0].toInt()
+                    position.y = arguments[1].toInt()
+                    position.z = arguments[2].toInt()
+                } catch (e: Exception) { return "Non-integer arguments given! $arguments" }
+                ExternalCommandPlaceBlock(position)
             }
 
             else -> UnknownExternalCommand()

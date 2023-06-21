@@ -7,6 +7,7 @@ import net.minecraft.src.Block
 import net.minecraft.src.datatype.Vec3D
 import net.minecraft.src.gui.GuiMainMenu
 import org.lwjgl.input.Keyboard
+import java.io.File
 import kotlin.math.roundToInt
 
 
@@ -66,6 +67,19 @@ object MinecraftFexClientInjectorApp {
                 mc.theWorld.sendQuittingDisconnectingPacket()
             mc.func_6261_a(null)
             mc.displayGuiScreen(GuiMainMenu())
+
+            val minecraftDir = Minecraft.getMinecraftDir()
+            val minecraftDirPath = minecraftDir.toPath().toString()
+            val logDir = "$minecraftDirPath/logs/"
+            val logDirFile = File(logDir)
+
+            if (!logDirFile.exists()) logDirFile.mkdir()
+
+            val timeStamp = System.currentTimeMillis()
+            val fileName = "tunnellog_$timeStamp.txt"
+            val filePath = logDir + fileName
+
+            AutoTunneler.Companion.Log.writeToFile(filePath)
         }
     }
 
