@@ -9,7 +9,6 @@ import net.minecraft.src.helpers.MathHelper.floor_double
 import net.minecraft.src.player.PlayerControllerMP
 import java.io.File
 import java.sql.Timestamp
-import kotlin.math.absoluteValue
 import kotlin.math.floor
 import kotlin.math.max
 import kotlin.math.roundToInt
@@ -23,7 +22,7 @@ class AutoTunneler(private val mc: Minecraft) {
     private var isInitialized = false
 
     private val foreSight = 5
-    private val messageSendCooldown = 200f // not really seconds but kinda close if you're on 60 fps lel
+    private val messageSendCooldown = 200f // not really seconds but kinda close I guess
     private var nextMessageSendTimer = 0f
 
     private var isSeeingUnsafeGround = false
@@ -31,6 +30,8 @@ class AutoTunneler(private val mc: Minecraft) {
 
     private val yLevel: Int = 121
     private val zCoord: Int = 0
+
+    private var changePickaxeCooldown = 0f
 
 
     fun tick(delta: Float) {
@@ -107,14 +108,19 @@ class AutoTunneler(private val mc: Minecraft) {
 
         // After all those checks, we start walking and mining (if blocks are in range)
 
-        player.inventory.currentItem = 1
+        player.inventory.currentHotBarSlot = 1
 
-        if (player.inventory.mainInventory[1]?.itemID !in pickaxeIds) {
+        changePickaxeCooldown = max(0f, changePickaxeCooldown - 0.16f)
+        if (player.inventory.mainInventory[1]?.itemID !in pickaxeIds && !isOutOfPickaxes && changePickaxeCooldown <= 0f) {
             val nextPickaxeSlotIndex = player.inventory.mainInventory.indexOfFirst { it != null && it.itemID in pickaxeIds }
             if (nextPickaxeSlotIndex > 0) {
-                val pickaxeSlot = player.inventory.mainInventory[nextPickaxeSlotIndex]!!
-                player.inventory.setInventorySlotContents(1, pickaxeSlot)
-                player.inventory.setInventorySlotContents(nextPickaxeSlotIndex, null)
+                val itemStack = player.inventory.mainInventory[nextPickaxeSlotIndex]
+                player.dropPlayerItem(itemStack)
+                player.dropPlayerItem(player.inventory.mainInventory[1])
+                changePickaxeCooldown = 10f
+                return
+            } else {
+                println("OUT OF BOUNDS: $nextPickaxeSlotIndex")
             }
         }
 
@@ -191,11 +197,11 @@ class AutoTunneler(private val mc: Minecraft) {
         }
         if (nextUnsafeBlock == null) { return false }
 
-        player.inventory.currentItem = 0
-        val heldItem = player.inventory.getCurrentItem()
+        player.inventory.currentHotBarSlot = 0
+        val heldItem = player.inventory.getCurrentHotBarSlot()
         if (heldItem != null && heldItem.stackSize > 0) {
             return mc.playerController.sendPlaceBlock(
-                player, world, player.inventory.getCurrentItem(),
+                player, world, player.inventory.getCurrentHotBarSlot(),
                 nextUnsafeBlock.x, nextUnsafeBlock.y, nextUnsafeBlock.z, 0
             )
         } else {

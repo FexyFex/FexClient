@@ -42,9 +42,9 @@ public abstract class GuiContainer extends GuiScreen
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         GL11.glEnable(32826 /*GL_RESCALE_NORMAL_EXT*/);
         Slot slot = null;
-        for(int i1 = 0; i1 < inventorySlots.field_20122_e.size(); i1++)
+        for(int i1 = 0; i1 < inventorySlots.inventorySlots.size(); i1++)
         {
-            Slot slot1 = (Slot)inventorySlots.field_20122_e.get(i1);
+            Slot slot1 = (Slot)inventorySlots.inventorySlots.get(i1);
             drawSlotInventory(slot1);
             if(func_20081_a(slot1, i, j))
             {
@@ -60,18 +60,18 @@ public abstract class GuiContainer extends GuiScreen
         }
 
         InventoryPlayer inventoryplayer = mc.thePlayer.inventory;
-        if(inventoryplayer.func_20075_i() != null)
+        if(inventoryplayer.getCurrentlySelectedItemStack() != null)
         {
             GL11.glTranslatef(0.0F, 0.0F, 32F);
-            itemRenderer.renderItemIntoGUI(fontRenderer, mc.renderEngine, inventoryplayer.func_20075_i(), i - k - 8, j - l - 8);
-            itemRenderer.renderItemOverlayIntoGUI(fontRenderer, mc.renderEngine, inventoryplayer.func_20075_i(), i - k - 8, j - l - 8);
+            itemRenderer.renderItemIntoGUI(fontRenderer, mc.renderEngine, inventoryplayer.getCurrentlySelectedItemStack(), i - k - 8, j - l - 8);
+            itemRenderer.renderItemOverlayIntoGUI(fontRenderer, mc.renderEngine, inventoryplayer.getCurrentlySelectedItemStack(), i - k - 8, j - l - 8);
         }
         GL11.glDisable(32826 /*GL_RESCALE_NORMAL_EXT*/);
         RenderHelper.disableStandardItemLighting();
         GL11.glDisable(2896 /*GL_LIGHTING*/);
         GL11.glDisable(2929 /*GL_DEPTH_TEST*/);
         drawGuiContainerForegroundLayer();
-        if(inventoryplayer.func_20075_i() == null && slot != null && slot.func_20005_c())
+        if(inventoryplayer.getCurrentlySelectedItemStack() == null && slot != null && slot.func_20005_c())
         {
             String s = (new StringBuilder()).append("").append(StringTranslate.func_20162_a().func_20161_b(slot.getStack().func_20109_f())).toString().trim();
             if(s.length() > 0)
@@ -117,9 +117,9 @@ public abstract class GuiContainer extends GuiScreen
 
     private Slot getSlotAtPosition(int i, int j)
     {
-        for(int k = 0; k < inventorySlots.field_20122_e.size(); k++)
+        for(int k = 0; k < inventorySlots.inventorySlots.size(); k++)
         {
-            Slot slot = (Slot)inventorySlots.field_20122_e.get(k);
+            Slot slot = (Slot)inventorySlots.inventorySlots.get(k);
             if(func_20081_a(slot, i, j))
             {
                 return slot;
@@ -157,7 +157,7 @@ public abstract class GuiContainer extends GuiScreen
             }
             if(j1 != -1)
             {
-                mc.playerController.func_20085_a(inventorySlots.unusedList, j1, k, mc.thePlayer);
+                mc.playerController.pickItemMaybe(inventorySlots.unusedList, j1, k, mc.thePlayer);
             }
         }
     }

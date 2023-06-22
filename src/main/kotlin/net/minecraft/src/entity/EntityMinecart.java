@@ -609,10 +609,10 @@ public class EntityMinecart extends Entity implements IInventory {
                 entityplayer.displayGUIChest(this);
             }
         } else if (minecartType == 2) {
-            ItemStack itemstack = entityplayer.inventory.getCurrentItem();
+            ItemStack itemstack = entityplayer.inventory.getCurrentHotBarSlot();
             if (itemstack != null && itemstack.itemID == Item.coal.shiftedIndex) {
                 if (--itemstack.stackSize == 0) {
-                    entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                    entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentHotBarSlot, null);
                 }
                 fuel += 1200;
             }

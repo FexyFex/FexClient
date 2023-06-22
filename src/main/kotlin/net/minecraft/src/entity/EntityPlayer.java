@@ -29,8 +29,8 @@ public abstract class EntityPlayer extends EntityLiving {
         swingProgressInt = 0;
         damageRemainder = 0;
         fishEntity = null;
-        field_20069_g = new CraftingInventoryPlayerCB(inventory, !world.multiplayerWorld);
-        field_20068_h = field_20069_g;
+        craftingInventoryPlayer = new CraftingInventoryPlayerCB(inventory, !world.multiplayerWorld);
+        field_20068_h = craftingInventoryPlayer;
         yOffset = 1.62F;
         setLocationAndAngles((double) world.spawnX + 0.5D, world.spawnY + 1, (double) world.spawnZ + 0.5D, 0.0F, 0.0F);
         health = 20;
@@ -44,7 +44,7 @@ public abstract class EntityPlayer extends EntityLiving {
         super.onUpdate();
         if (!worldObj.multiplayerWorld && field_20068_h != null && !field_20068_h.func_20120_b(this)) {
             func_20059_m();
-            field_20068_h = field_20069_g;
+            field_20068_h = craftingInventoryPlayer;
         }
         field_20066_r = field_20063_u;
         field_20065_s = field_20062_v;
@@ -77,7 +77,7 @@ public abstract class EntityPlayer extends EntityLiving {
     }
 
     protected void func_20059_m() {
-        field_20068_h = field_20069_g;
+        field_20068_h = craftingInventoryPlayer;
     }
 
     public void func_20046_s() {
@@ -177,7 +177,7 @@ public abstract class EntityPlayer extends EntityLiving {
     }
 
     public void func_20060_w() {
-        dropPlayerItemWithRandomChoice(inventory.decrStackSize(inventory.currentItem, 1), false);
+        dropPlayerItemWithRandomChoice(inventory.decrStackSize(inventory.currentHotBarSlot, 1), false);
     }
 
     public void dropPlayerItem(ItemStack itemstack) {
@@ -300,11 +300,11 @@ public abstract class EntityPlayer extends EntityLiving {
     }
 
     public ItemStack getCurrentEquippedItem() {
-        return inventory.getCurrentItem();
+        return inventory.getCurrentHotBarSlot();
     }
 
     public void destroyCurrentEquippedItem() {
-        inventory.setInventorySlotContents(inventory.currentItem, null);
+        inventory.setInventorySlotContents(inventory.currentHotBarSlot, null);
     }
 
     public double getYOffset() {
@@ -339,14 +339,14 @@ public abstract class EntityPlayer extends EntityLiving {
 
     public void setEntityDead() {
         super.setEntityDead();
-        field_20069_g.onCraftGuiClosed(this);
+        craftingInventoryPlayer.onCraftGuiClosed(this);
         if (field_20068_h != null) {
             field_20068_h.onCraftGuiClosed(this);
         }
     }
 
     public InventoryPlayer inventory;
-    public CraftingInventoryCB field_20069_g;
+    public CraftingInventoryCB craftingInventoryPlayer;
     public CraftingInventoryCB field_20068_h;
     public byte unusedStregthFieldMaybe;
     public int score;

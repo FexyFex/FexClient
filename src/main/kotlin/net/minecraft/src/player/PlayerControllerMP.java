@@ -136,7 +136,7 @@ public class PlayerControllerMP extends PlayerController {
     }
 
     private void func_730_e() {
-        int i = mc.thePlayer.inventory.currentItem;
+        int i = mc.thePlayer.inventory.currentHotBarSlot;
         if (i != field_1075_l) {
             field_1075_l = i;
             netClientHandler.addToSendQueue(new Packet16BlockItemSwitch(field_1075_l));
@@ -146,14 +146,14 @@ public class PlayerControllerMP extends PlayerController {
     public boolean sendPlaceBlock(EntityPlayer entityplayer, World world, ItemStack itemstack, int i, int j, int k, int l) {
         func_730_e();
         boolean flag = super.sendPlaceBlock(entityplayer, world, itemstack, i, j, k, l);
-        netClientHandler.addToSendQueue(new Packet15Place(i, j, k, l, entityplayer.inventory.getCurrentItem()));
+        netClientHandler.addToSendQueue(new Packet15Place(i, j, k, l, entityplayer.inventory.getCurrentHotBarSlot()));
         return flag;
     }
 
     public boolean sendUseItem(EntityPlayer entityplayer, World world, ItemStack itemstack) {
         func_730_e();
         boolean flag = super.sendUseItem(entityplayer, world, itemstack);
-        netClientHandler.addToSendQueue(new Packet15Place(-1, -1, -1, 255, entityplayer.inventory.getCurrentItem()));
+        netClientHandler.addToSendQueue(new Packet15Place(-1, -1, -1, 255, entityplayer.inventory.getCurrentHotBarSlot()));
         return flag;
     }
 
@@ -173,9 +173,9 @@ public class PlayerControllerMP extends PlayerController {
         entityplayer.useCurrentItemOnEntity(entity);
     }
 
-    public ItemStack func_20085_a(int i, int j, int k, EntityPlayer entityplayer) {
+    public ItemStack pickItemMaybe(int i, int j, int k, EntityPlayer entityplayer) {
         short word0 = entityplayer.field_20068_h.func_20111_a(entityplayer.inventory);
-        ItemStack itemstack = super.func_20085_a(i, j, k, entityplayer);
+        ItemStack itemstack = super.pickItemMaybe(i, j, k, entityplayer);
         netClientHandler.addToSendQueue(new Packet102(i, j, k, itemstack, word0));
         return itemstack;
     }

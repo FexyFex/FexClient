@@ -54,9 +54,9 @@ public class PlayerController {
         int i = itemstack.stackSize;
         ItemStack itemstack1 = itemstack.useItemRightClick(world, entityplayer);
         if (itemstack1 != itemstack || itemstack1 != null && itemstack1.stackSize != i) {
-            entityplayer.inventory.mainInventory[entityplayer.inventory.currentItem] = itemstack1;
+            entityplayer.inventory.mainInventory[entityplayer.inventory.currentHotBarSlot] = itemstack1;
             if (itemstack1.stackSize == 0) {
-                entityplayer.inventory.mainInventory[entityplayer.inventory.currentItem] = null;
+                entityplayer.inventory.mainInventory[entityplayer.inventory.currentHotBarSlot] = null;
             }
             return true;
         } else {
@@ -101,13 +101,13 @@ public class PlayerController {
         entityplayer.attackTargetEntityWithCurrentItem(entity);
     }
 
-    public ItemStack func_20085_a(int i, int j, int k, EntityPlayer entityplayer) {
-        return entityplayer.field_20068_h.func_20116_a(j, k, entityplayer);
+    public ItemStack pickItemMaybe(int i, int j, int k, EntityPlayer entityplayer) {
+        return entityplayer.field_20068_h.pickItemMaybe(j, k, entityplayer);
     }
 
     public void func_20086_a(int i, EntityPlayer entityplayer) {
         entityplayer.field_20068_h.onCraftGuiClosed(entityplayer);
-        entityplayer.field_20068_h = entityplayer.field_20069_g;
+        entityplayer.field_20068_h = entityplayer.craftingInventoryPlayer;
     }
 
     protected final Minecraft mc;

@@ -17,13 +17,13 @@ public class InventoryPlayer implements IInventory {
     public InventoryPlayer(EntityPlayer entityplayer) {
         mainInventory = new ItemStack[36];
         armorInventory = new ItemStack[4];
-        currentItem = 0;
+        currentHotBarSlot = 0;
         inventoryChanged = false;
         player = entityplayer;
     }
 
-    public ItemStack getCurrentItem() {
-        return mainInventory[currentItem];
+    public ItemStack getCurrentHotBarSlot() {
+        return mainInventory[currentHotBarSlot];
     }
 
     private int getInventorySlotContainItem(int i) {
@@ -59,7 +59,7 @@ public class InventoryPlayer implements IInventory {
     public void setCurrentItem(int i, boolean flag) {
         int j = getInventorySlotContainItem(i);
         if (j >= 0 && j < 9) {
-            currentItem = j;
+            currentHotBarSlot = j;
             return;
         } else {
             return;
@@ -73,9 +73,9 @@ public class InventoryPlayer implements IInventory {
         if (i < 0) {
             i = -1;
         }
-        for (currentItem -= i; currentItem < 0; currentItem += 9) {
+        for (currentHotBarSlot -= i; currentHotBarSlot < 0; currentHotBarSlot += 9) {
         }
-        for (; currentItem >= 9; currentItem -= 9) {
+        for (; currentHotBarSlot >= 9; currentHotBarSlot -= 9) {
         }
     }
 
@@ -177,8 +177,8 @@ public class InventoryPlayer implements IInventory {
 
     public float getStrVsBlock(Block block) {
         float f = 1.0F;
-        if (mainInventory[currentItem] != null) {
-            f *= mainInventory[currentItem].getStrVsBlock(block);
+        if (mainInventory[currentHotBarSlot] != null) {
+            f *= mainInventory[currentHotBarSlot].getStrVsBlock(block);
         }
         return f;
     }
@@ -247,7 +247,7 @@ public class InventoryPlayer implements IInventory {
     }
 
     public int getDamageVsEntity(Entity entity) {
-        ItemStack itemstack = getStackInSlot(currentItem);
+        ItemStack itemstack = getStackInSlot(currentHotBarSlot);
         if (itemstack != null) {
             return itemstack.getDamageVsEntity(entity);
         } else {
@@ -259,7 +259,7 @@ public class InventoryPlayer implements IInventory {
         if (block.blockMaterial != Material.rock && block.blockMaterial != Material.iron && block.blockMaterial != Material.builtSnow && block.blockMaterial != Material.snow) {
             return true;
         }
-        ItemStack itemstack = getStackInSlot(currentItem);
+        ItemStack itemstack = getStackInSlot(currentHotBarSlot);
         if (itemstack != null) {
             return itemstack.canHarvestBlock(block);
         } else {
@@ -305,7 +305,6 @@ public class InventoryPlayer implements IInventory {
                 armorInventory[j] = null;
             }
         }
-
     }
 
     public void dropAllItems() {
@@ -329,13 +328,13 @@ public class InventoryPlayer implements IInventory {
         inventoryChanged = true;
     }
 
-    public void func_20076_b(ItemStack itemstack) {
-        field_20077_f = itemstack;
+    public void setCurrentlySelectedItemStack(ItemStack itemstack) {
+        currentlySelectedItemStackMaybe = itemstack;
         player.func_20058_b(itemstack);
     }
 
-    public ItemStack func_20075_i() {
-        return field_20077_f;
+    public ItemStack getCurrentlySelectedItemStack() {
+        return currentlySelectedItemStackMaybe;
     }
 
     public boolean func_20070_a_(EntityPlayer entityplayer) {
@@ -347,8 +346,8 @@ public class InventoryPlayer implements IInventory {
 
     public ItemStack mainInventory[];
     public ItemStack armorInventory[];
-    public int currentItem;
+    public int currentHotBarSlot;
     private EntityPlayer player;
-    private ItemStack field_20077_f;
+    private ItemStack currentlySelectedItemStackMaybe;
     public boolean inventoryChanged;
 }

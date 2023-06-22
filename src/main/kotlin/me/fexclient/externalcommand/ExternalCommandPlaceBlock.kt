@@ -7,7 +7,7 @@ import net.minecraft.client.Minecraft
 class ExternalCommandPlaceBlock(position: Vec3i): ExternalCommand {
     override val action: (mc: Minecraft) -> Unit = { mc ->
         mc.playerController.sendPlaceBlock(
-            mc.thePlayer, mc.theWorld, mc.thePlayer.inventory.getCurrentItem(),
+            mc.thePlayer, mc.theWorld, mc.thePlayer.inventory.getCurrentHotBarSlot(),
             position.x, position.y, position.z, 0
         )
 

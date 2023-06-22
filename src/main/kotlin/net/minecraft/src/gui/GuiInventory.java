@@ -11,7 +11,7 @@ import org.lwjgl.opengl.GL11;
 
 public class GuiInventory extends GuiContainer {
     public GuiInventory(EntityPlayer entityplayer) {
-        super(entityplayer.field_20069_g);
+        super(entityplayer.craftingInventoryPlayer);
         field_948_f = true;
     }
 

@@ -3,7 +3,6 @@ package net.minecraft.src.inventory;// Decompiled by Jad v1.5.8g. Copyright 2001
 // Decompiler options: packimports(3) braces deadcode 
 
 
-import net.minecraft.src.inventory.IInventory;
 import net.minecraft.src.item.ItemStack;
 
 public class Slot
@@ -58,9 +57,8 @@ public class Slot
         return -1;
     }
 
-    public ItemStack func_20004_a(int i)
-    {
-        return inventory.decrStackSize(slotIndex, i);
+    public ItemStack clickOnSlot(int stackSize) {
+        return inventory.decrStackSize(slotIndex, stackSize);
     }
 
     private final int slotIndex;

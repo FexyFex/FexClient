@@ -308,9 +308,9 @@ public class ItemRenderer {
     public void func_895_a() {
         field_9452_d = field_9453_c;
         EntityPlayerSP entityplayersp = mc.thePlayer;
-        ItemStack itemstack = ((EntityPlayer) (entityplayersp)).inventory.getCurrentItem();
+        ItemStack itemstack = ((EntityPlayer) (entityplayersp)).inventory.getCurrentHotBarSlot();
         ItemStack itemstack1 = itemstack;
-        boolean flag = field_20099_f == ((EntityPlayer) (entityplayersp)).inventory.currentItem && itemstack1 == field_9451_b;
+        boolean flag = field_20099_f == ((EntityPlayer) (entityplayersp)).inventory.currentHotBarSlot && itemstack1 == field_9451_b;
         if (field_9451_b == null && itemstack1 == null) {
             flag = true;
         }
@@ -330,7 +330,7 @@ public class ItemRenderer {
         field_9453_c += f2;
         if (field_9453_c < 0.1F) {
             field_9451_b = itemstack1;
-            field_20099_f = ((EntityPlayer) (entityplayersp)).inventory.currentItem;
+            field_20099_f = ((EntityPlayer) (entityplayersp)).inventory.currentHotBarSlot;
         }
     }
 

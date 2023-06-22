@@ -695,12 +695,12 @@ public abstract class Entity {
         return height / 2.0F;
     }
 
-    public EntityItem dropItem(int i, int j) {
-        return dropItemWithOffset(i, j, 0.0F);
+    public EntityItem dropItem(int itemId, int stackSize) {
+        return dropItemWithOffset(itemId, stackSize, 0.0F);
     }
 
-    public EntityItem dropItemWithOffset(int i, int j, float f) {
-        EntityItem entityitem = new EntityItem(worldObj, posX, posY + (double) f, posZ, new ItemStack(i, j));
+    public EntityItem dropItemWithOffset(int itemId, int stackSize, float f) {
+        EntityItem entityitem = new EntityItem(worldObj, posX, posY + (double) f, posZ, new ItemStack(itemId, stackSize));
         entityitem.delayBeforeCanPickup = 10;
         worldObj.entityJoinedWorld(entityitem);
         return entityitem;

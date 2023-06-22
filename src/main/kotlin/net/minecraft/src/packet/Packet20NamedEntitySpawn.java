@@ -25,7 +25,7 @@ public class Packet20NamedEntitySpawn extends Packet
         zPosition = MathHelper.floor_double(entityplayer.posZ * 32D);
         rotation = (byte)(int)((entityplayer.rotationYaw * 256F) / 360F);
         pitch = (byte)(int)((entityplayer.rotationPitch * 256F) / 360F);
-        ItemStack itemstack = entityplayer.inventory.getCurrentItem();
+        ItemStack itemstack = entityplayer.inventory.getCurrentHotBarSlot();
         currentItem = itemstack != null ? itemstack.itemID : 0;
     }
 

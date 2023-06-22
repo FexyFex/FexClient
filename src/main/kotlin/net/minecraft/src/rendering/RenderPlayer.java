@@ -46,7 +46,7 @@ public class RenderPlayer extends RenderLiving {
 
     public void func_188_a(EntityPlayer entityplayer, double d, double d1, double d2,
                            float f, float f1) {
-        ItemStack itemstack = entityplayer.inventory.getCurrentItem();
+        ItemStack itemstack = entityplayer.inventory.getCurrentHotBarSlot();
         field_208_g.field_1278_i = field_207_h.field_1278_i = field_209_f.field_1278_i = itemstack != null;
         field_208_g.field_1277_j = field_207_h.field_1277_j = field_209_f.field_1277_j = entityplayer.isSneaking();
         double d3 = d1 - (double) entityplayer.yOffset;
@@ -187,7 +187,7 @@ public class RenderPlayer extends RenderLiving {
             field_209_f.func_20096_b(0.0625F);
             GL11.glPopMatrix();
         }
-        ItemStack itemstack1 = entityplayer.inventory.getCurrentItem();
+        ItemStack itemstack1 = entityplayer.inventory.getCurrentHotBarSlot();
         if (itemstack1 != null) {
             GL11.glPushMatrix();
             field_209_f.bipedRightArm.func_926_b(0.0625F);

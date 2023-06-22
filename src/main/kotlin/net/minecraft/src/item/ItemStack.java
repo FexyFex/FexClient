@@ -38,11 +38,11 @@ public final class ItemStack
         this(i, 1);
     }
 
-    public ItemStack(int i, int j)
+    public ItemStack(int itemId, int stackSize)
     {
-        stackSize = 0;
-        itemID = i;
-        stackSize = j;
+        this.stackSize = 0;
+        itemID = itemId;
+        this.stackSize = stackSize;
     }
 
     public ItemStack(int i, int j, int k)

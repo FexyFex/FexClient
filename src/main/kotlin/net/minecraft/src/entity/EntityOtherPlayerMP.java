@@ -105,18 +105,14 @@ public class EntityOtherPlayerMP extends EntityPlayer
         return field_12240_bw;
     }
 
-    public void func_20045_c(int i, int j)
-    {
+    public void func_20045_c(int i, int j) {
         ItemStack itemstack = null;
-        if(j >= 0)
-        {
+        if(j >= 0) {
             itemstack = new ItemStack(j);
         }
-        if(i == 0)
-        {
-            inventory.mainInventory[inventory.currentItem] = itemstack;
-        } else
-        {
+        if(i == 0) {
+            inventory.mainInventory[inventory.currentHotBarSlot] = itemstack;
+        } else {
             inventory.armorInventory[i - 1] = itemstack;
         }
     }

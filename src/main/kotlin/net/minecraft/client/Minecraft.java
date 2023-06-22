@@ -636,7 +636,7 @@ public abstract class Minecraft implements Runnable {
                 }
                 MinecraftFexClientInjectorApp.INSTANCE.onBlockHit(this, block, Vec3D.createVector(x,y,z), side);
             } else {
-                ItemStack itemstack1 = thePlayer.inventory.getCurrentItem();
+                ItemStack itemstack1 = thePlayer.inventory.getCurrentHotBarSlot();
                 int stackSize = itemstack1 == null ? 0 : itemstack1.stackSize;
                 if (playerController.sendPlaceBlock(thePlayer, theWorld, itemstack1, x, y, z, side)) {
                     flag = false;
@@ -646,14 +646,14 @@ public abstract class Minecraft implements Runnable {
                     return;
                 }
                 if (itemstack1.stackSize == 0) {
-                    thePlayer.inventory.mainInventory[thePlayer.inventory.currentItem] = null;
+                    thePlayer.inventory.mainInventory[thePlayer.inventory.currentHotBarSlot] = null;
                 } else if (itemstack1.stackSize != stackSize) {
                     entityRenderer.itemRenderer.func_9449_b();
                 }
             }
         }
         if (flag && mouseButton == 1) {
-            ItemStack itemstack = thePlayer.inventory.getCurrentItem();
+            ItemStack itemstack = thePlayer.inventory.getCurrentHotBarSlot();
             if (itemstack != null && playerController.sendUseItem(thePlayer, theWorld, itemstack)) {
                 entityRenderer.itemRenderer.func_9450_c();
             }
@@ -834,7 +834,7 @@ public abstract class Minecraft implements Runnable {
                         }
                         for (int i = 0; i < 9; i++) {
                             if (Keyboard.getEventKey() == 2 + i) {
-                                thePlayer.inventory.currentItem = i;
+                                thePlayer.inventory.currentHotBarSlot = i;
                             }
                         }
 

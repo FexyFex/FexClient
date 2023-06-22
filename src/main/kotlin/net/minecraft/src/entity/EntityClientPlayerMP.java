@@ -131,7 +131,7 @@ public class EntityClientPlayerMP extends EntityPlayerSP {
 
     public void func_20059_m() {
         field_797_bg.addToSendQueue(new Packet101(field_20068_h.unusedList));
-        inventory.func_20076_b(null);
+        inventory.setCurrentlySelectedItemStack(null);
         super.func_20059_m();
     }
 

@@ -135,9 +135,9 @@ public class NetClientHandler extends NetHandler {
         entityotherplayermp.serverPosZ = packet20namedentityspawn.zPosition;
         int i = packet20namedentityspawn.currentItem;
         if (i == 0) {
-            entityotherplayermp.inventory.mainInventory[entityotherplayermp.inventory.currentItem] = null;
+            entityotherplayermp.inventory.mainInventory[entityotherplayermp.inventory.currentHotBarSlot] = null;
         } else {
-            entityotherplayermp.inventory.mainInventory[entityotherplayermp.inventory.currentItem] = new ItemStack(i);
+            entityotherplayermp.inventory.mainInventory[entityotherplayermp.inventory.currentHotBarSlot] = new ItemStack(i);
         }
         entityotherplayermp.setPositionAndRotation(d, d1, d2, f, f1);
         worldClient.func_712_a(packet20namedentityspawn.entityId, entityotherplayermp);
@@ -435,9 +435,9 @@ public class NetClientHandler extends NetHandler {
 
     public void func_20088_a(Packet103 packet103) {
         if (packet103.field_20042_a == -1) {
-            mc.thePlayer.inventory.func_20076_b(packet103.field_20043_c);
+            mc.thePlayer.inventory.setCurrentlySelectedItemStack(packet103.field_20043_c);
         } else if (packet103.field_20042_a == 0) {
-            mc.thePlayer.field_20069_g.func_20119_a(packet103.field_20041_b, packet103.field_20043_c);
+            mc.thePlayer.craftingInventoryPlayer.func_20119_a(packet103.field_20041_b, packet103.field_20043_c);
         } else if (packet103.field_20042_a == mc.thePlayer.field_20068_h.unusedList) {
             mc.thePlayer.field_20068_h.func_20119_a(packet103.field_20041_b, packet103.field_20043_c);
         }
@@ -446,7 +446,7 @@ public class NetClientHandler extends NetHandler {
     public void func_20089_a(Packet106 packet106) {
         CraftingInventoryCB craftinginventorycb = null;
         if (packet106.field_20029_a == 0) {
-            craftinginventorycb = mc.thePlayer.field_20069_g;
+            craftinginventorycb = mc.thePlayer.craftingInventoryPlayer;
         } else if (packet106.field_20029_a == mc.thePlayer.field_20068_h.unusedList) {
             craftinginventorycb = mc.thePlayer.field_20068_h;
         }
@@ -462,7 +462,7 @@ public class NetClientHandler extends NetHandler {
 
     public void func_20094_a(Packet104 packet104) {
         if (packet104.field_20036_a == 0) {
-            mc.thePlayer.field_20069_g.func_20115_a(packet104.field_20035_b);
+            mc.thePlayer.craftingInventoryPlayer.func_20115_a(packet104.field_20035_b);
         } else if (packet104.field_20036_a == mc.thePlayer.field_20068_h.unusedList) {
             mc.thePlayer.field_20068_h.func_20115_a(packet104.field_20035_b);
         }

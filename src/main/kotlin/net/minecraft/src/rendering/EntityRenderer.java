@@ -353,8 +353,8 @@ public class EntityRenderer {
             effectrenderer.draw(entityplayersp, f);
             if (mc.objectMouseOver != null && entityplayersp.isInsideOfMaterial(Material.water)) {
                 GL11.glDisable(GL11.GL_ALPHA_TEST);
-                renderglobal.func_959_a(entityplayersp, mc.objectMouseOver, 0, ((EntityPlayer) (entityplayersp)).inventory.getCurrentItem(), f);
-                renderglobal.drawSelectionBox(entityplayersp, mc.objectMouseOver, 0, ((EntityPlayer) (entityplayersp)).inventory.getCurrentItem(), f);
+                renderglobal.func_959_a(entityplayersp, mc.objectMouseOver, 0, ((EntityPlayer) (entityplayersp)).inventory.getCurrentHotBarSlot(), f);
+                renderglobal.drawSelectionBox(entityplayersp, mc.objectMouseOver, 0, ((EntityPlayer) (entityplayersp)).inventory.getCurrentHotBarSlot(), f);
                 GL11.glEnable(3008);
             }
             GL11.glBlendFunc(770, 771);
@@ -384,8 +384,8 @@ public class EntityRenderer {
             GL11.glDisable(3042);
             if (mc.objectMouseOver != null && !entityplayersp.isInsideOfMaterial(Material.water)) {
                 GL11.glDisable(3008);
-                renderglobal.func_959_a(entityplayersp, mc.objectMouseOver, 0, ((EntityPlayer) (entityplayersp)).inventory.getCurrentItem(), f);
-                renderglobal.drawSelectionBox(entityplayersp, mc.objectMouseOver, 0, ((EntityPlayer) (entityplayersp)).inventory.getCurrentItem(), f);
+                renderglobal.func_959_a(entityplayersp, mc.objectMouseOver, 0, ((EntityPlayer) (entityplayersp)).inventory.getCurrentHotBarSlot(), f);
+                renderglobal.drawSelectionBox(entityplayersp, mc.objectMouseOver, 0, ((EntityPlayer) (entityplayersp)).inventory.getCurrentHotBarSlot(), f);
                 GL11.glEnable(3008);
             }
             GL11.glDisable(2912);

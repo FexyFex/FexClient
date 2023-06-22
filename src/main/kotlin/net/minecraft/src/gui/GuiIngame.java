@@ -57,7 +57,7 @@ public class GuiIngame extends Gui {
         InventoryPlayer inventoryplayer = mc.thePlayer.inventory;
         zLevel = -90F;
         drawTexturedModalRect(k / 2 - 91, l - 22, 0, 0, 182, 22);
-        drawTexturedModalRect((k / 2 - 91 - 1) + inventoryplayer.currentItem * 20, l - 22 - 1, 0, 22, 24, 22);
+        drawTexturedModalRect((k / 2 - 91 - 1) + inventoryplayer.currentHotBarSlot * 20, l - 22 - 1, 0, 22, 24, 22);
         GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, mc.renderEngine.getTexture("/gui/icons.png"));
         GL11.glEnable(3042 /*GL_BLEND*/);
         GL11.glBlendFunc(775, 769);

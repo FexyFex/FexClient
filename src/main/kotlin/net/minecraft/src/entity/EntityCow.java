@@ -56,10 +56,10 @@ public class EntityCow extends EntityAnimals
 
     public boolean interact(EntityPlayer entityplayer)
     {
-        ItemStack itemstack = entityplayer.inventory.getCurrentItem();
+        ItemStack itemstack = entityplayer.inventory.getCurrentHotBarSlot();
         if(itemstack != null && itemstack.itemID == Item.bucketEmpty.shiftedIndex)
         {
-            entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, new ItemStack(Item.bucketMilk));
+            entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentHotBarSlot, new ItemStack(Item.bucketMilk));
             return true;
         } else
         {
