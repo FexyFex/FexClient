@@ -31,11 +31,11 @@ public class BlockSoil extends Block {
         return false;
     }
 
-    public int getBlockTextureFromSideAndMetadata(int i, int j) {
-        if (i == 1 && j > 0) {
+    public int getBlockTextureFromSideAndMetadata(int side, int metadata) {
+        if (side == 1 && metadata > 0) {
             return blockIndexInTexture - 1;
         }
-        if (i == 1) {
+        if (side == 1) {
             return blockIndexInTexture;
         } else {
             return 2;

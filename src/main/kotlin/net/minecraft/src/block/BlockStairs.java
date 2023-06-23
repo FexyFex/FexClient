@@ -105,16 +105,16 @@ public class BlockStairs extends Block {
         return modelBlock.quantityDropped(random);
     }
 
-    public int getBlockTextureFromSideAndMetadata(int i, int j) {
-        return modelBlock.getBlockTextureFromSideAndMetadata(i, j);
+    public int getBlockTextureFromSideAndMetadata(int side, int metadata) {
+        return modelBlock.getBlockTextureFromSideAndMetadata(side, metadata);
     }
 
     public int getBlockTextureFromSide(int i) {
         return modelBlock.getBlockTextureFromSide(i);
     }
 
-    public int getBlockTexture(IBlockAccess iblockaccess, int i, int j, int k, int l) {
-        return modelBlock.getBlockTexture(iblockaccess, i, j, k, l);
+    public int getBlockTexture(IBlockAccess iblockaccess, int x, int y, int z, int side) {
+        return modelBlock.getBlockTexture(iblockaccess, x, y, z, side);
     }
 
     public int tickRate() {

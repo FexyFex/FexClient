@@ -39,9 +39,9 @@ public class Block {
         }
     }
 
-    protected Block(int i, int j, Material material) {
-        this(i, material);
-        blockIndexInTexture = j;
+    protected Block(int blockId, int textureIndexInAtlas, Material material) {
+        this(blockId, material);
+        blockIndexInTexture = textureIndexInAtlas;
     }
 
     protected Block setStepSound(StepSound stepsound) {
@@ -88,13 +88,13 @@ public class Block {
         tickOnLoad[blockID] = flag;
     }
 
-    public void setBlockBounds(float f, float f1, float f2, float f3, float f4, float f5) {
-        minX = f;
-        minY = f1;
-        minZ = f2;
-        maxX = f3;
-        maxY = f4;
-        maxZ = f5;
+    public void setBlockBounds(float minX, float minY, float minZ, float maxX, float maxY, float maxZ) {
+        this.minX = minX;
+        this.minY = minY;
+        this.minZ = minZ;
+        this.maxX = maxX;
+        this.maxY = maxY;
+        this.maxZ = maxZ;
     }
 
     public float getBlockBrightness(IBlockAccess iblockaccess, int i, int j, int k) {
@@ -128,12 +128,12 @@ public class Block {
         }
     }
 
-    public int getBlockTexture(IBlockAccess iblockaccess, int i, int j, int k, int l) {
-        return getBlockTextureFromSideAndMetadata(l, iblockaccess.getBlockMetadata(i, j, k));
+    public int getBlockTexture(IBlockAccess iblockaccess, int x, int y, int z, int side) {
+        return getBlockTextureFromSideAndMetadata(side, iblockaccess.getBlockMetadata(x, y, z));
     }
 
-    public int getBlockTextureFromSideAndMetadata(int i, int j) {
-        return getBlockTextureFromSide(i);
+    public int getBlockTextureFromSideAndMetadata(int side, int metadata) {
+        return getBlockTextureFromSide(side);
     }
 
     public int getBlockTextureFromSide(int i) {

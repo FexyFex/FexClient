@@ -11,8 +11,7 @@ public class ChunkProviderClient
     implements IChunkProvider
 {
 
-    public ChunkProviderClient(World world)
-    {
+    public ChunkProviderClient(World world) {
         chunkMapping = new HashMap();
         unusedChunkList = new ArrayList();
         blankChunk = new Chunk(world, new byte[32768], 0, 0);

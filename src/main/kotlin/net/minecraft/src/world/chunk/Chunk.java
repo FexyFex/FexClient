@@ -500,34 +500,31 @@ public class Chunk {
         return isModified;
     }
 
-    public int func_1004_a(byte abyte0[], int i, int j, int k, int l, int i1, int j1,
-                           int k1) {
+    public int func_1004_a(byte[] blockArray, int i, int j, int k, int l, int i1, int j1, int k1) {
         for (int l1 = i; l1 < l; l1++) {
             for (int l2 = k; l2 < j1; l2++) {
                 int l3 = l1 << 11 | l2 << 7 | j;
                 int l4 = i1 - j;
-                System.arraycopy(abyte0, k1, blocks, l3, l4);
+                System.arraycopy(blockArray, k1, blocks, l3, l4);
                 k1 += l4;
             }
-
         }
 
         generateHeightMap();
         for (int i2 = i; i2 < l; i2++) {
             for (int i3 = k; i3 < j1; i3++) {
-                int i4 = (i2 << 11 | i3 << 7 | j) >> 1;
-                int i5 = (i1 - j) / 2;
-                System.arraycopy(abyte0, k1, data.data, i4, i5);
-                k1 += i5;
+                int blockIndex = (i2 << 11 | i3 << 7 | j) >> 1;
+                int length = (i1 - j) / 2;
+                System.arraycopy(blockArray, k1, data.data, blockIndex, length);
+                k1 += length;
             }
-
         }
 
         for (int j2 = i; j2 < l; j2++) {
             for (int j3 = k; j3 < j1; j3++) {
                 int j4 = (j2 << 11 | j3 << 7 | j) >> 1;
                 int j5 = (i1 - j) / 2;
-                System.arraycopy(abyte0, k1, blocklightMap.data, j4, j5);
+                System.arraycopy(blockArray, k1, blocklightMap.data, j4, j5);
                 k1 += j5;
             }
 
@@ -537,7 +534,7 @@ public class Chunk {
             for (int k3 = k; k3 < j1; k3++) {
                 int k4 = (k2 << 11 | k3 << 7 | j) >> 1;
                 int k5 = (i1 - j) / 2;
-                System.arraycopy(abyte0, k1, skylightMap.data, k4, k5);
+                System.arraycopy(blockArray, k1, skylightMap.data, k4, k5);
                 k1 += k5;
             }
 
@@ -551,18 +548,18 @@ public class Chunk {
     }
 
     public static boolean field_1540_a;
-    public byte blocks[];
+    public byte[] blocks;
     public boolean isChunkLoaded;
     public World worldObj;
     public NibbleArray data;
     public NibbleArray skylightMap;
     public NibbleArray blocklightMap;
-    public byte heightMap[];
+    public byte[] heightMap;
     public int field_1532_i;
     public final int xPosition;
     public final int zPosition;
     public Map chunkTileEntityMap;
-    public List entities[];
+    public List[] entities;
     public boolean isTerrainPopulated;
     public boolean isModified;
     public boolean neverSave;

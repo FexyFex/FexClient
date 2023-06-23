@@ -17,14 +17,14 @@ public class BlockGrass extends Block {
         setTickOnLoad(true);
     }
 
-    public int getBlockTexture(IBlockAccess iblockaccess, int i, int j, int k, int l) {
-        if (l == 1) {
+    public int getBlockTexture(IBlockAccess iblockaccess, int x, int y, int z, int side) {
+        if (side == 1) {
             return 0;
         }
-        if (l == 0) {
+        if (side == 0) {
             return 2;
         }
-        Material material = iblockaccess.getBlockMaterial(i, j + 1, k);
+        Material material = iblockaccess.getBlockMaterial(x, y + 1, z);
         return material != Material.snow && material != Material.builtSnow ? 3 : 68;
     }
 

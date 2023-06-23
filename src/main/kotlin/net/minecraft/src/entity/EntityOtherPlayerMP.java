@@ -84,16 +84,13 @@ public class EntityOtherPlayerMP extends EntityPlayer
         field_775_e = field_774_f;
         float f = MathHelper.sqrt_double(motionX * motionX + motionZ * motionZ);
         float f1 = (float)Math.atan(-motionY * 0.20000000298023224D) * 15F;
-        if(f > 0.1F)
-        {
+        if(f > 0.1F) {
             f = 0.1F;
         }
-        if(!onGround || health <= 0)
-        {
+        if(!onGround || health <= 0) {
             f = 0.0F;
         }
-        if(onGround || health <= 0)
-        {
+        if(onGround || health <= 0) {
             f1 = 0.0F;
         }
         field_774_f += (f - field_774_f) * 0.4F;

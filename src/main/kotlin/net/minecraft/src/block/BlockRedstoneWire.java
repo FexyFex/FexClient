@@ -20,8 +20,8 @@ public class BlockRedstoneWire extends Block {
         setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.0625F, 1.0F);
     }
 
-    public int getBlockTextureFromSideAndMetadata(int i, int j) {
-        return blockIndexInTexture + (j <= 0 ? 0 : 16);
+    public int getBlockTextureFromSideAndMetadata(int side, int metadata) {
+        return blockIndexInTexture + (metadata <= 0 ? 0 : 16);
     }
 
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int i, int j, int k) {

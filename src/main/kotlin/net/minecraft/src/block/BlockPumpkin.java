@@ -19,13 +19,13 @@ public class BlockPumpkin extends Block
         field_4072_a = flag;
     }
 
-    public int getBlockTextureFromSideAndMetadata(int i, int j)
+    public int getBlockTextureFromSideAndMetadata(int side, int metadata)
     {
-        if(i == 1)
+        if(side == 1)
         {
             return blockIndexInTexture;
         }
-        if(i == 0)
+        if(side == 0)
         {
             return blockIndexInTexture;
         }
@@ -34,19 +34,19 @@ public class BlockPumpkin extends Block
         {
             k++;
         }
-        if(j == 0 && i == 2)
+        if(metadata == 0 && side == 2)
         {
             return k;
         }
-        if(j == 1 && i == 5)
+        if(metadata == 1 && side == 5)
         {
             return k;
         }
-        if(j == 2 && i == 3)
+        if(metadata == 2 && side == 3)
         {
             return k;
         }
-        if(j == 3 && i == 4)
+        if(metadata == 3 && side == 4)
         {
             return k;
         } else

@@ -88,13 +88,13 @@ public class BlockCrops extends BlockFlower
         return f;
     }
 
-    public int getBlockTextureFromSideAndMetadata(int i, int j)
+    public int getBlockTextureFromSideAndMetadata(int side, int metadata)
     {
-        if(j < 0)
+        if(metadata < 0)
         {
-            j = 7;
+            metadata = 7;
         }
-        return blockIndexInTexture + j;
+        return blockIndexInTexture + metadata;
     }
 
     public int getRenderType()

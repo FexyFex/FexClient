@@ -37,50 +37,50 @@ public class RenderBlocks {
         overrideBlockTexture = -1;
     }
 
-    public boolean renderBlockByRenderType(Block block, int i, int j, int k) {
+    public boolean renderBlockByRenderType(Block block, int x, int y, int z) {
         int l = block.getRenderType();
-        block.setBlockBoundsBasedOnState(blockAccess, i, j, k);
+        block.setBlockBoundsBasedOnState(blockAccess, x, y, z);
         if (l == 0) {
-            return renderStandardBlock(block, i, j, k);
+            return renderStandardBlock(block, x, y, z);
         }
         if (l == 4) {
-            return renderBlockFluids(block, i, j, k);
+            return renderBlockFluids(block, x, y, z);
         }
         if (l == 13) {
-            return renderBlockCactus(block, i, j, k);
+            return renderBlockCactus(block, x, y, z);
         }
         if (l == 1) {
-            return renderBlockReed(block, i, j, k);
+            return renderBlockReed(block, x, y, z);
         }
         if (l == 6) {
-            return renderBlockCrops(block, i, j, k);
+            return renderBlockCrops(block, x, y, z);
         }
         if (l == 2) {
-            return renderBlockTorch(block, i, j, k);
+            return renderBlockTorch(block, x, y, z);
         }
         if (l == 3) {
-            return renderBlockFire(block, i, j, k);
+            return renderBlockFire(block, x, y, z);
         }
         if (l == 5) {
-            return renderBlockRedstoneWire(block, i, j, k);
+            return renderBlockRedstoneWire(block, x, y, z);
         }
         if (l == 8) {
-            return renderBlockLadder(block, i, j, k);
+            return renderBlockLadder(block, x, y, z);
         }
         if (l == 7) {
-            return renderBlockDoor(block, i, j, k);
+            return renderBlockDoor(block, x, y, z);
         }
         if (l == 9) {
-            return renderBlockMinecartTrack(block, i, j, k);
+            return renderBlockMinecartTrack(block, x, y, z);
         }
         if (l == 10) {
-            return renderBlockStairs(block, i, j, k);
+            return renderBlockStairs(block, x, y, z);
         }
         if (l == 11) {
-            return renderBlockFence(block, i, j, k);
+            return renderBlockFence(block, x, y, z);
         }
         if (l == 12) {
-            return renderBlockLever(block, i, j, k);
+            return renderBlockLever(block, x, y, z);
         } else {
             return false;
         }
@@ -993,42 +993,42 @@ public class RenderBlocks {
         float f3 = 0.6F;
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();
-        float f4 = block.getBlockBrightness(world, i, j, k);
-        float f5 = block.getBlockBrightness(world, i, j - 1, k);
-        if (f5 < f4) {
-            f5 = f4;
+        float brightness = block.getBlockBrightness(world, i, j, k);
+        float adjacentBrightness = block.getBlockBrightness(world, i, j - 1, k);
+        if (adjacentBrightness < brightness) {
+            adjacentBrightness = brightness;
         }
-        tessellator.setColorOpaque_F(f * f5, f * f5, f * f5);
+        tessellator.setColorOpaque_F(f * adjacentBrightness, f * adjacentBrightness, f * adjacentBrightness);
         renderBottomFace(block, -0.5D, -0.5D, -0.5D, block.getBlockTextureFromSide(0));
-        f5 = block.getBlockBrightness(world, i, j + 1, k);
-        if (f5 < f4) {
-            f5 = f4;
+        adjacentBrightness = block.getBlockBrightness(world, i, j + 1, k);
+        if (adjacentBrightness < brightness) {
+            adjacentBrightness = brightness;
         }
-        tessellator.setColorOpaque_F(f1 * f5, f1 * f5, f1 * f5);
+        tessellator.setColorOpaque_F(f1 * adjacentBrightness, f1 * adjacentBrightness, f1 * adjacentBrightness);
         renderTopFace(block, -0.5D, -0.5D, -0.5D, block.getBlockTextureFromSide(1));
-        f5 = block.getBlockBrightness(world, i, j, k - 1);
-        if (f5 < f4) {
-            f5 = f4;
+        adjacentBrightness = block.getBlockBrightness(world, i, j, k - 1);
+        if (adjacentBrightness < brightness) {
+            adjacentBrightness = brightness;
         }
-        tessellator.setColorOpaque_F(f2 * f5, f2 * f5, f2 * f5);
+        tessellator.setColorOpaque_F(f2 * adjacentBrightness, f2 * adjacentBrightness, f2 * adjacentBrightness);
         renderEastFace(block, -0.5D, -0.5D, -0.5D, block.getBlockTextureFromSide(2));
-        f5 = block.getBlockBrightness(world, i, j, k + 1);
-        if (f5 < f4) {
-            f5 = f4;
+        adjacentBrightness = block.getBlockBrightness(world, i, j, k + 1);
+        if (adjacentBrightness < brightness) {
+            adjacentBrightness = brightness;
         }
-        tessellator.setColorOpaque_F(f2 * f5, f2 * f5, f2 * f5);
+        tessellator.setColorOpaque_F(f2 * adjacentBrightness, f2 * adjacentBrightness, f2 * adjacentBrightness);
         renderWestFace(block, -0.5D, -0.5D, -0.5D, block.getBlockTextureFromSide(3));
-        f5 = block.getBlockBrightness(world, i - 1, j, k);
-        if (f5 < f4) {
-            f5 = f4;
+        adjacentBrightness = block.getBlockBrightness(world, i - 1, j, k);
+        if (adjacentBrightness < brightness) {
+            adjacentBrightness = brightness;
         }
-        tessellator.setColorOpaque_F(f3 * f5, f3 * f5, f3 * f5);
+        tessellator.setColorOpaque_F(f3 * adjacentBrightness, f3 * adjacentBrightness, f3 * adjacentBrightness);
         renderNorthFace(block, -0.5D, -0.5D, -0.5D, block.getBlockTextureFromSide(4));
-        f5 = block.getBlockBrightness(world, i + 1, j, k);
-        if (f5 < f4) {
-            f5 = f4;
+        adjacentBrightness = block.getBlockBrightness(world, i + 1, j, k);
+        if (adjacentBrightness < brightness) {
+            adjacentBrightness = brightness;
         }
-        tessellator.setColorOpaque_F(f3 * f5, f3 * f5, f3 * f5);
+        tessellator.setColorOpaque_F(f3 * adjacentBrightness, f3 * adjacentBrightness, f3 * adjacentBrightness);
         renderSouthFace(block, -0.5D, -0.5D, -0.5D, block.getBlockTextureFromSide(5));
         tessellator.draw();
     }
@@ -1041,78 +1041,79 @@ public class RenderBlocks {
         return renderStandardBlockWithColorMultiplier(block, i, j, k, f, f1, f2);
     }
 
-    public boolean renderStandardBlockWithColorMultiplier(Block block, int i, int j, int k, float f, float f1, float f2) {
+    public boolean renderStandardBlockWithColorMultiplier(Block block, int x, int y, int z, float r, float g, float b) {
         Tessellator tessellator = Tessellator.instance;
         boolean flag = false;
         float f3 = 0.5F;
         float f4 = 1.0F;
         float f5 = 0.8F;
         float f6 = 0.6F;
-        float f7 = f4 * f;
-        float f8 = f4 * f1;
-        float f9 = f4 * f2;
+        float f7 = f4 * r;
+        float f8 = f4 * g;
+        float f9 = f4 * b;
         if (block == Block.grass) {
-            f = f1 = f2 = 1.0F;
+            r = g = b = 1.0F;
         }
-        float f10 = f3 * f;
-        float f11 = f5 * f;
-        float f12 = f6 * f;
-        float f13 = f3 * f1;
-        float f14 = f5 * f1;
-        float f15 = f6 * f1;
-        float f16 = f3 * f2;
-        float f17 = f5 * f2;
-        float f18 = f6 * f2;
-        float f19 = block.getBlockBrightness(blockAccess, i, j, k);
-        if (renderAllFaces || block.shouldSideBeRendered(blockAccess, i, j - 1, k, 0)) {
-            float f20 = block.getBlockBrightness(blockAccess, i, j - 1, k);
-            tessellator.setColorOpaque_F(f10 * f20, f13 * f20, f16 * f20);
-            renderBottomFace(block, i, j, k, block.getBlockTexture(blockAccess, i, j, k, 0));
+        // these are probably used for the side- and sky-lighting?
+        float f10 = f3 * r;
+        float f11 = f5 * r;
+        float f12 = f6 * r;
+        float f13 = f3 * g;
+        float f14 = f5 * g;
+        float f15 = f6 * g;
+        float f16 = f3 * b;
+        float f17 = f5 * b;
+        float f18 = f6 * b;
+        float brightness = block.getBlockBrightness(blockAccess, x, y, z);
+        if (renderAllFaces || block.shouldSideBeRendered(blockAccess, x, y - 1, z, 0)) {
+            float light = block.getBlockBrightness(blockAccess, x, y - 1, z);
+            tessellator.setColorOpaque_F(f10 * light, f13 * light, f16 * light);
+            renderBottomFace(block, x, y, z, block.getBlockTexture(blockAccess, x, y, z, 0));
             flag = true;
         }
-        if (renderAllFaces || block.shouldSideBeRendered(blockAccess, i, j + 1, k, 1)) {
-            float f21 = block.getBlockBrightness(blockAccess, i, j + 1, k);
+        if (renderAllFaces || block.shouldSideBeRendered(blockAccess, x, y + 1, z, 1)) {
+            float light = block.getBlockBrightness(blockAccess, x, y + 1, z);
             if (block.maxY != 1.0D && !block.blockMaterial.getIsLiquid()) {
-                f21 = f19;
+                light = brightness;
             }
-            tessellator.setColorOpaque_F(f7 * f21, f8 * f21, f9 * f21);
-            renderTopFace(block, i, j, k, block.getBlockTexture(blockAccess, i, j, k, 1));
+            tessellator.setColorOpaque_F(f7 * light, f8 * light, f9 * light);
+            renderTopFace(block, x, y, z, block.getBlockTexture(blockAccess, x, y, z, 1));
             flag = true;
         }
-        if (renderAllFaces || block.shouldSideBeRendered(blockAccess, i, j, k - 1, 2)) {
-            float f22 = block.getBlockBrightness(blockAccess, i, j, k - 1);
+        if (renderAllFaces || block.shouldSideBeRendered(blockAccess, x, y, z - 1, 2)) {
+            float light = block.getBlockBrightness(blockAccess, x, y, z - 1);
             if (block.minZ > 0.0D) {
-                f22 = f19;
+                light = brightness;
             }
-            tessellator.setColorOpaque_F(f11 * f22, f14 * f22, f17 * f22);
-            renderEastFace(block, i, j, k, block.getBlockTexture(blockAccess, i, j, k, 2));
+            tessellator.setColorOpaque_F(f11 * light, f14 * light, f17 * light);
+            renderEastFace(block, x, y, z, block.getBlockTexture(blockAccess, x, y, z, 2));
             flag = true;
         }
-        if (renderAllFaces || block.shouldSideBeRendered(blockAccess, i, j, k + 1, 3)) {
-            float f23 = block.getBlockBrightness(blockAccess, i, j, k + 1);
+        if (renderAllFaces || block.shouldSideBeRendered(blockAccess, x, y, z + 1, 3)) {
+            float light = block.getBlockBrightness(blockAccess, x, y, z + 1);
             if (block.maxZ < 1.0D) {
-                f23 = f19;
+                light = brightness;
             }
-            tessellator.setColorOpaque_F(f11 * f23, f14 * f23, f17 * f23);
-            renderWestFace(block, i, j, k, block.getBlockTexture(blockAccess, i, j, k, 3));
+            tessellator.setColorOpaque_F(f11 * light, f14 * light, f17 * light);
+            renderWestFace(block, x, y, z, block.getBlockTexture(blockAccess, x, y, z, 3));
             flag = true;
         }
-        if (renderAllFaces || block.shouldSideBeRendered(blockAccess, i - 1, j, k, 4)) {
-            float f24 = block.getBlockBrightness(blockAccess, i - 1, j, k);
+        if (renderAllFaces || block.shouldSideBeRendered(blockAccess, x - 1, y, z, 4)) {
+            float light = block.getBlockBrightness(blockAccess, x - 1, y, z);
             if (block.minX > 0.0D) {
-                f24 = f19;
+                light = brightness;
             }
-            tessellator.setColorOpaque_F(f12 * f24, f15 * f24, f18 * f24);
-            renderNorthFace(block, i, j, k, block.getBlockTexture(blockAccess, i, j, k, 4));
+            tessellator.setColorOpaque_F(f12 * light, f15 * light, f18 * light);
+            renderNorthFace(block, x, y, z, block.getBlockTexture(blockAccess, x, y, z, 4));
             flag = true;
         }
-        if (renderAllFaces || block.shouldSideBeRendered(blockAccess, i + 1, j, k, 5)) {
-            float f25 = block.getBlockBrightness(blockAccess, i + 1, j, k);
+        if (renderAllFaces || block.shouldSideBeRendered(blockAccess, x + 1, y, z, 5)) {
+            float f25 = block.getBlockBrightness(blockAccess, x + 1, y, z);
             if (block.maxX < 1.0D) {
-                f25 = f19;
+                f25 = brightness;
             }
             tessellator.setColorOpaque_F(f12 * f25, f15 * f25, f18 * f25);
-            renderSouthFace(block, i, j, k, block.getBlockTexture(blockAccess, i, j, k, 5));
+            renderSouthFace(block, x, y, z, block.getBlockTexture(blockAccess, x, y, z, 5));
             flag = true;
         }
         return flag;
@@ -1415,35 +1416,34 @@ public class RenderBlocks {
         tessellator.addVertexWithUV(d8, d9, d11, d4, d6);
     }
 
-    public void renderTopFace(Block block, double d, double d1, double d2,
-                              int i) {
+    public void renderTopFace(Block block, double x, double y, double z, int textureIndex) {
         Tessellator tessellator = Tessellator.instance;
         if (overrideBlockTexture >= 0) {
-            i = overrideBlockTexture;
+            textureIndex = overrideBlockTexture;
         }
-        int j = (i & 0xf) << 4;
-        int k = i & 0xf0;
-        double d3 = ((double) j + block.minX * 16D) / 256D;
-        double d4 = (((double) j + block.maxX * 16D) - 0.01D) / 256D;
-        double d5 = ((double) k + block.minZ * 16D) / 256D;
-        double d6 = (((double) k + block.maxZ * 16D) - 0.01D) / 256D;
+        int texX = (textureIndex & 0xf) << 4;
+        int texY = textureIndex & 0xf0;
+        double texXMin = ((double) texX + block.minX * 16D) / 256D;
+        double texXMax = (((double) texX + block.maxX * 16D) - 0.01D) / 256D;
+        double texYMin = ((double) texY + block.minZ * 16D) / 256D;
+        double texYMax = (((double) texY + block.maxZ * 16D) - 0.01D) / 256D;
         if (block.minX < 0.0D || block.maxX > 1.0D) {
-            d3 = ((float) j + 0.0F) / 256F;
-            d4 = ((float) j + 15.99F) / 256F;
+            texXMin = ((float) texX + 0.0F) / 256F;
+            texXMax = ((float) texX + 15.99F) / 256F;
         }
         if (block.minZ < 0.0D || block.maxZ > 1.0D) {
-            d5 = ((float) k + 0.0F) / 256F;
-            d6 = ((float) k + 15.99F) / 256F;
+            texYMin = ((float) texY + 0.0F) / 256F;
+            texYMax = ((float) texY + 15.99F) / 256F;
         }
-        double d7 = d + block.minX;
-        double d8 = d + block.maxX;
-        double d9 = d1 + block.maxY;
-        double d10 = d2 + block.minZ;
-        double d11 = d2 + block.maxZ;
-        tessellator.addVertexWithUV(d8, d9, d11, d4, d6);
-        tessellator.addVertexWithUV(d8, d9, d10, d4, d5);
-        tessellator.addVertexWithUV(d7, d9, d10, d3, d5);
-        tessellator.addVertexWithUV(d7, d9, d11, d3, d6);
+        double worldPosMinX = x + block.minX;
+        double worldPosMaxX = x + block.maxX;
+        double worldPosMaxY = y + block.maxY;
+        double worldPosMinZ = z + block.minZ;
+        double worldPosMaxZ = z + block.maxZ;
+        tessellator.addVertexWithUV(worldPosMaxX, worldPosMaxY, worldPosMaxZ, texXMax, texYMax);
+        tessellator.addVertexWithUV(worldPosMaxX, worldPosMaxY, worldPosMinZ, texXMax, texYMin);
+        tessellator.addVertexWithUV(worldPosMinX, worldPosMaxY, worldPosMinZ, texXMin, texYMin);
+        tessellator.addVertexWithUV(worldPosMinX, worldPosMaxY, worldPosMaxZ, texXMin, texYMax);
     }
 
     public void renderEastFace(Block block, double d, double d1, double d2,

@@ -25,111 +25,100 @@ public class BlockChest extends BlockContainer
         blockIndexInTexture = 26;
     }
 
-    public int getBlockTexture(IBlockAccess iblockaccess, int i, int j, int k, int l)
+    public int getBlockTexture(IBlockAccess iblockaccess, int x, int y, int z, int side)
     {
-        if(l == 1)
-        {
+        if(side == 1) {
             return blockIndexInTexture - 1;
         }
-        if(l == 0)
-        {
+        if(side == 0) {
             return blockIndexInTexture - 1;
         }
-        int i1 = iblockaccess.getBlockId(i, j, k - 1);
-        int j1 = iblockaccess.getBlockId(i, j, k + 1);
-        int k1 = iblockaccess.getBlockId(i - 1, j, k);
-        int l1 = iblockaccess.getBlockId(i + 1, j, k);
-        if(i1 == blockID || j1 == blockID)
-        {
-            if(l == 2 || l == 3)
-            {
+        int blockLeft = iblockaccess.getBlockId(x, y, z - 1);
+        int blockRight = iblockaccess.getBlockId(x, y, z + 1);
+        int blockBehind = iblockaccess.getBlockId(x - 1, y, z);
+        int blockFront = iblockaccess.getBlockId(x + 1, y, z);
+        if (blockLeft == blockID || blockRight == blockID) {
+            if (side == 2 || side == 3) {
                 return blockIndexInTexture;
             }
             int i2 = 0;
-            if(i1 == blockID)
+            if(blockLeft == blockID)
             {
                 i2 = -1;
             }
-            int k2 = iblockaccess.getBlockId(i - 1, j, i1 != blockID ? k + 1 : k - 1);
-            int i3 = iblockaccess.getBlockId(i + 1, j, i1 != blockID ? k + 1 : k - 1);
-            if(l == 4)
+            int k2 = iblockaccess.getBlockId(x - 1, y, blockLeft != blockID ? z + 1 : z - 1);
+            int i3 = iblockaccess.getBlockId(x + 1, y, blockLeft != blockID ? z + 1 : z - 1);
+            if(side == 4)
             {
                 i2 = -1 - i2;
             }
             byte byte1 = 5;
-            if((Block.opaqueCubeLookup[k1] || Block.opaqueCubeLookup[k2]) && !Block.opaqueCubeLookup[l1] && !Block.opaqueCubeLookup[i3])
-            {
+            if((Block.opaqueCubeLookup[blockBehind] || Block.opaqueCubeLookup[k2]) && !Block.opaqueCubeLookup[blockFront] && !Block.opaqueCubeLookup[i3]) {
                 byte1 = 5;
             }
-            if((Block.opaqueCubeLookup[l1] || Block.opaqueCubeLookup[i3]) && !Block.opaqueCubeLookup[k1] && !Block.opaqueCubeLookup[k2])
-            {
+            if((Block.opaqueCubeLookup[blockFront] || Block.opaqueCubeLookup[i3]) && !Block.opaqueCubeLookup[blockBehind] && !Block.opaqueCubeLookup[k2]) {
                 byte1 = 4;
             }
-            return (l != byte1 ? blockIndexInTexture + 32 : blockIndexInTexture + 16) + i2;
+            return (side != byte1 ? blockIndexInTexture + 32 : blockIndexInTexture + 16) + i2;
         }
-        if(k1 == blockID || l1 == blockID)
+        if(blockBehind == blockID || blockFront == blockID)
         {
-            if(l == 4 || l == 5)
+            if(side == 4 || side == 5)
             {
                 return blockIndexInTexture;
             }
             int j2 = 0;
-            if(k1 == blockID)
+            if(blockBehind == blockID)
             {
                 j2 = -1;
             }
-            int l2 = iblockaccess.getBlockId(k1 != blockID ? i + 1 : i - 1, j, k - 1);
-            int j3 = iblockaccess.getBlockId(k1 != blockID ? i + 1 : i - 1, j, k + 1);
-            if(l == 3)
+            int l2 = iblockaccess.getBlockId(blockBehind != blockID ? x + 1 : x - 1, y, z - 1);
+            int j3 = iblockaccess.getBlockId(blockBehind != blockID ? x + 1 : x - 1, y, z + 1);
+            if(side == 3)
             {
                 j2 = -1 - j2;
             }
             byte byte2 = 3;
-            if((Block.opaqueCubeLookup[i1] || Block.opaqueCubeLookup[l2]) && !Block.opaqueCubeLookup[j1] && !Block.opaqueCubeLookup[j3])
+            if((Block.opaqueCubeLookup[blockLeft] || Block.opaqueCubeLookup[l2]) && !Block.opaqueCubeLookup[blockRight] && !Block.opaqueCubeLookup[j3])
             {
                 byte2 = 3;
             }
-            if((Block.opaqueCubeLookup[j1] || Block.opaqueCubeLookup[j3]) && !Block.opaqueCubeLookup[i1] && !Block.opaqueCubeLookup[l2])
+            if((Block.opaqueCubeLookup[blockRight] || Block.opaqueCubeLookup[j3]) && !Block.opaqueCubeLookup[blockLeft] && !Block.opaqueCubeLookup[l2])
             {
                 byte2 = 2;
             }
-            return (l != byte2 ? blockIndexInTexture + 32 : blockIndexInTexture + 16) + j2;
+            return (side != byte2 ? blockIndexInTexture + 32 : blockIndexInTexture + 16) + j2;
         }
         byte byte0 = 3;
-        if(Block.opaqueCubeLookup[i1] && !Block.opaqueCubeLookup[j1])
+        if(Block.opaqueCubeLookup[blockLeft] && !Block.opaqueCubeLookup[blockRight])
         {
             byte0 = 3;
         }
-        if(Block.opaqueCubeLookup[j1] && !Block.opaqueCubeLookup[i1])
+        if(Block.opaqueCubeLookup[blockRight] && !Block.opaqueCubeLookup[blockLeft])
         {
             byte0 = 2;
         }
-        if(Block.opaqueCubeLookup[k1] && !Block.opaqueCubeLookup[l1])
+        if(Block.opaqueCubeLookup[blockBehind] && !Block.opaqueCubeLookup[blockFront])
         {
             byte0 = 5;
         }
-        if(Block.opaqueCubeLookup[l1] && !Block.opaqueCubeLookup[k1])
+        if(Block.opaqueCubeLookup[blockFront] && !Block.opaqueCubeLookup[blockBehind])
         {
             byte0 = 4;
         }
-        return l != byte0 ? blockIndexInTexture : blockIndexInTexture + 1;
+        return side != byte0 ? blockIndexInTexture : blockIndexInTexture + 1;
     }
 
-    public int getBlockTextureFromSide(int i)
-    {
-        if(i == 1)
-        {
+    public int getBlockTextureFromSide(int i) {
+        if(i == 1) {
             return blockIndexInTexture - 1;
         }
-        if(i == 0)
-        {
+        if(i == 0) {
             return blockIndexInTexture - 1;
         }
-        if(i == 3)
-        {
+        if(i == 3) {
             return blockIndexInTexture + 1;
-        } else
-        {
+        } else {
             return blockIndexInTexture;
         }
     }

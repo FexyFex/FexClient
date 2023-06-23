@@ -12,14 +12,14 @@ import java.util.*;
 public class BlockRedstoneTorch extends BlockTorch
 {
 
-    public int getBlockTextureFromSideAndMetadata(int i, int j)
+    public int getBlockTextureFromSideAndMetadata(int side, int metadata)
     {
-        if(i == 1)
+        if(side == 1)
         {
-            return redstoneWire.getBlockTextureFromSideAndMetadata(i, j);
+            return redstoneWire.getBlockTextureFromSideAndMetadata(side, metadata);
         } else
         {
-            return super.getBlockTextureFromSideAndMetadata(i, j);
+            return super.getBlockTextureFromSideAndMetadata(side, metadata);
         }
     }
 

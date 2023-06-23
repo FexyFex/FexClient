@@ -52,15 +52,15 @@ public class BlockFurnace extends BlockContainer {
         world.setBlockMetadataWithNotify(i, j, k, byte0);
     }
 
-    public int getBlockTexture(IBlockAccess iblockaccess, int i, int j, int k, int l) {
-        if (l == 1) {
+    public int getBlockTexture(IBlockAccess iblockaccess, int x, int y, int z, int side) {
+        if (side == 1) {
             return stone.blockIndexInTexture;
         }
-        if (l == 0) {
+        if (side == 0) {
             return stone.blockIndexInTexture;
         }
-        int i1 = iblockaccess.getBlockMetadata(i, j, k);
-        if (l != i1) {
+        int i1 = iblockaccess.getBlockMetadata(x, y, z);
+        if (side != i1) {
             return blockIndexInTexture;
         }
         if (isActive) {

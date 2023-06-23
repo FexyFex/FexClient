@@ -154,7 +154,7 @@ public class RenderGlobal implements IWorldAccess {
         field_1451_h = -9999D;
         RenderManager.instance.func_852_a(world);
         worldObj = world;
-        field_1438_u = new RenderBlocks(world);
+        blockRenderer = new RenderBlocks(world);
         if (world != null) {
             world.addWorldAccess(this);
             loadRenderers();
@@ -837,7 +837,7 @@ public class RenderGlobal implements IWorldAccess {
                 if (block == null) {
                     block = Block.stone;
                 }
-                field_1438_u.renderBlockUsingTexture(block, movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ, 240 + (int) (field_1450_i * 10F));
+                blockRenderer.renderBlockUsingTexture(block, movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ, 240 + (int) (field_1450_i * 10F));
                 tessellator.draw();
                 tessellator.setTranslationD(0.0D, 0.0D, 0.0D);
                 GL11.glPolygonOffset(0.0F, 0.0F);
@@ -1081,7 +1081,7 @@ public class RenderGlobal implements IWorldAccess {
     private int renderChunksDeep;
     private int field_1440_s;
     private Minecraft mc;
-    private RenderBlocks field_1438_u;
+    private RenderBlocks blockRenderer;
     private IntBuffer field_1437_v;
     private boolean field_1436_w;
     private int field_1435_x;

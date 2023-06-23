@@ -25,17 +25,17 @@ public class BlockDoor extends Block {
         setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, f1, 0.5F + f);
     }
 
-    public int getBlockTextureFromSideAndMetadata(int i, int j) {
-        if (i == 0 || i == 1) {
+    public int getBlockTextureFromSideAndMetadata(int side, int metadata) {
+        if (side == 0 || side == 1) {
             return blockIndexInTexture;
         }
-        int k = func_312_c(j);
-        if ((k == 0 || k == 2) ^ (i <= 3)) {
+        int k = func_312_c(metadata);
+        if ((k == 0 || k == 2) ^ (side <= 3)) {
             return blockIndexInTexture;
         }
-        int l = k / 2 + (i & 1 ^ k);
-        l += (j & 4) / 4;
-        int i1 = blockIndexInTexture - (j & 8) * 2;
+        int l = k / 2 + (side & 1 ^ k);
+        l += (metadata & 4) / 4;
+        int i1 = blockIndexInTexture - (metadata & 8) * 2;
         if ((l & 1) != 0) {
             i1 = -i1;
         }
