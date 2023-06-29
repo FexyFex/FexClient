@@ -86,7 +86,7 @@ public class TileEntityChest extends TileEntity implements IInventory {
         return 64;
     }
 
-    public boolean func_20070_a_(EntityPlayer entityplayer) {
+    public boolean isInRangeOfPlayer(EntityPlayer entityplayer) {
         if (worldObj.getBlockTileEntity(xCoord, yCoord, zCoord) != this) {
             return false;
         }

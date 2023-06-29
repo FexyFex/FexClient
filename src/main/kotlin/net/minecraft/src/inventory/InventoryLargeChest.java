@@ -65,15 +65,13 @@ public class InventoryLargeChest
         return upperChest.getInventoryStackLimit();
     }
 
-    public void onInventoryChanged()
-    {
+    public void onInventoryChanged() {
         upperChest.onInventoryChanged();
         lowerChest.onInventoryChanged();
     }
 
-    public boolean func_20070_a_(EntityPlayer entityplayer)
-    {
-        return upperChest.func_20070_a_(entityplayer) && lowerChest.func_20070_a_(entityplayer);
+    public boolean isInRangeOfPlayer(EntityPlayer entityplayer) {
+        return upperChest.isInRangeOfPlayer(entityplayer) && lowerChest.isInRangeOfPlayer(entityplayer);
     }
 
     private String name;

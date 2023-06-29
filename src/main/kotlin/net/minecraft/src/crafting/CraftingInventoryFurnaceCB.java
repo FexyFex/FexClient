@@ -62,7 +62,7 @@ public class CraftingInventoryFurnaceCB extends CraftingInventoryCB {
     }
 
     public boolean func_20120_b(EntityPlayer entityplayer) {
-        return field_20127_a.func_20070_a_(entityplayer);
+        return field_20127_a.isInRangeOfPlayer(entityplayer);
     }
 
     private TileEntityFurnace field_20127_a;

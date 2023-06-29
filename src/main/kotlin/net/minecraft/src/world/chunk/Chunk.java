@@ -374,16 +374,16 @@ public class Chunk {
         return j >= (heightMap[k << 4 | i] & 0xff);
     }
 
-    public TileEntity getChunkBlockTileEntity(int i, int j, int k) {
-        ChunkPosition chunkposition = new ChunkPosition(i, j, k);
+    public TileEntity getChunkBlockTileEntity(int x, int y, int z) {
+        ChunkPosition chunkposition = new ChunkPosition(x, y, z);
         TileEntity tileentity = (TileEntity) chunkTileEntityMap.get(chunkposition);
         if (tileentity == null) {
-            int l = getBlockID(i, j, k);
+            int l = getBlockID(x, y, z);
             if (!Block.isBlockContainer[l]) {
                 return null;
             }
             BlockContainer blockcontainer = (BlockContainer) Block.blocksList[l];
-            blockcontainer.onBlockAdded(worldObj, xPosition * 16 + i, j, zPosition * 16 + k);
+            blockcontainer.onBlockAdded(worldObj, xPosition * 16 + x, y, zPosition * 16 + z);
             tileentity = (TileEntity) chunkTileEntityMap.get(chunkposition);
         }
         return tileentity;

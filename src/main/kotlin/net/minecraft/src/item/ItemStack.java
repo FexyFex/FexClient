@@ -75,8 +75,7 @@ public final class ItemStack
         return getItem().getIconIndex(this);
     }
 
-    public boolean useItem(EntityPlayer entityplayer, World world, int i, int j, int k, int l)
-    {
+    public boolean useItem(EntityPlayer entityplayer, World world, int i, int j, int k, int l) {
         return getItem().onItemUse(this, entityplayer, world, i, j, k, l);
     }
 

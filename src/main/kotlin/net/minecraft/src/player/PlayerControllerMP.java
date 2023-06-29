@@ -143,10 +143,10 @@ public class PlayerControllerMP extends PlayerController {
         }
     }
 
-    public boolean sendPlaceBlock(EntityPlayer entityplayer, World world, ItemStack itemstack, int i, int j, int k, int l) {
+    public boolean sendPlaceBlock(EntityPlayer entityplayer, World world, ItemStack itemstack, int x, int y, int z, int side) {
         func_730_e();
-        boolean flag = super.sendPlaceBlock(entityplayer, world, itemstack, i, j, k, l);
-        netClientHandler.addToSendQueue(new Packet15Place(i, j, k, l, entityplayer.inventory.getCurrentHotBarSlot()));
+        boolean flag = super.sendPlaceBlock(entityplayer, world, itemstack, x, y, z, side);
+        netClientHandler.addToSendQueue(new Packet15Place(x, y, z, side, entityplayer.inventory.getCurrentHotBarSlot()));
         return flag;
     }
 

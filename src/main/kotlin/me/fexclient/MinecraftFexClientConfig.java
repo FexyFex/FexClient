@@ -21,6 +21,8 @@ public class MinecraftFexClientConfig {
 
     public static boolean requestedLogout = false;
 
+    public static boolean useXRay = false;
+
     private MinecraftFexClientConfig() {}
 
 
@@ -36,5 +38,6 @@ public class MinecraftFexClientConfig {
 
         tunnelerActive = false;
         requestedLogout = false;
+        useXRay = false;
     }
 }

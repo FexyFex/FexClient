@@ -294,8 +294,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
         return i != Item.bucketLava.shiftedIndex ? 0 : 20000;
     }
 
-    public boolean func_20070_a_(EntityPlayer entityplayer)
-    {
+    public boolean isInRangeOfPlayer(EntityPlayer entityplayer) {
         if(worldObj.getBlockTileEntity(xCoord, yCoord, zCoord) != this)
         {
             return false;

@@ -102,8 +102,7 @@ public class TileEntity
         return d3 * d3 + d4 * d4 + d5 * d5;
     }
 
-    public Block getBlockType()
-    {
+    public Block getBlockType() {
         return Block.blocksList[worldObj.getBlockId(xCoord, yCoord, zCoord)];
     }
 

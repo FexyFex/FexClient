@@ -134,6 +134,17 @@ class CommandParser(private val rawCommandString: String) {
                 ExternalCommandPlaceBlock(position)
             }
 
+            ExternalCommandOpenChest.commandName -> {
+                if (arguments.size != 3) return "Unexpected number of arguments!"
+                val position = Vec3i(0,0,0)
+                try {
+                    position.x = arguments[0].toInt()
+                    position.y = arguments[1].toInt()
+                    position.z = arguments[2].toInt()
+                }catch (e: Exception) { return "Non-integer arguments given! $arguments" }
+                ExternalCommandOpenChest(position)
+            }
+
             else -> UnknownExternalCommand()
         }
 

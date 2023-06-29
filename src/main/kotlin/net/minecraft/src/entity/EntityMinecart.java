@@ -641,7 +641,7 @@ public class EntityMinecart extends Entity implements IInventory {
         field_9407_s = motionZ = d2;
     }
 
-    public boolean func_20070_a_(EntityPlayer entityplayer) {
+    public boolean isInRangeOfPlayer(EntityPlayer entityplayer) {
         if (isDead) {
             return false;
         }

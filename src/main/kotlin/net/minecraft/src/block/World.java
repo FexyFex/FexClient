@@ -1402,10 +1402,10 @@ public class World
         return (new StringBuilder()).append("All: ").append(loadedEntityList.size()).toString();
     }
 
-    public TileEntity getBlockTileEntity(int i, int j, int k) {
-        Chunk chunk = getChunkFromChunkCoords(i >> 4, k >> 4);
+    public TileEntity getBlockTileEntity(int x, int y, int z) {
+        Chunk chunk = getChunkFromChunkCoords(x >> 4, z >> 4);
         if (chunk != null) {
-            return chunk.getChunkBlockTileEntity(i & 0xf, j, k & 0xf);
+            return chunk.getChunkBlockTileEntity(x & 0xf, y, z & 0xf);
         } else {
             return null;
         }

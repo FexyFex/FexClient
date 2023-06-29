@@ -1094,7 +1094,7 @@ public class RenderGlobal implements IWorldAccess {
     private int field_1428_E;
     private int field_1427_F;
     private int field_1426_G;
-    private int renderDistance;
+    public int renderDistance;
     private int field_1424_I;
     private int field_1423_J;
     private int field_1422_K;

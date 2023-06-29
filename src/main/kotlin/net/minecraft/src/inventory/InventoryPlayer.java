@@ -337,7 +337,7 @@ public class InventoryPlayer implements IInventory {
         return currentlySelectedItemStackMaybe;
     }
 
-    public boolean func_20070_a_(EntityPlayer entityplayer) {
+    public boolean isInRangeOfPlayer(EntityPlayer entityplayer) {
         if (player.isDead) {
             return false;
         }

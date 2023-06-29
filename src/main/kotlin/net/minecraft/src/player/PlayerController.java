@@ -77,15 +77,15 @@ public class PlayerController {
     public void func_6473_b(EntityPlayer entityplayer) {
     }
 
-    public boolean sendPlaceBlock(EntityPlayer entityplayer, World world, ItemStack itemstack, int i, int j, int k, int l) {
-        int i1 = world.getBlockId(i, j, k);
-        if (i1 > 0 && Block.blocksList[i1].blockActivated(world, i, j, k, entityplayer)) {
+    public boolean sendPlaceBlock(EntityPlayer entityplayer, World world, ItemStack itemstack, int x, int y, int z, int side) {
+        int i1 = world.getBlockId(x, y, z);
+        if (i1 > 0 && Block.blocksList[i1].blockActivated(world, x, y, z, entityplayer)) {
             return true;
         }
         if (itemstack == null) {
             return false;
         } else {
-            return itemstack.useItem(entityplayer, world, i, j, k, l);
+            return itemstack.useItem(entityplayer, world, x, y, z, side);
         }
     }
 

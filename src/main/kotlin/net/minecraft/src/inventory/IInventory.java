@@ -23,5 +23,5 @@ public interface IInventory
 
     public abstract void onInventoryChanged();
 
-    public abstract boolean func_20070_a_(EntityPlayer entityplayer);
+    public abstract boolean isInRangeOfPlayer(EntityPlayer entityplayer);
 }

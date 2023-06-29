@@ -4,6 +4,7 @@ package net.minecraft.src.rendering;
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) braces deadcode 
 
+import me.fexclient.MinecraftFexClientConfig;
 import net.minecraft.src.Block;
 import net.minecraft.src.IBlockAccess;
 import net.minecraft.src.Tessellator;
@@ -23,12 +24,21 @@ public class RenderBlocks {
         flipTexture = false;
         renderAllFaces = false;
         blockAccess = iblockaccess;
+        fillOreIds();
     }
 
     public RenderBlocks() {
         overrideBlockTexture = -1;
         flipTexture = false;
         renderAllFaces = false;
+        fillOreIds();
+    }
+
+    private void fillOreIds() {
+        oreIds[0] = 14; // gold
+        oreIds[1] = 15; // iron
+        oreIds[2] = 16; // coal
+        oreIds[3] = 56; // diamond
     }
 
     public void renderBlockUsingTexture(Block block, int i, int j, int k, int l) {
@@ -986,7 +996,7 @@ public class RenderBlocks {
         return 1.0F - f / (float) l;
     }
 
-    public void func_1243_a(Block block, World world, int i, int j, int k) {
+    public void renderOffGridBlock(Block block, World world, int i, int j, int k) {
         float f = 0.5F;
         float f1 = 1.0F;
         float f2 = 0.8F;
@@ -1041,6 +1051,13 @@ public class RenderBlocks {
         return renderStandardBlockWithColorMultiplier(block, i, j, k, f, f1, f2);
     }
 
+    private static final int[] oreIds = new int[4];
+    private static boolean isOre(int blockId) {
+        for (int oreId : oreIds)
+            if (oreId == blockId) return true;
+        return false;
+    }
+
     public boolean renderStandardBlockWithColorMultiplier(Block block, int x, int y, int z, float r, float g, float b) {
         Tessellator tessellator = Tessellator.instance;
         boolean flag = false;
@@ -1065,15 +1082,24 @@ public class RenderBlocks {
         float f17 = f5 * b;
         float f18 = f6 * b;
         float brightness = block.getBlockBrightness(blockAccess, x, y, z);
+
+        if (MinecraftFexClientConfig.useXRay) {
+            if (isOre(block.blockID)) {
+                renderAllFaces = true;
+                brightness = 15;
+            } else return false;
+        }
+
         if (renderAllFaces || block.shouldSideBeRendered(blockAccess, x, y - 1, z, 0)) {
             float light = block.getBlockBrightness(blockAccess, x, y - 1, z);
+            if (MinecraftFexClientConfig.useXRay) light = 15;
             tessellator.setColorOpaque_F(f10 * light, f13 * light, f16 * light);
             renderBottomFace(block, x, y, z, block.getBlockTexture(blockAccess, x, y, z, 0));
             flag = true;
         }
         if (renderAllFaces || block.shouldSideBeRendered(blockAccess, x, y + 1, z, 1)) {
             float light = block.getBlockBrightness(blockAccess, x, y + 1, z);
-            if (block.maxY != 1.0D && !block.blockMaterial.getIsLiquid()) {
+            if ((block.maxY != 1.0D && !block.blockMaterial.getIsLiquid()) || MinecraftFexClientConfig.useXRay) {
                 light = brightness;
             }
             tessellator.setColorOpaque_F(f7 * light, f8 * light, f9 * light);
@@ -1082,7 +1108,7 @@ public class RenderBlocks {
         }
         if (renderAllFaces || block.shouldSideBeRendered(blockAccess, x, y, z - 1, 2)) {
             float light = block.getBlockBrightness(blockAccess, x, y, z - 1);
-            if (block.minZ > 0.0D) {
+            if (block.minZ > 0.0D || MinecraftFexClientConfig.useXRay) {
                 light = brightness;
             }
             tessellator.setColorOpaque_F(f11 * light, f14 * light, f17 * light);
@@ -1091,7 +1117,7 @@ public class RenderBlocks {
         }
         if (renderAllFaces || block.shouldSideBeRendered(blockAccess, x, y, z + 1, 3)) {
             float light = block.getBlockBrightness(blockAccess, x, y, z + 1);
-            if (block.maxZ < 1.0D) {
+            if (block.maxZ < 1.0D ||MinecraftFexClientConfig.useXRay) {
                 light = brightness;
             }
             tessellator.setColorOpaque_F(f11 * light, f14 * light, f17 * light);
@@ -1100,7 +1126,7 @@ public class RenderBlocks {
         }
         if (renderAllFaces || block.shouldSideBeRendered(blockAccess, x - 1, y, z, 4)) {
             float light = block.getBlockBrightness(blockAccess, x - 1, y, z);
-            if (block.minX > 0.0D) {
+            if (block.minX > 0.0D || MinecraftFexClientConfig.useXRay) {
                 light = brightness;
             }
             tessellator.setColorOpaque_F(f12 * light, f15 * light, f18 * light);
@@ -1108,13 +1134,16 @@ public class RenderBlocks {
             flag = true;
         }
         if (renderAllFaces || block.shouldSideBeRendered(blockAccess, x + 1, y, z, 5)) {
-            float f25 = block.getBlockBrightness(blockAccess, x + 1, y, z);
-            if (block.maxX < 1.0D) {
-                f25 = brightness;
+            float light = block.getBlockBrightness(blockAccess, x + 1, y, z);
+            if (block.maxX < 1.0D || MinecraftFexClientConfig.useXRay) {
+                light = brightness;
             }
-            tessellator.setColorOpaque_F(f12 * f25, f15 * f25, f18 * f25);
+            tessellator.setColorOpaque_F(f12 * light, f15 * light, f18 * light);
             renderSouthFace(block, x, y, z, block.getBlockTexture(blockAccess, x, y, z, 5));
             flag = true;
+        }
+        if (MinecraftFexClientConfig.useXRay) {
+            renderAllFaces = false;
         }
         return flag;
     }

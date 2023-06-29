@@ -4,6 +4,7 @@ package net.minecraft.client;// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel 
 
 import me.fexclient.MinecraftFexClientInjectorApp;
 import me.fexclient.MinecraftFexClientConfig;
+import me.fexclient.datatype.Vec3i;
 import net.minecraft.src.*;
 import net.minecraft.src.audio.SoundManager;
 import net.minecraft.src.block.World;
@@ -586,12 +587,12 @@ public abstract class Minecraft implements Runnable {
     }
 
     private void doMining(int mouseButton, boolean flag) {
-        //if (playerController.field_1064_b) {
-        //    return;
-        //}
-        //if (mouseButton == 0 && field_6282_S > 0) {
-        //    return;
-        //}
+        if (playerController.field_1064_b) {
+            return;
+        }
+        if (mouseButton == 0 && field_6282_S > 0) {
+            return;
+        }
         if (flag && objectMouseOver != null && objectMouseOver.typeOfHit == 0 && mouseButton == 0) {
             int j = objectMouseOver.blockX;
             int k = objectMouseOver.blockY;
@@ -624,6 +625,7 @@ public abstract class Minecraft implements Runnable {
                 playerController.func_6475_a(thePlayer, objectMouseOver.entityHit);
             }
         } else if (objectMouseOver.typeOfHit == 0) {
+            //System.out.println(objectMouseOver.blockX + " " + objectMouseOver.blockY + " " + objectMouseOver.blockZ);
             int x = objectMouseOver.blockX;
             int y = objectMouseOver.blockY;
             int z = objectMouseOver.blockZ;
@@ -634,7 +636,7 @@ public abstract class Minecraft implements Runnable {
                 if (block != Block.bedrock || thePlayer.unusedStregthFieldMaybe >= 100) { // part 2 is always false
                     playerController.clickBlock(x, y, z, objectMouseOver.sideHit);
                 }
-                MinecraftFexClientInjectorApp.INSTANCE.onBlockHit(this, block, Vec3D.createVector(x,y,z), side);
+                MinecraftFexClientInjectorApp.INSTANCE.onBlockHit(this, block, new Vec3i(x,y,z), side);
             } else {
                 ItemStack itemstack1 = thePlayer.inventory.getCurrentHotBarSlot();
                 int stackSize = itemstack1 == null ? 0 : itemstack1.stackSize;

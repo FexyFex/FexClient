@@ -12,6 +12,7 @@ import net.minecraft.src.entity.TileEntityChest;
 import net.minecraft.src.inventory.IInventory;
 import net.minecraft.src.inventory.InventoryLargeChest;
 import net.minecraft.src.item.ItemStack;
+import org.lwjgl.Sys;
 
 import java.util.Random;
 
@@ -220,8 +221,7 @@ label0:
         super.onBlockRemoval(world, i, j, k);
     }
 
-    public boolean blockActivated(World world, int i, int j, int k, EntityPlayer entityplayer)
-    {
+    public boolean blockActivated(World world, int i, int j, int k, EntityPlayer entityplayer) {
         Object obj = (TileEntityChest)world.getBlockTileEntity(i, j, k);
         if(world.isBlockOpaqueCube(i, j + 1, k))
         {
@@ -259,14 +259,10 @@ label0:
         {
             obj = new InventoryLargeChest("Large chest", ((IInventory) (obj)), (TileEntityChest)world.getBlockTileEntity(i, j, k + 1));
         }
-        if(world.multiplayerWorld)
-        {
-            return true;
-        } else
-        {
+        if (!world.multiplayerWorld) {
             entityplayer.displayGUIChest(((IInventory) (obj)));
-            return true;
         }
+        return true;
     }
 
     protected TileEntity SetBlockEntity()

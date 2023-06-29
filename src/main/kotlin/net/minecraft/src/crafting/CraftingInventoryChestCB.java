@@ -12,7 +12,7 @@ public class CraftingInventoryChestCB extends CraftingInventoryCB
 
     public CraftingInventoryChestCB(IInventory iinventory, IInventory iinventory1)
     {
-        field_20125_a = iinventory1;
+        chestInventory = iinventory1;
         int i = iinventory1.getSizeInventory() / 9;
         int j = (i - 4) * 18;
         for(int k = 0; k < i; k++)
@@ -40,10 +40,9 @@ public class CraftingInventoryChestCB extends CraftingInventoryCB
 
     }
 
-    public boolean func_20120_b(EntityPlayer entityplayer)
-    {
-        return field_20125_a.func_20070_a_(entityplayer);
+    public boolean func_20120_b(EntityPlayer entityplayer) {
+        return chestInventory.isInRangeOfPlayer(entityplayer);
     }
 
-    private IInventory field_20125_a;
+    private IInventory chestInventory;
 }

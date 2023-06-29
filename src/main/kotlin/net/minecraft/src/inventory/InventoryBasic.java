@@ -84,7 +84,7 @@ public class InventoryBasic
         }
     }
 
-    public boolean func_20070_a_(EntityPlayer entityplayer)
+    public boolean isInRangeOfPlayer(EntityPlayer entityplayer)
     {
         return true;
     }

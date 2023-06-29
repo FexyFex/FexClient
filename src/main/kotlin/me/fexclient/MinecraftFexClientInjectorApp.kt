@@ -1,10 +1,13 @@
 package me.fexclient
 
+import me.fexclient.datatype.Vec3i
 import me.fexclient.externalcommand.ExternalCommand
 import me.fexclient.externalcommand.input.UserExternalCommandInputApp
 import net.minecraft.client.Minecraft
 import net.minecraft.src.Block
+import net.minecraft.src.block.BlockChest
 import net.minecraft.src.datatype.Vec3D
+import net.minecraft.src.entity.TileEntityChest
 import net.minecraft.src.gui.GuiMainMenu
 import org.lwjgl.input.Keyboard
 import java.io.File
@@ -17,6 +20,8 @@ object MinecraftFexClientInjectorApp {
 
     private lateinit var tunneler: AutoTunneler
     private lateinit var mc: Minecraft
+
+    private var lastPosHit: Vec3i = Vec3i(0,0,0)
 
 
     fun init(mc: Minecraft) {
@@ -45,9 +50,17 @@ object MinecraftFexClientInjectorApp {
     }
 
     fun tick(elapsedTimeInNanos: Float) {
-        val delta = elapsedTimeInNanos / 1_000_000_000f
+        FexInputHandler.receiveInputs()
 
-        if (Keyboard.isKeyDown(Keyboard.KEY_L) && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
+        val delta = (elapsedTimeInNanos / 1_000_000_000.0).toFloat()
+
+        if (FexInputHandler.isKeyJustPressed(Keyboard.KEY_X))
+            toggleXRay()
+
+        if (FexInputHandler.isKeyJustPressed(Keyboard.KEY_O))
+            attemptToOpenLastHitBlockAsChest()
+
+        if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) && FexInputHandler.isKeyJustPressed(Keyboard.KEY_L)) {
             if (MinecraftFexClientConfig.tunnelerActive) {
                 tunneler.stop()
                 MinecraftFexClientConfig.tunnelerActive = false
@@ -99,15 +112,25 @@ object MinecraftFexClientInjectorApp {
     }
 
 
-    fun onBlockHit(mc: Minecraft, block: Block, position: Vec3D, side: Int) {
+    fun onBlockHit(mc: Minecraft, block: Block, position: Vec3i, side: Int) {
+        lastPosHit = position
         if (MinecraftFexClientConfig.useInstaMine && mc.theWorld != null && mc.thePlayer != null) {
-            mc.playerController.sendBlockRemoved(
-                position.xCoord.roundToInt(),
-                position.yCoord.roundToInt(),
-                position.zCoord.roundToInt(),
-                side
-            )
+            mc.playerController.sendBlockRemoved(position.x, position.y, position.z, side)
         }
+    }
+
+    private fun toggleXRay() {
+        MinecraftFexClientConfig.useXRay = !MinecraftFexClientConfig.useXRay
+        mc.gameSettings.renderDistance = 1;
+        mc.renderGlobal.renderDistance = 3;
+    }
+
+    private fun attemptToOpenLastHitBlockAsChest() {
+        println("Opening at $lastPosHit")
+        //val tileEntity = mc.theWorld.getBlockTileEntity(lastPosHit.x, lastPosHit.y, lastPosHit.z) ?: return
+        //val chest = tileEntity as? TileEntityChest ?: return
+        //val block = chest.blockType as? BlockChest ?: return
+        mc.playerController.sendPlaceBlock(mc.thePlayer, mc.theWorld, null, lastPosHit.x, lastPosHit.y, lastPosHit.z, 0)
     }
 
 
