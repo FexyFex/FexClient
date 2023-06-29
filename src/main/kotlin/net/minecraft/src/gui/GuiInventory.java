@@ -61,6 +61,6 @@ public class GuiInventory extends GuiContainer {
         GL11.glDisable(32826 /*GL_RESCALE_NORMAL_EXT*/);
     }
 
-    private float xSize_lo;
-    private float ySize_lo;
+    public float xSize_lo;
+    public float ySize_lo;
 }

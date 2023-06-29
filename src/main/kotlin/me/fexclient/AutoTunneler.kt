@@ -5,8 +5,13 @@ import me.fexclient.datatype.Vec3i
 import net.minecraft.client.Minecraft
 import net.minecraft.src.block.World
 import net.minecraft.src.entity.EntityPlayerSP
+import net.minecraft.src.gui.GuiInventory
 import net.minecraft.src.helpers.MathHelper.floor_double
 import net.minecraft.src.player.PlayerControllerMP
+import org.lwjgl.input.Keyboard
+import org.lwjgl.input.Mouse
+import java.awt.Robot
+import java.awt.event.InputEvent
 import java.io.File
 import java.sql.Timestamp
 import kotlin.math.floor
@@ -106,23 +111,14 @@ class AutoTunneler(private val mc: Minecraft) {
             // simply continue with fists
         }
 
-        // After all those checks, we start walking and mining (if blocks are in range)
-
-        player.inventory.currentHotBarSlot = 1
-
-        changePickaxeCooldown = max(0f, changePickaxeCooldown - 0.16f)
-        if (player.inventory.mainInventory[1]?.itemID !in pickaxeIds && !isOutOfPickaxes && changePickaxeCooldown <= 0f) {
-            val nextPickaxeSlotIndex = player.inventory.mainInventory.indexOfFirst { it != null && it.itemID in pickaxeIds }
-            if (nextPickaxeSlotIndex > 0) {
-                val itemStack = player.inventory.mainInventory[nextPickaxeSlotIndex]
-                player.dropPlayerItem(itemStack)
-                player.dropPlayerItem(player.inventory.mainInventory[1])
-                changePickaxeCooldown = 10f
-                return
-            } else {
-                println("OUT OF BOUNDS: $nextPickaxeSlotIndex")
-            }
+        // Have pickaxes fall into the second slot if that slot is empty
+        if (player.inventory.mainInventory[1]?.itemID !in pickaxeIds && (!isOutOfPickaxes || switchStage != 0)) {
+            continuePickaxeSwitch()
+            return
         }
+
+        // After all those checks, we start walking and mining (if blocks are in range)
+        player.inventory.currentHotBarSlot = 1
 
         val nextBlock: Vec3i? = getNextBlockToBreak(currentPlayerPos)
         var lookAngle = 0f
@@ -272,5 +268,42 @@ class AutoTunneler(private val mc: Minecraft) {
                 fullLog = ""
             }
         }
+
+        fun Boolean.toInt() = if (this) 1 else 0
     }
+
+
+    private var switchStage = 0
+    private fun continuePickaxeSwitch() {
+        when (switchStage) {
+            0 -> mc.displayGuiScreen(GuiInventory(player))
+            1 -> {
+                val nextSlotIndex = player.inventory.mainInventory.indexOfFirst { it != null && it.itemID in pickaxeIds }
+                println(nextSlotIndex)
+                val x = 280 + ((nextSlotIndex % 9) * 35)
+                var y = 110 + ((nextSlotIndex > 8).toInt() * 12)
+                when {
+                    nextSlotIndex > 26 -> y += 35
+                    nextSlotIndex > 17 -> y += 70
+                    nextSlotIndex > 8 -> y += 105
+                }
+
+                Mouse.setCursorPosition(x, y)
+                val rob = Robot()
+                rob.mousePress(InputEvent.BUTTON1_DOWN_MASK)
+                rob.mouseRelease(InputEvent.BUTTON1_DOWN_MASK)
+            }
+            2 -> {
+                val x = 320
+                val y = 110
+                Mouse.setCursorPosition(x,y)
+                val rob = Robot()
+                rob.mousePress(InputEvent.BUTTON1_DOWN_MASK)
+                rob.mouseRelease(InputEvent.BUTTON1_DOWN_MASK)
+            }
+        }
+        switchStage = (switchStage + 1) % 3
+    }
+
+
 }
