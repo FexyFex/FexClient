@@ -339,7 +339,6 @@ public abstract class Minecraft implements Runnable {
             }
         } catch (Exception exception) {
         }
-        MinecraftFexClientInjectorApp.INSTANCE.destroy();
         try {
             System.out.println("Stopping!");
             func_6261_a(null);
@@ -381,8 +380,8 @@ public abstract class Minecraft implements Runnable {
                 } else {
                     timer.updateTimer();
                 }
-                long l1 = System.nanoTime();
                 MinecraftFexClientInjectorApp.INSTANCE.frameUpdate();
+                long currentTime = System.nanoTime();
                 for (int j = 0; j < timer.elapsedTicks; j++) {
                     ticksRan++;
                     try {
@@ -395,7 +394,7 @@ public abstract class Minecraft implements Runnable {
                     displayGuiScreen(new GuiConflictWarning());
                 }
 
-                long l2 = System.nanoTime() - l1;
+                long tickTime = System.nanoTime() - currentTime;
                 //MinecraftFexClientInjectorApp.INSTANCE.tick(l2);
                 checkGLError("Pre render");
                 sndManager.func_338_a(thePlayer, timer.renderPartialTicks);
@@ -425,7 +424,7 @@ public abstract class Minecraft implements Runnable {
                     Thread.sleep(10L);
                 }
                 if (Keyboard.isKeyDown(61)) {
-                    displayDebugInfo(l2);
+                    displayDebugInfo(tickTime);
                 } else {
                     prevFrameTime = System.nanoTime();
                 }
@@ -594,11 +593,11 @@ public abstract class Minecraft implements Runnable {
             return;
         }
         if (flag && objectMouseOver != null && objectMouseOver.typeOfHit == 0 && mouseButton == 0) {
-            int j = objectMouseOver.blockX;
-            int k = objectMouseOver.blockY;
-            int l = objectMouseOver.blockZ;
-            playerController.sendBlockRemoving(j, k, l, objectMouseOver.sideHit);
-            effectRenderer.func_1191_a(j, k, l, objectMouseOver.sideHit);
+            int x = objectMouseOver.blockX;
+            int y = objectMouseOver.blockY;
+            int z = objectMouseOver.blockZ;
+            playerController.sendBlockRemoving(x, y, z, objectMouseOver.sideHit);
+            effectRenderer.func_1191_a(x, y, z, objectMouseOver.sideHit);
         } else {
             if (!MinecraftFexClientConfig.tunnelerActive) playerController.resetMiningEfforts();
         }
@@ -625,7 +624,6 @@ public abstract class Minecraft implements Runnable {
                 playerController.func_6475_a(thePlayer, objectMouseOver.entityHit);
             }
         } else if (objectMouseOver.typeOfHit == 0) {
-            //System.out.println(objectMouseOver.blockX + " " + objectMouseOver.blockY + " " + objectMouseOver.blockZ);
             int x = objectMouseOver.blockX;
             int y = objectMouseOver.blockY;
             int z = objectMouseOver.blockZ;

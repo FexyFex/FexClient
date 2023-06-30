@@ -79,7 +79,7 @@ public class PlayerControllerMP extends PlayerController {
         netClientHandler.addToSendQueue(new Packet14BlockDig(1, x, y, z, side));
         if (miningCooldown > 0) {
             miningCooldown--;
-        //    return;
+            return;
         }
         if (x == previouslyMinedBlockX && y == previouslyMinedBlockY && z == previouslyMinedBlockZ) {
             int blockId = mc.theWorld.getBlockId(x, y, z);
@@ -93,7 +93,6 @@ public class PlayerControllerMP extends PlayerController {
             }
             playSoundCounter++;
             if (miningProgress >= 1.0F) {
-                //resetMiningEfforts();
                 sendBlockRemoved(x, y, z, side);
                 miningProgress = 0.0F;
                 field_1080_g = 0.0F;

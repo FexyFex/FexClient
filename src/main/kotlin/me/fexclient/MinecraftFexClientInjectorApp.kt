@@ -1,25 +1,18 @@
 package me.fexclient
 
 import me.fexclient.datatype.Vec3i
-import me.fexclient.externalcommand.ExternalCommand
-import me.fexclient.externalcommand.input.UserExternalCommandInputApp
 import net.minecraft.client.Minecraft
 import net.minecraft.src.Block
-import net.minecraft.src.block.BlockChest
-import net.minecraft.src.datatype.Vec3D
-import net.minecraft.src.entity.TileEntityChest
 import net.minecraft.src.gui.GuiMainMenu
 import org.lwjgl.input.Keyboard
 import java.io.File
-import kotlin.math.roundToInt
+import kotlin.math.roundToLong
 
 
 object MinecraftFexClientInjectorApp {
-    private val externalCommands = mutableListOf<ExternalCommand>()
-    private val commandInput = UserExternalCommandInputApp(externalCommands)
-
     private lateinit var tunneler: AutoTunneler
     private lateinit var mc: Minecraft
+    private lateinit var hackMenuOverlay: MinecraftFexClientOverlay
 
     private var lastPosHit: Vec3i = Vec3i(0,0,0)
 
@@ -27,24 +20,11 @@ object MinecraftFexClientInjectorApp {
     fun init(mc: Minecraft) {
         tunneler = AutoTunneler(mc)
         this.mc = mc
-        Thread(commandInput, "ExternalCommandInputThread").start()
+        this.hackMenuOverlay = MinecraftFexClientOverlay(mc)
     }
 
 
     fun preWorldTick(mc: Minecraft) {
-        val cleanupList = mutableListOf<ExternalCommand>()
-        try {
-            externalCommands.forEach {
-                it.action(mc)
-                cleanupList.add(it)
-            }
-        } catch(_: ConcurrentModificationException) {
-            // It's possible that this will be thrown when the command input thread modifies this list
-            // during the forEach, but it's not a big deal. We will simply try again next tick.
-        }
-        cleanupList.forEach { externalCommands.remove(it) }
-        cleanupList.clear()
-
         if (MinecraftFexClientConfig.useFullHealth && mc.thePlayer != null)
             mc.thePlayer.setHealth(20)
     }
@@ -57,8 +37,27 @@ object MinecraftFexClientInjectorApp {
         if (FexInputHandler.isKeyJustPressed(Keyboard.KEY_X))
             toggleXRay()
 
-        if (FexInputHandler.isKeyJustPressed(Keyboard.KEY_O))
-            attemptToOpenLastHitBlockAsChest()
+        if (FexInputHandler.isKeyJustPressed(Keyboard.KEY_C)) {
+            MinecraftFexClientConfig.useUniformBrightness = !MinecraftFexClientConfig.useUniformBrightness
+            MinecraftFexClientConfig.uniformBrightness = 1.0f
+            mc.gameSettings.renderDistance = 1;
+            mc.renderGlobal.renderDistance = 3;
+        }
+
+        if (Keyboard.isKeyDown(Keyboard.KEY_LEFT) xor Keyboard.isKeyDown(Keyboard.KEY_RIGHT))
+            shiftStaticTime()
+        else { previousInput = -1; shiftModifier = 1f }
+
+        if (FexInputHandler.isKeyJustPressed(Keyboard.KEY_V)) {
+            MinecraftFexClientConfig.useStaticTime = !MinecraftFexClientConfig.useStaticTime
+            MinecraftFexClientConfig.staticTime = 0L
+        }
+
+        if (FexInputHandler.isKeyJustPressed(Keyboard.KEY_P))
+            MinecraftFexClientConfig.trackPlayers = !MinecraftFexClientConfig.trackPlayers
+
+        if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) && FexInputHandler.isKeyJustPressed(Keyboard.KEY_H))
+            hackMenuOverlay.toggleVisible()
 
         if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) && FexInputHandler.isKeyJustPressed(Keyboard.KEY_L)) {
             if (MinecraftFexClientConfig.tunnelerActive) {
@@ -97,6 +96,7 @@ object MinecraftFexClientInjectorApp {
     }
 
     fun frameUpdate() {
+        hackMenuOverlay.draw()
         if (MinecraftFexClientConfig.tunnelerActive && mc.theWorld != null && mc.thePlayer != null) {
             tunneler.renderInfoGui()
         }
@@ -125,16 +125,30 @@ object MinecraftFexClientInjectorApp {
         mc.renderGlobal.renderDistance = 3;
     }
 
-    private fun attemptToOpenLastHitBlockAsChest() {
-        println("Opening at $lastPosHit")
-        //val tileEntity = mc.theWorld.getBlockTileEntity(lastPosHit.x, lastPosHit.y, lastPosHit.z) ?: return
-        //val chest = tileEntity as? TileEntityChest ?: return
-        //val block = chest.blockType as? BlockChest ?: return
-        mc.playerController.sendPlaceBlock(mc.thePlayer, mc.theWorld, null, lastPosHit.x, lastPosHit.y, lastPosHit.z, 0)
-    }
+    private var previousInput = -1
+    private var shiftModifier = 1f
+    private fun shiftStaticTime() {
+        val left = Keyboard.isKeyDown(Keyboard.KEY_LEFT)
+        val right = Keyboard.isKeyDown(Keyboard.KEY_RIGHT)
 
+        if (left) {
+            if (previousInput == 0) {
+                shiftModifier *= 1.04f
+            }
 
-    fun destroy() {
-        commandInput.destroy()
+            MinecraftFexClientConfig.staticTime -= (10 * shiftModifier).roundToLong()
+
+            previousInput = 0
+        }
+
+        if (right) {
+            if (previousInput == 1) {
+                shiftModifier *= 1.04f
+            }
+
+            MinecraftFexClientConfig.staticTime += (10 * shiftModifier).roundToLong()
+
+            previousInput = 1
+        }
     }
 }

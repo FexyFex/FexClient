@@ -131,28 +131,26 @@ public class FontRenderer
         drawString(s, i, j, k);
     }
 
-    public void drawString(String s, int i, int j, int k)
-    {
-        renderString(s, i, j, k, false);
+    public void drawString(String s, int x, int y, int color) {
+        renderString(s, x, y, color, false);
     }
 
-    public void renderString(String s, int i, int j, int k, boolean flag)
-    {
+    public void renderString(String s, int x, int y, int color, boolean flag) {
         if(s == null)
         {
             return;
         }
         if(flag)
         {
-            int l = k & 0xff000000;
-            k = (k & 0xfcfcfc) >> 2;
-            k += l;
+            int l = color & 0xff000000;
+            color = (color & 0xfcfcfc) >> 2;
+            color += l;
         }
         GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, fontTextureName);
-        float f = (float)(k >> 16 & 0xff) / 255F;
-        float f1 = (float)(k >> 8 & 0xff) / 255F;
-        float f2 = (float)(k & 0xff) / 255F;
-        float f3 = (float)(k >> 24 & 0xff) / 255F;
+        float f = (float)(color >> 16 & 0xff) / 255F;
+        float f1 = (float)(color >> 8 & 0xff) / 255F;
+        float f2 = (float)(color & 0xff) / 255F;
+        float f3 = (float)(color >> 24 & 0xff) / 255F;
         if(f3 == 0.0F)
         {
             f3 = 1.0F;
@@ -160,7 +158,7 @@ public class FontRenderer
         GL11.glColor4f(f, f1, f2, f3);
         buffer.clear();
         GL11.glPushMatrix();
-        GL11.glTranslatef(i, j, 0.0F);
+        GL11.glTranslatef(x, y, 0.0F);
         for(int i1 = 0; i1 < s.length(); i1++)
         {
             for(; s.charAt(i1) == '\247' && s.length() > i1 + 1; i1 += 2)
@@ -180,12 +178,10 @@ public class FontRenderer
             }
 
             int k1 = FontAllowedCharacters.field_20157_a.indexOf(s.charAt(i1));
-            if(k1 >= 0)
-            {
+            if(k1 >= 0) {
                 buffer.put(fontDisplayLists + k1 + 32);
             }
-            if(buffer.remaining() == 0)
-            {
+            if(buffer.remaining() == 0) {
                 buffer.flip();
                 GL11.glCallLists(buffer);
                 buffer.clear();
