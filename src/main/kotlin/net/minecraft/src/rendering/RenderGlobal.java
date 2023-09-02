@@ -5,6 +5,7 @@ package net.minecraft.src.rendering;// Decompiled by Jad v1.5.8g. Copyright 2001
 import java.nio.IntBuffer;
 import java.util.*;
 
+import me.fexclient.MinecraftFexClientConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.*;
 import net.minecraft.src.block.World;
@@ -615,23 +616,23 @@ public class RenderGlobal implements IWorldAccess {
         }
         GL11.glDisable(2884 /*GL_CULL_FACE*/);
         float f1 = (float) (mc.thePlayer.lastTickPosY + (mc.thePlayer.posY - mc.thePlayer.lastTickPosY) * (double) f);
-        byte byte0 = 32;
-        int i = 256 / byte0;
+        byte b32 = 32;
+        int i = 256 / b32;
         Tessellator tessellator = Tessellator.instance;
         GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, renderEngine.getTexture("/environment/clouds.png"));
         GL11.glEnable(3042 /*GL_BLEND*/);
         GL11.glBlendFunc(770, 771);
         Vec3D vec3d = worldObj.func_628_d(f);
-        float f2 = (float) vec3d.xCoord;
-        float f3 = (float) vec3d.yCoord;
-        float f4 = (float) vec3d.zCoord;
+        float x = (float) vec3d.xCoord;
+        float y = (float) vec3d.yCoord;
+        float z = (float) vec3d.zCoord;
         if (mc.gameSettings.anaglyph) {
-            float f5 = (f2 * 30F + f3 * 59F + f4 * 11F) / 100F;
-            float f7 = (f2 * 30F + f3 * 70F) / 100F;
-            float f8 = (f2 * 30F + f4 * 70F) / 100F;
-            f2 = f5;
-            f3 = f7;
-            f4 = f8;
+            float f5 = (x * 30F + y * 59F + z * 11F) / 100F;
+            float f7 = (x * 30F + y * 70F) / 100F;
+            float f8 = (x * 30F + z * 70F) / 100F;
+            x = f5;
+            y = f7;
+            z = f8;
         }
         float f6 = 0.0004882813F;
         double d = mc.thePlayer.prevPosX + (mc.thePlayer.posX - mc.thePlayer.prevPosX) * (double) f + (double) (((float) field_1435_x + f) * 0.03F);
@@ -644,12 +645,12 @@ public class RenderGlobal implements IWorldAccess {
         float f10 = (float) (d * (double) f6);
         float f11 = (float) (d1 * (double) f6);
         tessellator.startDrawingQuads();
-        tessellator.setColorRGBA_F(f2, f3, f4, 0.8F);
-        for (int l = -byte0 * i; l < byte0 * i; l += byte0) {
-            for (int i1 = -byte0 * i; i1 < byte0 * i; i1 += byte0) {
-                tessellator.addVertexWithUV(l + 0, f9, i1 + byte0, (float) (l + 0) * f6 + f10, (float) (i1 + byte0) * f6 + f11);
-                tessellator.addVertexWithUV(l + byte0, f9, i1 + byte0, (float) (l + byte0) * f6 + f10, (float) (i1 + byte0) * f6 + f11);
-                tessellator.addVertexWithUV(l + byte0, f9, i1 + 0, (float) (l + byte0) * f6 + f10, (float) (i1 + 0) * f6 + f11);
+        tessellator.setColorRGBA_F(x, y, z, 0.8F);
+        for (int l = -b32 * i; l < b32 * i; l += b32) {
+            for (int i1 = -b32 * i; i1 < b32 * i; i1 += b32) {
+                tessellator.addVertexWithUV(l + 0, f9, i1 + b32, (float) (l + 0) * f6 + f10, (float) (i1 + b32) * f6 + f11);
+                tessellator.addVertexWithUV(l + b32, f9, i1 + b32, (float) (l + b32) * f6 + f10, (float) (i1 + b32) * f6 + f11);
+                tessellator.addVertexWithUV(l + b32, f9, i1 + 0, (float) (l + b32) * f6 + f10, (float) (i1 + 0) * f6 + f11);
                 tessellator.addVertexWithUV(l + 0, f9, i1 + 0, (float) (l + 0) * f6 + f10, (float) (i1 + 0) * f6 + f11);
             }
 
@@ -669,7 +670,7 @@ public class RenderGlobal implements IWorldAccess {
         float f3 = 4F;
         double d = (mc.thePlayer.prevPosX + (mc.thePlayer.posX - mc.thePlayer.prevPosX) * (double) f + (double) (((float) field_1435_x + f) * 0.03F)) / (double) f2;
         double d1 = (mc.thePlayer.prevPosZ + (mc.thePlayer.posZ - mc.thePlayer.prevPosZ) * (double) f) / (double) f2 + 0.33000001311302185D;
-        float f4 = (108F - f1) + 0.33F;
+        float f4 = (108F - f1 + MinecraftFexClientConfig.cloudHeightModifier) + 0.33F;
         int i = MathHelper.floor_double(d / 2048D);
         int j = MathHelper.floor_double(d1 / 2048D);
         d -= i * 2048 /*GL_EXP*/;

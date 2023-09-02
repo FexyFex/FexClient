@@ -177,9 +177,9 @@ public class Tessellator {
         color = l << 24 | k << 16 | j << 8 | i;
     }
 
-    public void addVertexWithUV(double d, double d1, double d2, double d3, double d4) {
-        setTextureUV(d3, d4);
-        addVertex(d, d1, d2);
+    public void addVertexWithUV(double x, double y, double z, double u, double v) {
+        setTextureUV(u, v);
+        addVertex(x, y, z);
     }
 
     public void addVertex(double d, double d1, double d2) {

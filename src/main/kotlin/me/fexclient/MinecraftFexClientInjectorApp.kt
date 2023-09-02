@@ -32,8 +32,6 @@ object MinecraftFexClientInjectorApp {
     fun tick(elapsedTimeInNanos: Float) {
         FexInputHandler.receiveInputs()
 
-        val delta = (elapsedTimeInNanos / 1_000_000_000.0).toFloat()
-
         if (FexInputHandler.isKeyJustPressed(Keyboard.KEY_X))
             toggleXRay()
 
@@ -46,10 +44,6 @@ object MinecraftFexClientInjectorApp {
             mc.gameSettings.renderDistance = 1;
             mc.renderGlobal.renderDistance = 3;
         }
-
-        if (Keyboard.isKeyDown(Keyboard.KEY_LEFT) xor Keyboard.isKeyDown(Keyboard.KEY_RIGHT))
-            shiftStaticTime()
-        else { previousInput = -1; shiftModifier = 1f }
 
         if (FexInputHandler.isKeyJustPressed(Keyboard.KEY_V)) {
             MinecraftFexClientConfig.useStaticTime = !MinecraftFexClientConfig.useStaticTime
@@ -67,6 +61,14 @@ object MinecraftFexClientInjectorApp {
                 MinecraftFexClientConfig.tunnelerActive = true
             }
         }
+
+        if (Keyboard.isKeyDown(Keyboard.KEY_LEFT) xor Keyboard.isKeyDown(Keyboard.KEY_RIGHT))
+            shiftStaticTime() else { previousInputTime = -1; shiftModifierTime = 1f }
+
+        if (Keyboard.isKeyDown(Keyboard.KEY_UP) xor Keyboard.isKeyDown(Keyboard.KEY_DOWN))
+            shiftCloudHeight() else { previousInputCloud = -1; shiftModifierCloud = 1f }
+
+        val delta = (elapsedTimeInNanos / 1_000_000_000.0).toFloat()
 
         if (MinecraftFexClientConfig.tunnelerActive && mc.theWorld != null && mc.thePlayer != null) {
             tunneler.tick(delta)
@@ -125,30 +127,41 @@ object MinecraftFexClientInjectorApp {
         mc.renderGlobal.renderDistance = 3;
     }
 
-    private var previousInput = -1
-    private var shiftModifier = 1f
+    private var previousInputTime = -1
+    private var shiftModifierTime = 1f
     private fun shiftStaticTime() {
         val left = Keyboard.isKeyDown(Keyboard.KEY_LEFT)
         val right = Keyboard.isKeyDown(Keyboard.KEY_RIGHT)
 
         if (left) {
-            if (previousInput == 0) {
-                shiftModifier *= 1.04f
-            }
-
-            MinecraftFexClientConfig.staticTime -= (10 * shiftModifier).roundToLong()
-
-            previousInput = 0
+            if (previousInputTime == 0) shiftModifierTime *= 1.04f
+            MinecraftFexClientConfig.staticTime -= (10 * shiftModifierTime).roundToLong()
+            previousInputTime = 0
         }
 
         if (right) {
-            if (previousInput == 1) {
-                shiftModifier *= 1.04f
-            }
+            if (previousInputTime == 1) shiftModifierTime *= 1.04f
+            MinecraftFexClientConfig.staticTime += (10 * shiftModifierTime).roundToLong()
+            previousInputTime = 1
+        }
+    }
 
-            MinecraftFexClientConfig.staticTime += (10 * shiftModifier).roundToLong()
+    private var previousInputCloud = -1
+    private var shiftModifierCloud = 1f
+    private fun shiftCloudHeight() {
+        val up = Keyboard.isKeyDown(Keyboard.KEY_UP)
+        val down = Keyboard.isKeyDown(Keyboard.KEY_DOWN)
 
-            previousInput = 1
+        if (up) {
+            if (previousInputCloud == 1) shiftModifierTime *= 1.04f
+            MinecraftFexClientConfig.cloudHeightModifier += shiftModifierCloud
+            previousInputCloud = 1
+        }
+
+        if (down) {
+            if (previousInputCloud == 0) shiftModifierTime *= 1.04f
+            MinecraftFexClientConfig.cloudHeightModifier -= shiftModifierCloud
+            previousInputCloud = 0
         }
     }
 }

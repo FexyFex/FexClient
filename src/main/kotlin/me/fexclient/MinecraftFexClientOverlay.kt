@@ -46,10 +46,19 @@ class MinecraftFexClientOverlay(private val mc: Minecraft) {
         }
         // STATIC TIME
 
-        // PLAYER TRACKER
+        // NO FALL
         fontRenderer.drawString("No Fall", 2, 46, 0xFFFFFF)
         fontRenderer.drawString("[N]", 39, 46, redOrGreen(MinecraftFexClientConfig.doNoFall))
-        // PLAYER TRACKER
+        // NO FALL
+
+        // CLOUD HEIGHT
+        fontRenderer.drawString("Cloud Height", 2, 57, 0xFFFFFF)
+        val stat = MinecraftFexClientConfig.cloudHeightModifier != 0f
+        fontRenderer.drawString("${MinecraftFexClientConfig.cloudHeightModifier}", 68, 57, greenOrWhite(stat))
+        val offset = (MinecraftFexClientConfig.cloudHeightModifier.toString().length * 7) + 69
+        fontRenderer.drawString("/\\", offset, 53, greenOrWhite(Keyboard.isKeyDown(Keyboard.KEY_UP)))
+        fontRenderer.drawString("\\/", offset, 61, greenOrWhite(Keyboard.isKeyDown(Keyboard.KEY_DOWN)))
+        // CLOUD HEIGHT
     }
 
 

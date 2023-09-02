@@ -27,6 +27,8 @@ public class MinecraftFexClientConfig {
 
     public static boolean doNoFall = false;
 
+    public static float cloudHeightModifier = 0f;
+
     private MinecraftFexClientConfig() {}
 
 
