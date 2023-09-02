@@ -25,6 +25,8 @@ public class MinecraftFexClientConfig {
 
     public static boolean trackPlayers = false;
 
+    public static boolean doNoFall = false;
+
     private MinecraftFexClientConfig() {}
 
 

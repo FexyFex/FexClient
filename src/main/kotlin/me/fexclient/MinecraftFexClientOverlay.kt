@@ -47,17 +47,8 @@ class MinecraftFexClientOverlay(private val mc: Minecraft) {
         // STATIC TIME
 
         // PLAYER TRACKER
-        fontRenderer.drawString("Player Tracker", 2, 46, 0xFFFFFF)
-        fontRenderer.drawString("[P]", 83, 46, redOrGreen(MinecraftFexClientConfig.trackPlayers))
-        if (MinecraftFexClientConfig.trackPlayers) {
-            mc.theWorld.playerEntities
-                .filterIsInstance<EntityPlayer>()
-                .forEachIndexed { index, player ->
-                    val posString =
-                        "x${player.posX.roundToInt()} y${player.posY.roundToInt()} z${player.posZ.roundToInt()}"
-                    fontRenderer.drawString(posString, 200, 2 + (index * 11), 0xFFFFFF)
-                }
-        }
+        fontRenderer.drawString("No Fall", 2, 46, 0xFFFFFF)
+        fontRenderer.drawString("[N]", 39, 46, redOrGreen(MinecraftFexClientConfig.doNoFall))
         // PLAYER TRACKER
     }
 

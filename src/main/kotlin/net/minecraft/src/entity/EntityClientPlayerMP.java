@@ -4,6 +4,7 @@ package net.minecraft.src.entity;
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) braces deadcode 
 
+import me.fexclient.MinecraftFexClientConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.Session;
 import net.minecraft.src.block.World;
@@ -43,6 +44,7 @@ public class EntityClientPlayerMP extends EntityPlayerSP {
     }
 
     public void func_4056_N() {
+        boolean initialOnGround = onGround;
         if (field_9380_bx++ == 20) {
             sendInventoryChanged();
             field_9380_bx = 0;
@@ -68,16 +70,19 @@ public class EntityClientPlayerMP extends EntityPlayerSP {
             if (flag2) {
                 field_797_bg.addToSendQueue(new Packet11PlayerPosition(motionX, -999D, -999D, motionZ, onGround));
             } else {
+                if (MinecraftFexClientConfig.doNoFall) onGround = true;
                 field_797_bg.addToSendQueue(new Packet13PlayerLookMove(motionX, -999D, -999D, motionZ, rotationYaw, rotationPitch, onGround));
             }
             flag1 = false;
         } else if (flag1 && flag2) {
+            if (MinecraftFexClientConfig.doNoFall) onGround = true;
             field_797_bg.addToSendQueue(new Packet13PlayerLookMove(posX, boundingBox.minY, posY, posZ, rotationYaw, rotationPitch, onGround));
             field_12242_bI = 0;
         } else if (flag1) {
             field_797_bg.addToSendQueue(new Packet11PlayerPosition(posX, boundingBox.minY, posY, posZ, onGround));
             field_12242_bI = 0;
         } else if (flag2) {
+            if (MinecraftFexClientConfig.doNoFall) onGround = true;
             field_797_bg.addToSendQueue(new Packet12PlayerLook(rotationYaw, rotationPitch, onGround));
             field_12242_bI = 0;
         } else {
@@ -88,6 +93,7 @@ public class EntityClientPlayerMP extends EntityPlayerSP {
                 field_12242_bI++;
             }
         }
+        onGround = initialOnGround;
         field_9382_bF = onGround;
         if (flag1) {
             field_9379_by = posX;

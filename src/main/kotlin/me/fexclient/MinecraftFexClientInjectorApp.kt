@@ -37,6 +37,9 @@ object MinecraftFexClientInjectorApp {
         if (FexInputHandler.isKeyJustPressed(Keyboard.KEY_X))
             toggleXRay()
 
+        if (FexInputHandler.isKeyJustPressed(Keyboard.KEY_N))
+            MinecraftFexClientConfig.doNoFall = !MinecraftFexClientConfig.doNoFall
+
         if (FexInputHandler.isKeyJustPressed(Keyboard.KEY_C)) {
             MinecraftFexClientConfig.useUniformBrightness = !MinecraftFexClientConfig.useUniformBrightness
             MinecraftFexClientConfig.uniformBrightness = 1.0f
@@ -52,9 +55,6 @@ object MinecraftFexClientInjectorApp {
             MinecraftFexClientConfig.useStaticTime = !MinecraftFexClientConfig.useStaticTime
             MinecraftFexClientConfig.staticTime = 0L
         }
-
-        if (FexInputHandler.isKeyJustPressed(Keyboard.KEY_P))
-            MinecraftFexClientConfig.trackPlayers = !MinecraftFexClientConfig.trackPlayers
 
         if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) && FexInputHandler.isKeyJustPressed(Keyboard.KEY_H))
             hackMenuOverlay.toggleVisible()
@@ -121,7 +121,7 @@ object MinecraftFexClientInjectorApp {
 
     private fun toggleXRay() {
         MinecraftFexClientConfig.useXRay = !MinecraftFexClientConfig.useXRay
-        mc.gameSettings.renderDistance = 1;
+        mc.gameSettings.renderDistance = 0;
         mc.renderGlobal.renderDistance = 3;
     }
 
