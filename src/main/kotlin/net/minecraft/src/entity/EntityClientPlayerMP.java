@@ -45,6 +45,7 @@ public class EntityClientPlayerMP extends EntityPlayerSP {
 
     public void func_4056_N() {
         boolean initialOnGround = onGround;
+        if (MinecraftFexClientConfig.doNoFall) onGround = true;
         if (field_9380_bx++ == 20) {
             sendInventoryChanged();
             field_9380_bx = 0;
@@ -75,14 +76,12 @@ public class EntityClientPlayerMP extends EntityPlayerSP {
             }
             flag1 = false;
         } else if (flag1 && flag2) {
-            if (MinecraftFexClientConfig.doNoFall) onGround = true;
             field_797_bg.addToSendQueue(new Packet13PlayerLookMove(posX, boundingBox.minY, posY, posZ, rotationYaw, rotationPitch, onGround));
             field_12242_bI = 0;
         } else if (flag1) {
             field_797_bg.addToSendQueue(new Packet11PlayerPosition(posX, boundingBox.minY, posY, posZ, onGround));
             field_12242_bI = 0;
         } else if (flag2) {
-            if (MinecraftFexClientConfig.doNoFall) onGround = true;
             field_797_bg.addToSendQueue(new Packet12PlayerLook(rotationYaw, rotationPitch, onGround));
             field_12242_bI = 0;
         } else {
